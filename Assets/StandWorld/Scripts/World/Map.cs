@@ -1,32 +1,84 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using StandWorld.Definitions;
 using StandWorld.Entities;
-using UnityEngine.UIElements;
+using StandWorld.Helpers;
+using UnityEngine;
 
 namespace StandWorld.World
 {
     public class Map
     {
+        public const int REGION_SIZE = 25;
+
         public Vector2Int size { get; protected set; }
 
-        private Tile[] _tiles;
+        public RectI mapRect;
 
-
-        public Map(int width, int height)
+        public MapRegion[] regions
         {
-            this.size = new Vector2Int(width, height);
-            this._tiles = new Tile[width * height];
-            
-            for (int x = 0; x < this.size.x; x++)
+            get
             {
-                for (int y = 0; y < this.size.y; y++)
-                {
-                    this._tiles[x + y * this.size.x] = new Tile(new Vector2Int(x, y), this);
-                }
+                return _regions;
             }
         }
 
+        private Tile[] _tiles;
+
+        private MapRegion[] _regions;
+        private Dictionary<int, int> _regionByPosition;
+        
+        public Map(int width, int height)
+        {
+            size = new Vector2Int(width, height);
+            _tiles = new Tile[width * height];
+            mapRect = new RectI(new Vector2Int(0, 0), width, height);
+            
+            foreach (Vector2Int v in mapRect)
+            {
+                _tiles[v.x + v.y * size.x] = new Tile(v, this);
+            }
+            
+            this.SetRegions();
+        }
+
+        public void SetRegions()
+        {
+            
+            int _regionLength = (
+                Mathf.CeilToInt(size.x / REGION_SIZE) *
+                Mathf.CeilToInt(size.y / REGION_SIZE)
+            );
+            
+            _regions = new MapRegion[_regionLength];
+            _regionByPosition = new Dictionary<int, int>();
+
+            int i = 0;
+
+            for (int x = 0; x < size.x; x += REGION_SIZE)
+            {
+                for (int y = 0; y < size.y; y += REGION_SIZE)
+                {
+                    RectI sectionRect = new RectI(
+                        new Vector2Int(x, y), 
+                        REGION_SIZE, 
+                        REGION_SIZE
+                    );
+                    sectionRect.CLip(mapRect);
+                    _regions[i] = new MapRegion(i, sectionRect, this);
+                   
+                    foreach (Vector2Int v in sectionRect)
+                    {
+                        int key = v.x + v.y * size.x;
+                        _regionByPosition.Add(key, i);
+                    }
+                    i++;
+                }
+            }
+
+        }
+        
+        //Використовується чисто для теста 
         public void TempEverythingDirt()
         {
             foreach (Tile tile in this)
@@ -39,9 +91,9 @@ namespace StandWorld.World
         {
             get
             {
-                if (x >= 0 && y >= 0 && x < this.size.x && y < this.size.y)
+                if (x >= 0 && y >= 0 && x < size.x && y < size.y)
                 {
-                    return this._tiles[x + y * this.size.x];
+                    return _tiles[x + y * size.x];
                 }
 
                 return null;
@@ -58,18 +110,15 @@ namespace StandWorld.World
 
         public IEnumerator<Tile> GetEnumerator()
         {
-            for (int x = 0; x < this.size.x; x++)
+            foreach (Vector2Int v in mapRect)
             {
-                for (int y = 0; y < this.size.y; y++)
-                {
-                    yield return this[x, y];
-                }
+                yield return this[v];
             }
         }
 
         public override string ToString()
         {
-            return "Map(size=" + this.size + ")";
+            return "Map(size=" + size + ")";
         }
     }
 }

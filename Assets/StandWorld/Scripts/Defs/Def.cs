@@ -18,7 +18,7 @@ namespace StandWorld.Definitions
     public class GraphicDef : Def
     {
         public string textureName;
-        public string materialName = "tilable";
+        public string materialName = "tilables";
         public Vector2 size = Vector2.one;
         public Color color = Color.white;
     }

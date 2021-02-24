@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using  StandWorld.Definitions;
+using StandWorld.Visuals;
 
 namespace StandWorld.Entities
 {
@@ -8,5 +9,7 @@ namespace StandWorld.Entities
         public Vector2Int position { get; protected set; }
         
         public TilableDef def { get; protected set; }
+        
+        public  GraphicInstance graphics { get; protected set; }
     }
 }

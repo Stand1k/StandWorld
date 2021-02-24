@@ -12,10 +12,11 @@ namespace StandWorld.Definitions
              Defs.grounds.Add(def.uID,def);
         }
 
-        public static void LoadGroundFromCode()
+        public static void LoadGroundsFromCode()
         {
             Defs.grounds = new Dictionary<string, TilableDef>();
-            Defs.AddGround(new GroundDef()
+            Defs.AddGround(
+                new GroundDef()
             {
                 uID =  "dirt",
                 layer = Layer.Ground,
@@ -23,7 +24,20 @@ namespace StandWorld.Definitions
                 {
                     textureName = "dirt"
                 }
-            });
+            }
+                );
+            
+            Defs.AddGround(
+                new GroundDef()
+            {
+                uID =  "water",
+                layer = Layer.Ground,
+                graphics = new GraphicDef
+                {
+                    textureName = "water"
+                }
+            }
+                );
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using StandWorld.Definitions;
+using StandWorld.Visuals;
 
 namespace StandWorld.Entities
 {
@@ -9,6 +10,7 @@ namespace StandWorld.Entities
         {
             this.position = position;
             this.def = def;
+            this.graphics = GraphicInstance.GetNew(def.graphics);
         }
     }
 }

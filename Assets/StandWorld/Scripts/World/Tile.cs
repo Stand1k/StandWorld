@@ -28,7 +28,7 @@ namespace StandWorld.World
                 return;
             }
 
-            throw new System.Exception("[Tile.AddTile] Спроба додати тайл в зайняту позицію");
+            throw new System.Exception("[Tile.AddTilable] Спроба додати тайл в зайняту позицію");
         }
 
         public Tilable GetTilable(Layer layer)
