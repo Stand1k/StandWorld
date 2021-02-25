@@ -43,7 +43,6 @@ namespace StandWorld
                 foreach (MapRegion mapRegion in map.regions)
                 {
                     mapRegion.Draw();
-                    break;
                 }
             }
         }

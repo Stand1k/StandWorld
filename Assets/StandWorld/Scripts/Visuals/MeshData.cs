@@ -87,10 +87,10 @@ namespace StandWorld.Visuals
                     mesh.SetColors(colors);
                 }
                 
-                Object.Destroy(mesh);
                 return mesh;
             }
-
+            
+            Object.Destroy(mesh);
             return null;
         }
     }
