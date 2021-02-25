@@ -21,12 +21,13 @@ namespace StandWorld
             _ready = false;
             Res.Load();
             Defs.LoadGroundsFromCode();
+            Defs.LoadPlantsFromCode();
         }
 
         private void Start()
         {
             map = new Map(100, 100);
-            map.TempEverythingDirt();
+            map.TempMapGen();
             Debug.Log(map);
             foreach (MapRegion mapRegion in map.regions)
             {

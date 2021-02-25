@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections.Generic;
 using StandWorld.Definitions;
 using StandWorld.Entities;
+using UnityEngine;
 
 namespace StandWorld.World
 {
@@ -17,25 +18,34 @@ namespace StandWorld.World
         {
             this.position = position;
             this.map = map;
-            this._tilables = new Dictionary<Layer, Tilable>();
+            _tilables = new Dictionary<Layer, Tilable>();
+        }
+        
+        //Отримати всі Tilable обєкти в цьому тайлі
+        public IEnumerable<Tilable> GetAllTilables()
+        {
+            foreach (Tilable tilable in _tilables.Values)
+            {
+                yield return tilable;
+            }
         }
 
         public void AddTilable(Tilable tilable)
         {
             if (!_tilables.ContainsKey(tilable.def.layer))
             {
-                this._tilables.Add(tilable.def.layer, tilable);
+                _tilables.Add(tilable.def.layer, tilable);
                 return;
             }
 
-            throw new System.Exception("[Tile.AddTilable] Спроба додати тайл в зайняту позицію");
+            throw new Exception("[Tile.AddTilable] Спроба додати тайл в зайняту позицію");
         }
 
         public Tilable GetTilable(Layer layer)
         {
-            if (this._tilables.ContainsKey(layer))
+            if (_tilables.ContainsKey(layer))
             {
-                return this._tilables[layer];
+                return _tilables[layer];
             }
 
             return null;

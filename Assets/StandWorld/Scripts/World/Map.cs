@@ -22,7 +22,7 @@ namespace StandWorld.World
                 return _regions;
             }
         }
-
+    
         private Tile[] _tiles;
 
         private MapRegion[] _regions;
@@ -39,7 +39,7 @@ namespace StandWorld.World
                 _tiles[v.x + v.y * size.x] = new Tile(v, this);
             }
             
-            this.SetRegions();
+            SetRegions();
         }
 
         public void SetRegions()
@@ -79,11 +79,26 @@ namespace StandWorld.World
         }
         
         //Використовується чисто для теста 
-        public void TempEverythingDirt()
+        public void TempMapGen()
         {
             foreach (Tile tile in this)
             {
-                tile.AddTilable(new Ground(tile.position, Defs.grounds["dirt"]));
+                if (tile.position.x == 0 || tile.position.y == 0 || tile.position.x == this.size.x - 1 ||
+                    tile.position.y == this.size.y - 1)
+                {
+                    tile.AddTilable(new Ground(tile.position, Defs.grounds["water"]));
+                }
+                else
+                {
+                    {
+                        tile.AddTilable(new Ground(tile.position, Defs.grounds["dirt"]));
+                    }
+                }
+
+                if (Random.value > .8f)
+                {
+                    tile.AddTilable(new Plant(tile.position, Defs.plants["grass"]));
+                }
             }
         }
         

@@ -6,11 +6,11 @@ namespace StandWorld.Definitions
     public class Def 
     {
         // Унікальний ідентифікатор
-        public string uID { get; set; }
+        public string uID;
 
         public override int GetHashCode()
         {
-            return this.uID.GetHashCode();
+            return uID.GetHashCode();
         }
     }
 
@@ -21,6 +21,7 @@ namespace StandWorld.Definitions
         public string materialName = "tilables";
         public Vector2 size = Vector2.one;
         public Color color = Color.white;
+        public bool isInstanced = true;
     }
 
     [System.Serializable]
@@ -33,6 +34,12 @@ namespace StandWorld.Definitions
 
     [System.Serializable]
     public class GroundDef : TilableDef
+    {
+        
+    }
+    
+    [System.Serializable]
+    public class PlantDef : TilableDef
     {
         
     }
