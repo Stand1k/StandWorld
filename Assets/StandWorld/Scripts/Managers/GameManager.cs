@@ -13,6 +13,7 @@ namespace StandWorld
         public Map map;
         public bool DrawGizmosTiles;
         public bool DrawGizmosRegions;
+        public bool DrawNoiseMap;
         
         private bool _ready;
         
@@ -52,6 +53,19 @@ namespace StandWorld
         {
             if (_ready)
             {
+                if (DrawNoiseMap)
+                {
+                    foreach (Vector2Int v in map.mapRect)
+                    {
+                        float h = map.groundNoiseMap[v.x + v.y * map.size.x];
+                        Gizmos.color = new Color(h, h, h, 1f);
+                        Gizmos.DrawCube(
+                            new Vector3(v.x + .5f, v.y + .5f),
+                            Vector3.one
+                        );
+                    }
+                }
+                
                 if (DrawGizmosTiles)
                 {
                     foreach (Tile t in map)

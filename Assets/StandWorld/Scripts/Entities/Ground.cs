@@ -12,5 +12,18 @@ namespace StandWorld.Entities
             this.def = def;
             this.graphics = GraphicInstance.GetNew(def.graphics);
         }
+
+        public static TilableDef GroundByHeight(float height)
+        {
+            foreach (TilableDef tilableDef in Defs.groundsByHeight.Values)
+            {
+                if (height < tilableDef.groundDef.maxHeight)
+                {
+                    return tilableDef;
+                }
+            }
+
+            return Defs.grounds["water"];
+        }
     }
 }

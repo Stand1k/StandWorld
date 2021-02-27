@@ -15,13 +15,17 @@ namespace StandWorld.Visuals
         public Color color { get; protected set; }
         public Mesh mesh { get; protected set; }
         public GraphicDef def { get; protected set; }
+        public float drawPriority { get; protected set; }
 
-        public GraphicInstance(int uId, GraphicDef def, Color color = default(Color), Texture2D texture = null)
+        public GraphicInstance(int uId, GraphicDef def, Color color = default(Color), Texture2D texture = null, float drawPriority = -42f)
         {
+            float _priority = (drawPriority == -42f) ? def.drawPriority : drawPriority;
+            
             this.def = def;
             this.uId = uId;
             material = new Material(Res.materials[def.materialName]);
             material.mainTexture = (texture == null) ? Res.textures[def.textureName] : texture;
+            this.drawPriority = _priority / -100f;
 
             if (color != default(Color))
             {
@@ -35,9 +39,9 @@ namespace StandWorld.Visuals
             this.material.SetColor("_Color", this.color);
         }
 
-        public static GraphicInstance GetNew(GraphicDef def, Color color = default(Color), Texture2D texture = null)
+        public static GraphicInstance GetNew(GraphicDef def, Color color = default(Color), Texture2D texture = null, float drawPriority = -21f)
         {
-            int id = GetUId(def, color, texture);
+            int id = GetUId(def, color, texture, drawPriority);
             if(instances.ContainsKey(id))
             {
                 return instances[id];
@@ -51,10 +55,11 @@ namespace StandWorld.Visuals
             return uId;
         }
 
-        public static int GetUId(GraphicDef def, Color color, Texture2D texture)
+        public static int GetUId(GraphicDef def, Color color, Texture2D texture, float drawPriority)
         {
             int textureHash = (texture == null) ? def.textureName.GetHashCode() : texture.GetHashCode();
             int colorHash = (color == default(Color)) ? def.color.GetHashCode() : color.GetHashCode();
+            int priorityHash = (drawPriority == -21f) ? def.drawPriority.GetHashCode() : drawPriority.GetHashCode();
             return def.materialName.GetHashCode() + textureHash + colorHash;
         }
     }

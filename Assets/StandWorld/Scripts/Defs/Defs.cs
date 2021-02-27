@@ -5,6 +5,9 @@ namespace StandWorld.Definitions
     public static class Defs
     {
         public static Dictionary<string, TilableDef> grounds;
+        
+        public static SortedDictionary<float, TilableDef> groundsByHeight;
+        
         public static Dictionary<string, TilableDef> plants;
 
         public static void AddGround(TilableDef def)
@@ -22,7 +25,7 @@ namespace StandWorld.Definitions
             plants = new Dictionary<string, TilableDef>();
             
             AddPlant(
-                new PlantDef
+                new TilableDef
                 {
                     uID = "grass",
                     layer = Layer.Grass,
@@ -37,8 +40,10 @@ namespace StandWorld.Definitions
         public static void LoadGroundsFromCode()
         {
             grounds = new Dictionary<string, TilableDef>();
+            groundsByHeight = new SortedDictionary<float, TilableDef>();
+
             AddGround(
-                new GroundDef
+                new TilableDef
                 {
                 uID =  "dirt",
                 layer = Layer.Ground,
@@ -47,23 +52,54 @@ namespace StandWorld.Definitions
                     textureName = "dirt",
                     materialName = "grounds",
                     isInstanced = false
+                },
+                groundDef = new GroundDef
+                {
+                    maxHeight = 0.6f
                 }
             }
                 );
+
+            AddGround(
+                new TilableDef
+                {
+                    uID =  "water",
+                    layer = Layer.Ground,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "water",
+                        materialName = "grounds",
+                        isInstanced = false
+                    },
+                    groundDef = new GroundDef
+                    {
+                        maxHeight = 0.3f
+                    }
+                }
+            );
             
             AddGround(
-                new GroundDef
+                new TilableDef
                 {
-                uID =  "water",
-                layer = Layer.Ground,
-                graphics = new GraphicDef
-                {
-                    textureName = "water",
-                    materialName = "grounds",
-                    isInstanced = false
+                    uID =  "rock",
+                    layer = Layer.Ground,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "rock",
+                        materialName = "grounds",
+                        isInstanced = false
+                    },
+                    groundDef = new GroundDef
+                    {
+                        maxHeight = 1f
+                    }
                 }
+            );
+
+            foreach (TilableDef tilableDef in grounds.Values)
+            {
+                groundsByHeight.Add(tilableDef.groundDef.maxHeight, tilableDef);
             }
-                );
         }
     }
 }

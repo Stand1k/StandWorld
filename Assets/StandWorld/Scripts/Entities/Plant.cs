@@ -10,7 +10,7 @@ namespace StandWorld.Entities
         {
             this.position = position;
             this.def = def;
-            this.graphics = GraphicInstance.GetNew(def.graphics, Color.green);
+            this.graphics = GraphicInstance.GetNew(def.graphics, new Color(0.08f, 0.67f, 0.02f));
         }
     }
 }

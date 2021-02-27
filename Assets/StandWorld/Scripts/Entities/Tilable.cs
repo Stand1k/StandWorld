@@ -21,9 +21,9 @@ namespace StandWorld.Entities
                 _matrice = Matrix4x4.identity;
                 _matrice.SetTRS(
                     new Vector3(
-                        position.x,
-                        position.y,
-                        0
+                        position.x - graphics.def.pivot.x,
+                        position.y - graphics.def.pivot.y,
+                        LayerUtils.Height(def.layer) + graphics.drawPriority
                         ),
                 Quaternion.identity,
                     Vector3.one

@@ -5,7 +5,7 @@ namespace StandWorld.Visuals
 {
     public static class MeshPool 
     {
-        public static  Dictionary<float, MeshData> planes = new Dictionary<float, MeshData>();
+        public static Dictionary<float, MeshData> planes = new Dictionary<float, MeshData>();
 
         public static Mesh GetPlaneMesh(Vector2 size)
         {

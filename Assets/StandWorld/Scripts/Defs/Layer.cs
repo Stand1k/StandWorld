@@ -11,4 +11,11 @@ namespace StandWorld.Definitions
         Count // Трік який дає нам кількість наших лейерів
     }
 
+    public static class LayerUtils
+    {
+        public static float Height(Layer layer)
+        {
+            return (int) layer * -1f;
+        }
+    }
 }

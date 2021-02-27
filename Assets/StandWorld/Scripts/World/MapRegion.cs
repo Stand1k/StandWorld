@@ -52,7 +52,7 @@ namespace StandWorld.World
 
             foreach (int id in tmpMatrices.Keys)
             {
-                _matrices.Add(id,  new Matrix4x4[tmpMatrices[id].Count]);
+                _matrices.Add(id, new Matrix4x4[tmpMatrices[id].Count]);
                 tmpMatrices[id].CopyTo(_matrices[id]);
             }
         }
@@ -64,6 +64,11 @@ namespace StandWorld.World
                 regionRenderer.Draw();
             }
 
+            DrawMatrices();
+        }
+
+        private void DrawMatrices()
+        {
             if (_needToRefreshMatrices)
             {
                 BuildMatrices();

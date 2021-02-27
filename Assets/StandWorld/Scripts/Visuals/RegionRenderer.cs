@@ -15,6 +15,8 @@ namespace StandWorld.Visuals
         
         public Dictionary<int, MeshData> meshes { get; protected set; }
 
+        private Vector3 _position;
+
         private bool _redraw = true;
         
         public RegionRenderer(MapRegion region, Layer layer)
@@ -22,6 +24,7 @@ namespace StandWorld.Visuals
             this.region = region;
             this.layer = layer;
             meshes = new Dictionary<int, MeshData>();
+            _position = new Vector3(0,0, LayerUtils.Height(layer));
         }
 
         public MeshData GetMesh(int graphicInstance, bool useSize = true)
@@ -55,7 +58,7 @@ namespace StandWorld.Visuals
             {
                 Graphics.DrawMesh(
                     kv.Value.mesh,
-                    Vector3.zero, 
+                    _position, 
                     quaternion.identity,
                     GraphicInstance.instances[kv.Key].material,
                     0
