@@ -91,12 +91,11 @@ namespace StandWorld.World
                         Ground.GroundByHeight(groundNoiseMap[tile.position.x + tile.position.y * size.x])
                         )
                     );
-
-               
-                /*if (Random.value > .8f)
+                
+                if (Random.value > .8f)
                 {
                     tile.AddTilable(new Plant(tile.position, Defs.plants["grass"]));
-                }*/
+                }
             }
         }
         
@@ -132,6 +131,25 @@ namespace StandWorld.World
         public override string ToString()
         {
             return "Map(size=" + size + ")";
+        }
+
+        public void BuildAllRegionMeshes()
+        {
+            foreach (MapRegion mapRegion in regions)
+            {
+                mapRegion.BuildMeshes();
+            }
+        }
+        
+        public void DrawRegions()
+        {
+            foreach (MapRegion mapRegion in regions)
+            {
+                if (mapRegion.IsVisible())
+                {
+                    mapRegion.Draw();
+                }
+            }
         }
     }
 }

@@ -46,7 +46,7 @@ namespace StandWorld.Visuals
             {
                 return instances[id];
             }
-            instances.Add(id, new GraphicInstance(id, def, color, texture));
+            instances.Add(id, new GraphicInstance(id, def, color, texture, drawPriority));
             return instances[id];
         }
 
@@ -60,7 +60,7 @@ namespace StandWorld.Visuals
             int textureHash = (texture == null) ? def.textureName.GetHashCode() : texture.GetHashCode();
             int colorHash = (color == default(Color)) ? def.color.GetHashCode() : color.GetHashCode();
             int priorityHash = (drawPriority == -21f) ? def.drawPriority.GetHashCode() : drawPriority.GetHashCode();
-            return def.materialName.GetHashCode() + textureHash + colorHash;
+            return def.materialName.GetHashCode() + textureHash + colorHash + priorityHash;
         }
     }
 }

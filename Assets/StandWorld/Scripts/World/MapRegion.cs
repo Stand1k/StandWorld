@@ -67,6 +67,16 @@ namespace StandWorld.World
             DrawMatrices();
         }
 
+        public bool IsVisible()
+        {
+            return(
+                    regionRect.min.x >= Loki.cameraController.viewRect.min.x - Map.REGION_SIZE && 
+                    regionRect.max.x <= Loki.cameraController.viewRect.max.x + Map.REGION_SIZE && 
+                    regionRect.min.y >= Loki.cameraController.viewRect.min.y - Map.REGION_SIZE &&
+                    regionRect.max.y <= Loki.cameraController.viewRect.max.y + Map.REGION_SIZE
+            );
+        }
+
         private void DrawMatrices()
         {
             if (_needToRefreshMatrices)

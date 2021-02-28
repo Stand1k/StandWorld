@@ -1,4 +1,5 @@
 ﻿using System;
+using StandWorld.Controllers;
 using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Helpers;
@@ -10,6 +11,7 @@ namespace StandWorld
 {
     public class GameManager : MonoBehaviour
     {
+        public CameraController cameraController;
         public Map map;
         public bool DrawGizmosTiles;
         public bool DrawGizmosRegions;
@@ -20,9 +22,9 @@ namespace StandWorld
         private void Awake()
         {
             _ready = false;
-            Res.Load();
-            Defs.LoadGroundsFromCode();
-            Defs.LoadPlantsFromCode();
+            cameraController = FindObjectOfType<CameraController>();
+            Loki.LoadStatics();
+            Loki.NewGame(this);
         }
 
         private void Start()
@@ -31,10 +33,7 @@ namespace StandWorld
             Debug.Log(map);
             map.TempMapGen();
             
-            foreach (MapRegion mapRegion in map.regions)
-            {
-                mapRegion.BuildMeshes();
-            }
+            map.BuildAllRegionMeshes();
             
             _ready = true;
         }
@@ -43,10 +42,7 @@ namespace StandWorld
         {
             if (_ready)
             {
-                foreach (MapRegion mapRegion in map.regions)
-                {
-                    mapRegion.Draw();
-                }
+                map.DrawRegions();
             }
         }
 

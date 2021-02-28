@@ -20,7 +20,7 @@ namespace StandWorld.Controllers
         }
         public float sensitivity { get; protected set; }
         public Vector3 mousePosition { get; protected set; }
-        public RectI viewRect { get; protected set; }
+        public RectI viewRect;
 
         private Vector3 _lastMousePosition;
         private Camera _camera;
@@ -44,6 +44,7 @@ namespace StandWorld.Controllers
             if (zoom != _camera.orthographicSize)
             {
                 _camera.orthographicSize = zoom;
+                UpdateViewRect();
             }
         }
 
@@ -55,8 +56,8 @@ namespace StandWorld.Controllers
                     Mathf.FloorToInt(_camera.transform.position.y - _camera.orthographicSize - 1f)
                 ),
                 new Vector2Int(
-                    Mathf.FloorToInt(_camera.transform.position.x - _camera.orthographicSize * _camera.aspect), 
-                    Mathf.FloorToInt(_camera.transform.position.y - _camera.orthographicSize)
+                    Mathf.FloorToInt(_camera.transform.position.x + _camera.orthographicSize * _camera.aspect), 
+                    Mathf.FloorToInt(_camera.transform.position.y + _camera.orthographicSize)
                 )
             );
         }
