@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace StandWorld.Definitions
 {
@@ -21,9 +22,20 @@ namespace StandWorld.Definitions
         public string materialName = "tilables";
         public Vector2 size = Vector2.one;
         public Vector2 pivot = Vector2.zero;
-        public Color color = Color.white;
+        public Color32 color = Color.white;
         public float drawPriority = 0f;
         public bool isInstanced = true;
+    }
+
+    [System.Serializable]
+    public class ColorPaletteDef : Def
+    {
+        public List<Color> colors = new List<Color>(15);
+
+        public Color32 GetRandom()
+        {
+            return colors[Random.Range(0, colors.Count)];
+        }
     }
 
     [System.Serializable]

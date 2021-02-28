@@ -19,7 +19,7 @@ namespace StandWorld.Visuals
 
         public List<Vector2> UVs;
 
-        public List<Color> colors;
+        public List<Color32> colors;
 
         public Mesh mesh;
 
@@ -29,7 +29,7 @@ namespace StandWorld.Visuals
         {
             vertices = new List<Vector3>();
             indices = new List<int>();
-            colors = new List<Color>();
+            colors = new List<Color32>();
             UVs = new List<Vector2>();
             _flags = flags;
         }
@@ -38,7 +38,7 @@ namespace StandWorld.Visuals
         {
             vertices = new List<Vector3>(planeCount * 4);
             indices = new List<int>(planeCount * 6);
-            colors = new List<Color>((flags & MeshFlags.Color) == MeshFlags.Color ? planeCount * 4 : 0);
+            colors = new List<Color32>((flags & MeshFlags.Color) == MeshFlags.Color ? planeCount * 4 : 0);
             UVs = new List<Vector2>((flags & MeshFlags.UV) == MeshFlags.UV ? planeCount * 4 : 0);
             _flags = flags;
         }

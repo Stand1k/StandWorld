@@ -4,7 +4,9 @@ using UnityEngine;
 namespace StandWorld.Helpers
 {
     //Допоміжний клас який представляє в чотирикутнику(початок чотирикутника і кінець) 
-    //як наш світ так і наші зони(регіони)
+    //як наш світ так і наші регіони(чанки)
+    
+    [System.Serializable]
     public struct RectI
     {
         public Vector2Int min;
@@ -65,7 +67,7 @@ namespace StandWorld.Helpers
         }
         
         //Порівнює величину чотирикутників і у випадку різниці мінія свій розмір
-        public void CLip(RectI other)
+        public void Clip(RectI other)
         {
             if (min.x < other.min.x)
             {

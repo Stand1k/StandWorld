@@ -35,7 +35,7 @@ namespace StandWorld.World
             size = new Vector2Int(width, height);
             _tiles = new Tile[width * height];
             mapRect = new RectI(new Vector2Int(0, 0), width, height);
-            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 7, NoiseMap.GroundWave(Random.Range(1f, 1000f)));
+            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 10, NoiseMap.GroundWave(Random.Range(1f, 1000f)));
             
             foreach (Vector2Int v in mapRect)
             {
@@ -66,7 +66,7 @@ namespace StandWorld.World
                         REGION_SIZE, 
                         REGION_SIZE
                     );
-                    sectionRect.CLip(mapRect);
+                    sectionRect.Clip(mapRect);
                     _regions[i] = new MapRegion(i, sectionRect, this);
                    
                     foreach (Vector2Int v in sectionRect)

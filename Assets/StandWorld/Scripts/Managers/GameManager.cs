@@ -27,9 +27,10 @@ namespace StandWorld
 
         private void Start()
         {
-            map = new Map(100, 100);
-            map.TempMapGen();
+            map = new Map(150, 150);
             Debug.Log(map);
+            map.TempMapGen();
+            
             foreach (MapRegion mapRegion in map.regions)
             {
                 mapRegion.BuildMeshes();

@@ -12,12 +12,12 @@ namespace StandWorld.Visuals
         public int uId { get; protected set; }
         public Material material { get; protected set; }
         public Texture2D texture { get; protected set; }
-        public Color color { get; protected set; }
+        public Color32 color { get; protected set; }
         public Mesh mesh { get; protected set; }
         public GraphicDef def { get; protected set; }
         public float drawPriority { get; protected set; }
 
-        public GraphicInstance(int uId, GraphicDef def, Color color = default(Color), Texture2D texture = null, float drawPriority = -42f)
+        public GraphicInstance(int uId, GraphicDef def, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -42f)
         {
             float _priority = (drawPriority == -42f) ? def.drawPriority : drawPriority;
             
@@ -33,13 +33,13 @@ namespace StandWorld.Visuals
             }
         }
 
-        private void SetColor(Color color)
+        private void SetColor(Color32 color)
         {
             this.color = color;
             this.material.SetColor("_Color", this.color);
         }
 
-        public static GraphicInstance GetNew(GraphicDef def, Color color = default(Color), Texture2D texture = null, float drawPriority = -21f)
+        public static GraphicInstance GetNew(GraphicDef def, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -21f)
         {
             int id = GetUId(def, color, texture, drawPriority);
             if(instances.ContainsKey(id))

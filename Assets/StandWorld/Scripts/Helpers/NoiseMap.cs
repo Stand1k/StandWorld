@@ -21,9 +21,9 @@ namespace StandWorld.Helpers
         public static Wave[] GroundWave(float seed)
         {
             Wave[] waves = new Wave[3];
-            waves[0] = new Wave(seed * 21, 1, 1);
-            waves[1] = new Wave(seed * 666, .5f, 2);
-            waves[2] = new Wave(seed * 2121, .25f, 4);
+            waves[0] = new Wave(seed * 21, 1, 0.5f);
+            waves[1] = new Wave(seed * 666, .5f, 1f);
+            waves[2] = new Wave(seed * 2121, .25f, 2f);
 
             return waves;
         }
