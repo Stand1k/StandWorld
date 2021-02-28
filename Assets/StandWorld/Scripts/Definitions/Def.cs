@@ -48,6 +48,8 @@ namespace StandWorld.Definitions
         public GroundDef groundDef;
 
         public PlantDef plantDef;
+
+        public float fertility = 0f;
     }
 
     [System.Serializable]
@@ -59,6 +61,7 @@ namespace StandWorld.Definitions
     [System.Serializable]
     public class PlantDef : Def
     {
-        
+        public float probability = 0f;
+        public float minFertility = 0f;
     }
 }

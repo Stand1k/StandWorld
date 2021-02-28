@@ -23,8 +23,8 @@ namespace StandWorld
         {
             _ready = false;
             cameraController = FindObjectOfType<CameraController>();
-            Loki.LoadStatics();
-            Loki.NewGame(this);
+            ToolBox.LoadStatics();
+            ToolBox.NewGame(this);
         }
 
         private void Start()

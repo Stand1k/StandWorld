@@ -8,6 +8,7 @@ namespace StandWorld.Definitions
         Undefined,
         Ground,
         Grass,
+        Tree,
         Count // Трік який дає нам кількість наших лейерів
     }
 

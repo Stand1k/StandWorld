@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace StandWorld
 {
-    public class Loki
+    public static class ToolBox
     {
         public static GameManager manager;
         public static CameraController cameraController
@@ -28,7 +28,7 @@ namespace StandWorld
 
         public static void NewGame(GameManager manager)
         {
-            Loki.manager = manager;
+            ToolBox.manager = manager;
         }
     }
 }

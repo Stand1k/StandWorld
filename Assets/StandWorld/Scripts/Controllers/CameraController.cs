@@ -6,16 +6,18 @@ namespace StandWorld.Controllers
 {
     public class CameraController : MonoBehaviour
     {
-        public const float PIXEL_PER_UNIT = 128;
+        public const float PIXEL_PER_UNIT = 4f;
         public float zoomDesired { get; protected set; }
         public float zoomMin { get; protected set; }
         public float zoomMax { get; protected set; }
-
+        
+        float currentAspect = (float) Screen.width / (float) Screen.height;
+        
         public float zoom
         {
             get
             {
-                return (Screen.height / (zoomDesired * PIXEL_PER_UNIT) * 0.5f);
+                return (zoomDesired * (ToolBox.map.size.x / PIXEL_PER_UNIT));
             }
         }
         public float sensitivity { get; protected set; }
@@ -38,7 +40,7 @@ namespace StandWorld.Controllers
                 }
             }
 
-            zoomDesired += zoomDesired * Input.GetAxis("Mouse ScrollWheel") * sensitivity;
+            zoomDesired -= zoomDesired * Input.GetAxis("Mouse ScrollWheel") * sensitivity;
             zoomDesired = Mathf.Clamp(zoomDesired, zoomMin, zoomMax);
 
             if (zoom != _camera.orthographicSize)
@@ -66,7 +68,7 @@ namespace StandWorld.Controllers
         {
             _camera = Camera.main;
             zoomMin = 0.2f;
-            zoomMax = 0.8f;
+            zoomMax = 1f;
             sensitivity = 2f;
             zoomDesired = 0.2f;
         }

@@ -12,6 +12,25 @@ namespace StandWorld.World
         
         public Map map { get; protected set; }
 
+        public float fertility
+        {
+            get
+            {
+                float _fertility = 1f;
+                foreach (Tilable tilable in GetAllTilables())
+                {
+                    if (tilable.def.fertility == 0f)
+                    {
+                        return 0f;
+                    }
+
+                    _fertility *= tilable.def.fertility;
+                }
+
+                return _fertility;
+            }
+        }
+
         private Dictionary<Layer, Tilable> _tilables;
 
         public Tile(Vector2Int position, Map map)

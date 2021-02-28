@@ -70,10 +70,10 @@ namespace StandWorld.World
         public bool IsVisible()
         {
             return(
-                    regionRect.min.x >= Loki.cameraController.viewRect.min.x - Map.REGION_SIZE && 
-                    regionRect.max.x <= Loki.cameraController.viewRect.max.x + Map.REGION_SIZE && 
-                    regionRect.min.y >= Loki.cameraController.viewRect.min.y - Map.REGION_SIZE &&
-                    regionRect.max.y <= Loki.cameraController.viewRect.max.y + Map.REGION_SIZE
+                    regionRect.min.x >= ToolBox.cameraController.viewRect.min.x - Map.REGION_SIZE && 
+                    regionRect.max.x <= ToolBox.cameraController.viewRect.max.x + Map.REGION_SIZE && 
+                    regionRect.min.y >= ToolBox.cameraController.viewRect.min.y - Map.REGION_SIZE &&
+                    regionRect.max.y <= ToolBox.cameraController.viewRect.max.y + Map.REGION_SIZE
             );
         }
 
