@@ -35,14 +35,12 @@ Shader "StandWorld/Grounds"
 				o.pos = UnityObjectToClipPos(v.vertex);
 				o.color = v.color;
 
-
-				//
 				o.uv = v.vertex.xy/4;
 				return o;
 			}
 
 			half4 frag (v2f i) : COLOR {
-				half4 texcol = tex2D(_MainTex, i.uv.xy);
+				half4 texcol = tex2D(_MainTex, i.uv.xy)  * i.color.a;;
 				return  texcol;
 			}
 

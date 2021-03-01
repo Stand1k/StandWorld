@@ -36,7 +36,7 @@ namespace StandWorld.Visuals
         private void SetColor(Color32 color)
         {
             this.color = color;
-            this.material.SetColor("_Color", this.color);
+            material.SetColor("_Color", this.color);
         }
 
         public static GraphicInstance GetNew(GraphicDef def, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -21f)

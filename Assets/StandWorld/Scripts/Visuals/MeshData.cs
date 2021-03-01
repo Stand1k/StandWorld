@@ -1,9 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace StandWorld.Visuals
 {
-    [System.Flags]
+    [Flags]
     public enum MeshFlags
     {
         Base = 1 << 0,

@@ -21,6 +21,7 @@ namespace StandWorld
         public static void LoadStatics()
         {
             Res.Load();
+            DirectionUtils.SetNeighbours();
             Defs.LoadGroundsFromCode();
             Defs.LoadPlantsFromCode();
             Defs.LoadColorPalettesFromCode();

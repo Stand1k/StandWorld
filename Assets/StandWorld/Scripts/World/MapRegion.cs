@@ -118,7 +118,7 @@ namespace StandWorld.World
 
         private void AddRenderers()
         {
-            renderers.Add(Layer.Ground, new RegionRenderer(this, Layer.Ground));
+            renderers.Add(Layer.Ground, new RegionGroundRenderer(this, Layer.Ground));
         }
     }
 }

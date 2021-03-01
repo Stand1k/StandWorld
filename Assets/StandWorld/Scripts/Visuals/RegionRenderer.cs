@@ -27,7 +27,7 @@ namespace StandWorld.Visuals
             _position = new Vector3(0,0, LayerUtils.Height(layer));
         }
 
-        public MeshData GetMesh(int graphicInstance, bool useSize = true)
+        public MeshData GetMesh(int graphicInstance, bool useSize = true, MeshFlags flags = MeshFlags.Base)
         {
             if (meshes.ContainsKey(graphicInstance))
             {
@@ -36,11 +36,11 @@ namespace StandWorld.Visuals
 
             if (useSize)
             {
-                meshes.Add(graphicInstance, new MeshData(region.regionRect.area));
+                meshes.Add(graphicInstance, new MeshData(region.regionRect.area, flags));
             }
             else
             {
-                meshes.Add(graphicInstance, new MeshData());
+                meshes.Add(graphicInstance, new MeshData(flags));
             }
 
             return meshes[graphicInstance];
@@ -75,14 +75,14 @@ namespace StandWorld.Visuals
             }
         }
 
-        public void BuildMeshes()
+        public virtual void BuildMeshes()
         {
             foreach (Vector2Int v in region.regionRect)
             {
                 Tilable tilable = region.map[v].GetTilable(layer);
                 if (tilable != null)
                 {
-                    MeshData currentMesh = this.GetMesh(tilable.mainGraphic.uId);
+                    MeshData currentMesh = GetMesh(tilable.mainGraphic.uId);
                     int vIndex = currentMesh.vertices.Count;
                     
                     currentMesh.vertices.Add(new Vector3(v.x, v.y));

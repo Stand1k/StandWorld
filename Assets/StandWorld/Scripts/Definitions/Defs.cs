@@ -105,7 +105,7 @@ namespace StandWorld.Definitions
                     graphics = new GraphicDef
                     {
                         textureName = "water",
-                        materialName = "grounds",
+                        materialName = "water",
                         isInstanced = false,
                         drawPriority = 0
                     },
