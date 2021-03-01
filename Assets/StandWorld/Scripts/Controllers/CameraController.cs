@@ -10,9 +10,7 @@ namespace StandWorld.Controllers
         public float zoomDesired { get; protected set; }
         public float zoomMin { get; protected set; }
         public float zoomMax { get; protected set; }
-        
-        float currentAspect = (float) Screen.width / (float) Screen.height;
-        
+
         public float zoom
         {
             get
@@ -22,9 +20,10 @@ namespace StandWorld.Controllers
         }
         public float sensitivity { get; protected set; }
         public Vector3 mousePosition { get; protected set; }
+        private Vector3 _lastMousePosition;
+        
         public RectI viewRect;
 
-        private Vector3 _lastMousePosition;
         private Camera _camera;
 
         private void UpdateCamera()
@@ -69,7 +68,7 @@ namespace StandWorld.Controllers
             _camera = Camera.main;
             zoomMin = 0.2f;
             zoomMax = 1f;
-            sensitivity = 2f;
+            sensitivity = 1f;
             zoomDesired = 0.2f;
         }
 

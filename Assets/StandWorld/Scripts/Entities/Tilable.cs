@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using  StandWorld.Definitions;
 using StandWorld.Visuals;
 
@@ -10,27 +11,38 @@ namespace StandWorld.Entities
         
         public TilableDef def { get; protected set; }
         
-        public  GraphicInstance graphics { get; protected set; }
+        public GraphicInstance mainGraphic { get; protected set; }
+        
+        public Dictionary<string, GraphicInstance> addGraphics { get; protected set; }
 
-        private Matrix4x4 _matrice;
+        private Dictionary<int, Matrix4x4> _matrices;
 
-        public Matrix4x4 GetMatrice()
+        public Matrix4x4 GetMatrice(int graphicUId)
         {
-            if (_matrice == default(Matrix4x4))
+            if (_matrices == null)
             {
-                _matrice = Matrix4x4.identity;
-                _matrice.SetTRS(
-                    new Vector3(
-                        position.x - graphics.def.pivot.x,
-                        position.y - graphics.def.pivot.y,
-                        LayerUtils.Height(def.layer) + graphics.drawPriority
-                        ),
-                Quaternion.identity,
-                    Vector3.one
-                    );
+                _matrices = new Dictionary<int, Matrix4x4>();
             }
 
-            return _matrice;
+            if (!_matrices.ContainsKey(graphicUId))
+            {
+                Matrix4x4 mat = Matrix4x4.identity;
+                
+                mat.SetTRS(
+                    new Vector3(
+                        position.x - def.graphics.pivot.x,
+                        position.y - def.graphics.pivot.y,
+                        LayerUtils.Height(def.layer) + GraphicInstance.instances[graphicUId].drawPriority
+                    ),
+                    Quaternion.identity,
+                    Vector3.one
+                );
+
+                _matrices.Add(graphicUId, mat);
+            }
+
+            return _matrices[graphicUId];
+            
         }
     }
 }

@@ -82,7 +82,7 @@ namespace StandWorld.Visuals
                 Tilable tilable = region.map[v].GetTilable(layer);
                 if (tilable != null)
                 {
-                    MeshData currentMesh = this.GetMesh(tilable.graphics.uId);
+                    MeshData currentMesh = this.GetMesh(tilable.mainGraphic.uId);
                     int vIndex = currentMesh.vertices.Count;
                     
                     currentMesh.vertices.Add(new Vector3(v.x, v.y));

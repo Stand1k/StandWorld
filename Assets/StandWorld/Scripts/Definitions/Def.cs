@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using StandWorld.Entities;
 using UnityEngine;
 
 namespace StandWorld.Definitions
@@ -42,6 +43,9 @@ namespace StandWorld.Definitions
     public class TilableDef : Def
     {
         public Layer layer;
+
+        public TilableType type = TilableType.Undefined;
+        
         //Graphic data(size, texture, shader/material)
         public GraphicDef graphics;
 

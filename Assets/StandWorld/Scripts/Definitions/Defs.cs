@@ -38,12 +38,38 @@ namespace StandWorld.Definitions
                 {
                     uID = "grass",
                     layer = Layer.Grass,
+                    type = TilableType.Grass,
                     graphics = new GraphicDef
                     {
                         textureName = "grass"
+                    },
+                    plantDef = new PlantDef
+                    {
+                        probability = 0.3f,
+                        minFertility = 0.1f
                     }
                 }
                 );
+            
+            AddPlant(
+                new TilableDef
+                {
+                    uID = "tree",
+                    layer = Layer.Tree,
+                    type = TilableType.Tree,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "tree",
+                        size = new Vector2(2,3),
+                        pivot = new Vector2(0.5f, 0f)
+                    },
+                    plantDef = new PlantDef
+                    {
+                        probability = 0.1f,
+                        minFertility = 0.2f
+                    }
+                }
+            );
         }
 
         public static void LoadGroundsFromCode()
@@ -56,11 +82,13 @@ namespace StandWorld.Definitions
                 {
                 uID =  "dirt",
                 layer = Layer.Ground,
+                fertility = 1f,
                 graphics = new GraphicDef
                 {
                     textureName = "dirt",
                     materialName = "grounds",
-                    isInstanced = false
+                    isInstanced = false,
+                    drawPriority = 1
                 },
                 groundDef = new GroundDef
                 {
@@ -78,7 +106,8 @@ namespace StandWorld.Definitions
                     {
                         textureName = "water",
                         materialName = "grounds",
-                        isInstanced = false
+                        isInstanced = false,
+                        drawPriority = 0
                     },
                     groundDef = new GroundDef
                     {
@@ -96,7 +125,8 @@ namespace StandWorld.Definitions
                     {
                         textureName = "rock",
                         materialName = "grounds",
-                        isInstanced = false
+                        isInstanced = false,
+                        drawPriority = 2
                     },
                     groundDef = new GroundDef
                     {

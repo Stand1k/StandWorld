@@ -17,9 +17,9 @@ namespace StandWorld.Visuals
         public GraphicDef def { get; protected set; }
         public float drawPriority { get; protected set; }
 
-        public GraphicInstance(int uId, GraphicDef def, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -42f)
+        public GraphicInstance(int uId, GraphicDef def, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -21f)
         {
-            float _priority = (drawPriority == -42f) ? def.drawPriority : drawPriority;
+            float _priority = (drawPriority == -21f) ? def.drawPriority : drawPriority;
             
             this.def = def;
             this.uId = uId;

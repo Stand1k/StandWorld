@@ -91,10 +91,19 @@ namespace StandWorld.World
                         Ground.GroundByHeight(groundNoiseMap[tile.position.x + tile.position.y * size.x])
                         )
                     );
-                
-                if (Random.value > .8f)
+
+                float _tileFertility = tile.fertility;
+                if (_tileFertility > 0f)
                 {
-                    tile.AddTilable(new Plant(tile.position, Defs.plants["grass"]));
+                    foreach (TilableDef tilableDef in Defs.plants.Values)
+                    {
+                        if (_tileFertility >= tilableDef.plantDef.minFertility &&
+                            Random.value <= tilableDef.plantDef.probability)
+                        {
+                            tile.AddTilable(new Plant(tile.position, tilableDef));
+                            break;
+                        }
+                    }
                 }
             }
         }

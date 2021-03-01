@@ -59,7 +59,7 @@ namespace StandWorld.Helpers
         {
             for (int x = min.x; x < max.x; x++)
             {
-                for (int y = min.y; y < max.y; y++)
+                for (int y = max.y - 1; y >= min.y; y--)
                 {
                     yield return new Vector2Int(x, y);
                 }

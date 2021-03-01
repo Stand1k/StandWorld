@@ -10,7 +10,7 @@ namespace StandWorld.Entities
         {
             this.position = position;
             this.def = def;
-            this.graphics = GraphicInstance.GetNew(def.graphics);
+            this.mainGraphic = GraphicInstance.GetNew(def.graphics);
         }
 
         public static TilableDef GroundByHeight(float height)

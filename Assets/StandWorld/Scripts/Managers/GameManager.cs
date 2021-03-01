@@ -29,7 +29,7 @@ namespace StandWorld
 
         private void Start()
         {
-            map = new Map(150, 150);
+            map = new Map(300, 300);
             Debug.Log(map);
             map.TempMapGen();
             

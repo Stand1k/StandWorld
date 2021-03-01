@@ -35,15 +35,27 @@ namespace StandWorld.World
 
             foreach (Vector2Int v in regionRect)
             {
-                foreach (Tilable t in map[v].GetAllTilables())
+                foreach (Tilable tilable in map[v].GetAllTilables())
                 {
-                    if (t.def.graphics.isInstanced)
+                    if (tilable.def.graphics.isInstanced)
                     {
-                        if (!tmpMatrices.ContainsKey(t.graphics.uId))
+                        if (!tmpMatrices.ContainsKey(tilable.mainGraphic.uId))
                         {
-                            tmpMatrices.Add(t.graphics.uId, new List<Matrix4x4>());
+                            tmpMatrices.Add(tilable.mainGraphic.uId, new List<Matrix4x4>());
                         }
-                        tmpMatrices[t.graphics.uId].Add(t.GetMatrice());
+                        tmpMatrices[tilable.mainGraphic.uId].Add(tilable.GetMatrice(tilable.mainGraphic.uId));
+
+                        if (tilable.addGraphics != null)
+                        {
+                            foreach (GraphicInstance graphicInstance in tilable.addGraphics.Values)
+                            {
+                                if (!tmpMatrices.ContainsKey(graphicInstance.uId))
+                                {
+                                    tmpMatrices.Add(graphicInstance.uId, new List<Matrix4x4>());
+                                }
+                                tmpMatrices[graphicInstance.uId].Add(tilable.GetMatrice(graphicInstance.uId));
+                            }
+                        }
                     }
                 }
             }
@@ -64,7 +76,7 @@ namespace StandWorld.World
                 regionRenderer.Draw();
             }
 
-            DrawMatrices();
+            DrawTilables();
         }
 
         public bool IsVisible()
@@ -77,7 +89,7 @@ namespace StandWorld.World
             );
         }
 
-        private void DrawMatrices()
+        private void DrawTilables()
         {
             if (_needToRefreshMatrices)
             {
