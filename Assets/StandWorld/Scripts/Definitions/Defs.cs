@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Security.Cryptography;
 using UnityEngine;
 
 namespace StandWorld.Definitions
@@ -143,8 +142,8 @@ namespace StandWorld.Definitions
 
         public static void LoadColorPalettesFromCode()
         {
-            Defs.colorPallets = new Dictionary<string, ColorPaletteDef>();
-            Defs.AddColorPalette(new ColorPaletteDef{
+            colorPallets = new Dictionary<string, ColorPaletteDef>();
+            AddColorPalette(new ColorPaletteDef{
                 uID = "cols_leafsGreen",
                 colors = new List<Color>{
                     new Color(0.63f, 0.76f, 0.29f),
@@ -152,15 +151,15 @@ namespace StandWorld.Definitions
                     new Color(0.74f, 0.78f, 0.4f)
                 }
             });
-            Defs.AddColorPalette(new ColorPaletteDef{
+            AddColorPalette(new ColorPaletteDef{
                 uID = "cols_leafsOrange",
                 colors = new List<Color>{
                     new Color(0.73f, 0.4f, 0f),
-                    new Color(0.67f, 0.31f, 1f, 1f),
+                    new Color(0.67f, 0.31f, 0f),
                     new Color(0.73f, 0.35f, 0.19f)
                 }
             });
-            Defs.AddColorPalette(new ColorPaletteDef{
+            AddColorPalette(new ColorPaletteDef{
                 uID = "cols_wood",
                 colors = new List<Color>{
                     new Color(0.44f, 0.31f, 0.18f),

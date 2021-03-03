@@ -2,6 +2,7 @@
 using UnityEngine;
 using  StandWorld.Definitions;
 using StandWorld.Visuals;
+using StandWorld.World;
 
 namespace StandWorld.Entities
 {
@@ -16,6 +17,12 @@ namespace StandWorld.Entities
         public Dictionary<string, GraphicInstance> addGraphics { get; protected set; }
 
         private Dictionary<int, Matrix4x4> _matrices;
+        
+        public LayerGridBucket bucket { get; protected set; }
+        
+        public void SetBucket(LayerGridBucket bucket) {
+            this.bucket = bucket;
+        }
 
         public Matrix4x4 GetMatrice(int graphicUId)
         {

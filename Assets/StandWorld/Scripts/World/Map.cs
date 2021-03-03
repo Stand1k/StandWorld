@@ -9,7 +9,7 @@ namespace StandWorld.World
 {
     public class Map
     {
-        public const int REGION_SIZE = 25;
+        public const int REGION_SIZE = Settings.REGION_SIZE;
 
         public Vector2Int size { get; protected set; }
 
@@ -22,26 +22,27 @@ namespace StandWorld.World
                 return _regions;
             }
         }
+        private MapRegion[] _regions;
     
         private Tile[] _tiles;
 
-        private MapRegion[] _regions;
-        private Dictionary<int, int> _regionByPosition;
-
         public float[] groundNoiseMap { get; protected set; }
+
+        public GroundGrid groundGrid;
         
         public Map(int width, int height)
         {
             size = new Vector2Int(width, height);
             _tiles = new Tile[width * height];
             mapRect = new RectI(new Vector2Int(0, 0), width, height);
-            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 10, NoiseMap.GroundWave(Random.Range(1f, 1000f)));
+           
+            groundGrid = new GroundGrid(this.size);
             
-            foreach (Vector2Int v in mapRect)
+            /*foreach (Vector2Int v in mapRect)
             {
                 _tiles[v.x + v.y * size.x] = new Tile(v, this);
-            }
-            
+            }*/
+
             SetRegions();
         }
 
@@ -53,7 +54,6 @@ namespace StandWorld.World
             );
             
             _regions = new MapRegion[_regionLength];
-            _regionByPosition = new Dictionary<int, int>();
 
             int i = 0;
 
@@ -68,12 +68,7 @@ namespace StandWorld.World
                     );
                     sectionRect.Clip(mapRect);
                     _regions[i] = new MapRegion(i, sectionRect, this);
-                   
-                    foreach (Vector2Int v in sectionRect)
-                    {
-                        int key = v.x + v.y * size.x;
-                        _regionByPosition.Add(key, i);
-                    }
+
                     i++;
                 }
             }
@@ -82,17 +77,35 @@ namespace StandWorld.World
         
         //Використовується чисто для теста 
         public void TempMapGen()
-        {
-            foreach (Tile tile in this)
+        { 
+            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 10, NoiseMap.GroundWave(Random.Range(1f, 1000f)));
+
+            foreach (Vector2Int position in mapRect)
             {
-                tile.AddTilable(
+                groundGrid.AddTilable(
+                    new Ground(
+                        position,
+                        Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x])
+                        )
+                    );
+            }
+            
+            /*foreach (Tile tile in this)
+            {
+                groundGrid.AddTilable(
                     new Ground(
                         tile.position,
                         Ground.GroundByHeight(groundNoiseMap[tile.position.x + tile.position.y * size.x])
                         )
                     );
+                /*tile.AddTilable(
+                    new Ground(
+                        tile.position,
+                        Ground.GroundByHeight(groundNoiseMap[tile.position.x + tile.position.y * size.x])
+                        )
+                    );#1#
 
-                float _tileFertility = tile.fertility;
+                /*float _tileFertility = tile.fertility;
                 if (_tileFertility > 0f)
                 {
                     foreach (TilableDef tilableDef in Defs.plants.Values)
@@ -104,8 +117,8 @@ namespace StandWorld.World
                             break;
                         }
                     }
-                }
-            }
+                }#1#
+            }*/
         }
         
         public Tile this[int x, int y]
@@ -142,23 +155,5 @@ namespace StandWorld.World
             return "Map(size=" + size + ")";
         }
 
-        public void BuildAllRegionMeshes()
-        {
-            foreach (MapRegion mapRegion in regions)
-            {
-                mapRegion.BuildMeshes();
-            }
-        }
-        
-        public void DrawRegions()
-        {
-            foreach (MapRegion mapRegion in regions)
-            {
-                if (mapRegion.IsVisible())
-                {
-                    mapRegion.Draw();
-                }
-            }
-        }
     }
 }

@@ -7,9 +7,9 @@ using UnityEngine;
 
 namespace StandWorld.Visuals
 {
-   public class RegionGroundRenderer : RegionRenderer 
+     public class BucketGroundRenderer : BucketRenderer
    {
-		public RegionGroundRenderer(MapRegion region, Layer layer) : base(region, layer) {}
+		public BucketGroundRenderer (LayerGridBucket bucket, Layer layer) : base(bucket, layer) {}
 
 		public override void BuildMeshes() 
 		{
@@ -17,19 +17,18 @@ namespace StandWorld.Visuals
 			int[] neighboursGraphics = new int[8];
 			Color32[] colors = new Color32[9];
 
-			foreach (Vector2Int position in region.regionRect)
+			foreach (Ground ground in bucket.tilables)
 			{
 				neighboursGraphicsList.Clear();
-				Tilable tilable = region.map[position].GetTilable(layer); // Ground
 
-				MeshData currentMesh = GetMesh(tilable.mainGraphic.uId, false, (MeshFlags.Base | MeshFlags.Color));
+				MeshData currentMesh = GetMesh(ground.mainGraphic.uId, false, (MeshFlags.Base | MeshFlags.Color));
 				int vIndex = currentMesh.vertices.Count;
-				float z = tilable.mainGraphic.drawPriority;
+				float z = ground.mainGraphic.drawPriority;
 
-				currentMesh.vertices.Add(new Vector3(position.x, position.y, z));
-				currentMesh.vertices.Add(new Vector3(position.x, position.y + 1, z));
-				currentMesh.vertices.Add(new Vector3(position.x+1, position.y + 1, z));
-				currentMesh.vertices.Add(new Vector3(position.x+1, position.y, z));
+				currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y, z));
+				currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y + 1, z));
+				currentMesh.vertices.Add(new Vector3(ground.position.x+1, ground.position.y + 1, z));
+				currentMesh.vertices.Add(new Vector3(ground.position.x+1, ground.position.y, z));
 				currentMesh.colors.Add(Color.white);
 				currentMesh.colors.Add(Color.white);
 				currentMesh.colors.Add(Color.white);
@@ -37,19 +36,18 @@ namespace StandWorld.Visuals
 				currentMesh.AddTriangle(vIndex, 0, 1, 2);
 				currentMesh.AddTriangle(vIndex, 0, 2, 3);
 
-				for (int i = 0; i < DirectionUtils.neighbours.Length; i++) 
+				for (int i = 0; i < DirectionUtils.neighbours.Length; i++)
 				{
-					Tile neighbourTile = region.map[position + DirectionUtils.neighbours[i]];
+					Tilable neighbourGround = ToolBox.map.groundGrid.GetTilableAt(ground.position + DirectionUtils.neighbours[i]);
 
-					if (neighbourTile != null)
+					if (neighbourGround != null)
 					{
-						Tilable neighbourGround = neighbourTile.GetTilable(layer); // Сусідній ground
 						neighboursGraphics[i] = neighbourGround.mainGraphic.uId;
 						
 						if (
 							!neighboursGraphicsList.Contains(neighbourGround.mainGraphic.uId) &&
-							neighbourGround.mainGraphic.uId != tilable.mainGraphic.uId &&
-							neighbourGround.def.groundDef.maxHeight >= tilable.def.groundDef.maxHeight
+							neighbourGround.mainGraphic.uId != ground.mainGraphic.uId &&
+							neighbourGround.def.groundDef.maxHeight >= ground.def.groundDef.maxHeight
 						) 
 						{
 							neighboursGraphicsList.Add(neighbourGround.mainGraphic.uId);
@@ -57,7 +55,7 @@ namespace StandWorld.Visuals
 					} 
 					else 
 					{
-						neighboursGraphics[i] = tilable.mainGraphic.uId;
+						neighboursGraphics[i] = ground.mainGraphic.uId;
 					}
 				}
 
@@ -67,15 +65,15 @@ namespace StandWorld.Visuals
 					vIndex = currentMesh.vertices.Count;
 					z = GraphicInstance.instances[graphicUID].drawPriority;
                     
-                    currentMesh.vertices.Add(new Vector3(position.x + 0.5f, position.y, z));			// 0
-                    currentMesh.vertices.Add(new Vector3(position.x, position.y, z));					// 1
-                    currentMesh.vertices.Add(new Vector3(position.x, position.y + 0.5f, z));			// 2
-                    currentMesh.vertices.Add(new Vector3(position.x, position.y + 1, z));				// 3
-                    currentMesh.vertices.Add(new Vector3(position.x + 0.5f, position.y + 1, z));	// 4
-                    currentMesh.vertices.Add(new Vector3(position.x + 1, position.y + 1, z));		// 5
-                    currentMesh.vertices.Add(new Vector3(position.x + 1, position.y + 0.5f, z));	// 6
-                    currentMesh.vertices.Add(new Vector3(position.x + 1, position.y, z));				// 7
-                    currentMesh.vertices.Add(new Vector3(position.x + 0.5f, position.y + 0.5f, z));	// 8
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 0.5f, ground.position.y, z));			// 0
+                    currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y, z));					// 1
+                    currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y + 0.5f, z));			// 2
+                    currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y + 1, z));				// 3
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 0.5f, ground.position.y + 1, z));	// 4
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 1, ground.position.y + 1, z));		// 5
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 1, ground.position.y + 0.5f, z));	// 6
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 1, ground.position.y, z));				// 7
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 0.5f, ground.position.y + 0.5f, z));	// 8
 
                     for (int i = 0; i < colors.Length; i++)
                     {

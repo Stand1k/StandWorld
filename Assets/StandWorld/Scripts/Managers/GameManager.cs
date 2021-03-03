@@ -16,6 +16,7 @@ namespace StandWorld
         public bool DrawGizmosTiles;
         public bool DrawGizmosRegions;
         public bool DrawNoiseMap;
+        public bool DrawBuckets;
         
         private bool _ready;
         
@@ -29,11 +30,11 @@ namespace StandWorld
 
         private void Start()
         {
-            map = new Map(300, 300);
+            map = new Map(150, 150);
             Debug.Log(map);
             map.TempMapGen();
-            
-            map.BuildAllRegionMeshes();
+            map.groundGrid.BuildStaticMeshes();
+            //map.BuildAllRegionMeshes();
             
             _ready = true;
         }
@@ -42,7 +43,8 @@ namespace StandWorld
         {
             if (_ready)
             {
-                map.DrawRegions();
+               // map.DrawRegions();
+               map.groundGrid.DrawBuckets();
             }
         }
 
@@ -50,9 +52,22 @@ namespace StandWorld
         {
             if (_ready)
             {
-                if (DrawNoiseMap)
+                if (DrawBuckets)
                 {
                     foreach (Vector2Int v in map.mapRect)
+                    {
+                        LayerGridBucket bucket = map.groundGrid.GetBucketAt(v);
+                        Gizmos.color = new Color(bucket.uId / (float)map.groundGrid.buckets.Length, 0f, 0, 0.6f);
+                        Gizmos.DrawCube(
+                            new Vector3(v.x + .5f, v.y + .5f),
+                            Vector3.one
+                        );
+                    }
+                }
+                
+                if (DrawNoiseMap)
+                {
+                    foreach (Vector2Int v in cameraController.viewRect)
                     {
                         float h = map.groundNoiseMap[v.x + v.y * map.size.x];
                         Gizmos.color = new Color(h, h, h, 1f);
@@ -65,16 +80,12 @@ namespace StandWorld
                 
                 if (DrawGizmosTiles)
                 {
-                    foreach (Tile t in map)
+                    foreach (Vector2Int v in cameraController.viewRect)
                     {
-                        Ground g = (Ground) t.GetTilable(Layer.Ground);
-                        if (g != null)
-                        {
-                            Gizmos.DrawWireCube(
-                                new Vector3(g.position.x + .5f, g.position.y + .5f),
-                                Vector3.one
-                            );
-                        }
+                        Gizmos.DrawWireCube(
+                            new Vector3(v.x+.5f, v.y+.5f), 
+                            Vector3.one
+                        );
                     }
                 }
 
