@@ -36,7 +36,7 @@ namespace StandWorld.Definitions
                 new TilableDef
                 {
                     uID = "grass",
-                    layer = Layer.Grass,
+                    layer = Layer.Plant,
                     type = TilableType.Grass,
                     graphics = new GraphicDef
                     {

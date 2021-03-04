@@ -9,7 +9,7 @@ namespace StandWorld.Visuals
 {
      public class BucketGroundRenderer : BucketRenderer
    {
-		public BucketGroundRenderer (LayerGridBucket bucket, Layer layer) : base(bucket, layer) {}
+		public BucketGroundRenderer (LayerBucketGrid bucket, Layer layer) : base(bucket, layer) {}
 
 		public override void BuildMeshes() 
 		{

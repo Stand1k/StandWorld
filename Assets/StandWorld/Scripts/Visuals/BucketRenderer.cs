@@ -9,7 +9,7 @@ namespace StandWorld.Visuals
 {
     public class BucketRenderer 
     {
-        public LayerGridBucket bucket { get; protected set; }
+        public LayerBucketGrid bucket { get; protected set; }
 
         public Layer layer { get; protected set; }
         
@@ -19,7 +19,7 @@ namespace StandWorld.Visuals
 
         private bool _redraw = true;
         
-        public BucketRenderer(LayerGridBucket bucket, Layer layer)
+        public BucketRenderer(LayerBucketGrid bucket, Layer layer)
         {
             this.bucket = bucket;
             this.layer = layer;

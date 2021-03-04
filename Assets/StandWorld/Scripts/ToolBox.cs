@@ -1,8 +1,8 @@
 ﻿using StandWorld.Controllers;
 using StandWorld.Definitions;
+using StandWorld.Entities;
 using StandWorld.Helpers;
 using StandWorld.World;
-using UnityEngine;
 
 namespace StandWorld
 {
@@ -17,6 +17,9 @@ namespace StandWorld
         {
             get { return manager.map; }
         }
+        
+        
+        public static Tick tick { get { return manager.tick; } }
 
         public static void LoadStatics()
         {

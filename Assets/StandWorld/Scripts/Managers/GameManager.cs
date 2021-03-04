@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using StandWorld.Controllers;
 using StandWorld.Definitions;
 using StandWorld.Entities;
@@ -13,6 +15,8 @@ namespace StandWorld
     {
         public CameraController cameraController;
         public Map map;
+        public Tick tick;
+        
         public bool DrawGizmosTiles;
         public bool DrawGizmosRegions;
         public bool DrawNoiseMap;
@@ -30,12 +34,14 @@ namespace StandWorld
 
         private void Start()
         {
-            map = new Map(150, 150);
+            tick = new Tick();
+            map = new Map(300, 300);
             Debug.Log(map);
             map.TempMapGen();
             map.groundGrid.BuildStaticMeshes();
             //map.BuildAllRegionMeshes();
-            
+
+            StartCoroutine(TickUpdate());
             _ready = true;
         }
 
@@ -45,6 +51,16 @@ namespace StandWorld
             {
                // map.DrawRegions();
                map.groundGrid.DrawBuckets();
+               map.plantGrid.DrawBuckets(); 
+            }
+        }
+
+        IEnumerator TickUpdate()
+        {
+            for (;;)
+            {
+                yield return new WaitForSeconds(0.1f/tick.speed);
+                tick.DoTick();
             }
         }
 
@@ -56,7 +72,7 @@ namespace StandWorld
                 {
                     foreach (Vector2Int v in map.mapRect)
                     {
-                        LayerGridBucket bucket = map.groundGrid.GetBucketAt(v);
+                        LayerBucketGrid bucket = map.groundGrid.GetBucketAt(v);
                         Gizmos.color = new Color(bucket.uId / (float)map.groundGrid.buckets.Length, 0f, 0, 0.6f);
                         Gizmos.DrawCube(
                             new Vector3(v.x + .5f, v.y + .5f),

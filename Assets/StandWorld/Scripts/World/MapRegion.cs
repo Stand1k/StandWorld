@@ -78,7 +78,7 @@ namespace StandWorld.World
 
             DrawTilables();
         }
-
+    
         public bool IsVisible()
         {
             return(

@@ -29,14 +29,15 @@ namespace StandWorld.World
         public float[] groundNoiseMap { get; protected set; }
 
         public GroundGrid groundGrid;
+        public PlantGrid plantGrid;
         
         public Map(int width, int height)
         {
             size = new Vector2Int(width, height);
-            _tiles = new Tile[width * height];
             mapRect = new RectI(new Vector2Int(0, 0), width, height);
            
-            groundGrid = new GroundGrid(this.size);
+            groundGrid = new GroundGrid(size);
+            plantGrid = new PlantGrid(size);
             
             /*foreach (Vector2Int v in mapRect)
             {
@@ -72,13 +73,79 @@ namespace StandWorld.World
                     i++;
                 }
             }
-
         }
+
+        /*public IEnumerable<LayerGrid> GetAllGrids()
+        {
+            yield return groundGrid;
+            yield return plantGrid;
+        }
+
+        public IEnumerable<Tilable> GetAllTilablesAt(Vector2Int position)
+        {
+            foreach (LayerGrid grid in GetAllGrids())
+            {
+                Tilable tilable = grid.GetTilableAt(position);
+                if (tilable != null)
+                {
+                    yield return tilable;
+                }
+            }
+        }
+
+        public float GetFertilityAt(Vector2Int position)
+        {
+            float fertility = 1f;
+
+            foreach (Tilable tilable in GetAllTilablesAt(position))
+            {
+                if (tilable.def.fertility == 0f)
+                {
+                    return 0f;
+                }
+
+                fertility *= tilable.def.fertility;
+            }
+
+            return fertility;
+        }*/
+
+        public float GetFertilityAt(Vector2Int position)
+        {
+            float fertility = 1f;
+            foreach (Tilable tilable in GetALlTilableAt(position))
+            {
+                if (tilable.def.fertility == 0f)
+                {
+                    return 0f;
+                }
+
+                fertility *= tilable.def.fertility;
+            }
+
+            return fertility;
+        }
+
+        public IEnumerable<Tilable> GetALlTilableAt(Vector2Int position)
+        {
+            Tilable tilable = groundGrid.GetTilableAt(position);
+            if (tilable != null)
+            {
+                yield return tilable;
+            }
+
+            tilable = plantGrid.GetTilableAt(position);
+            if (tilable != null)
+            {
+                yield return tilable;
+            }
+        }
+        
         
         //Використовується чисто для теста 
         public void TempMapGen()
-        { 
-            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 10, NoiseMap.GroundWave(Random.Range(1f, 1000f)));
+        {
+            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 12, NoiseMap.GroundWave(Random.Range(1f, 1000f)));
 
             foreach (Vector2Int position in mapRect)
             {
@@ -86,26 +153,10 @@ namespace StandWorld.World
                     new Ground(
                         position,
                         Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x])
-                        )
-                    );
-            }
-            
-            /*foreach (Tile tile in this)
-            {
-                groundGrid.AddTilable(
-                    new Ground(
-                        tile.position,
-                        Ground.GroundByHeight(groundNoiseMap[tile.position.x + tile.position.y * size.x])
-                        )
-                    );
-                /*tile.AddTilable(
-                    new Ground(
-                        tile.position,
-                        Ground.GroundByHeight(groundNoiseMap[tile.position.x + tile.position.y * size.x])
-                        )
-                    );#1#
+                    )
+                );
 
-                /*float _tileFertility = tile.fertility;
+                float _tileFertility = GetFertilityAt(position);
                 if (_tileFertility > 0f)
                 {
                     foreach (TilableDef tilableDef in Defs.plants.Values)
@@ -113,14 +164,16 @@ namespace StandWorld.World
                         if (_tileFertility >= tilableDef.plantDef.minFertility &&
                             Random.value <= tilableDef.plantDef.probability)
                         {
-                            tile.AddTilable(new Plant(tile.position, tilableDef));
+                            plantGrid.AddTilable(
+                                new Plant(position, tilableDef, true)
+                                );
                             break;
                         }
                     }
-                }#1#
-            }*/
+                }
+            }
         }
-        
+
         public Tile this[int x, int y]
         {
             get

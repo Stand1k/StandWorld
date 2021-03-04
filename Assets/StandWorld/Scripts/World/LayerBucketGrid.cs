@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace StandWorld.World
 {
-    public class LayerGridBucket
+    public class LayerBucketGrid
     {
         public RectI rect { get; protected set; }
         
@@ -27,16 +27,17 @@ namespace StandWorld.World
         
         private BucketRenderer _staticRenderer;
 
-        public LayerGridBucket(int uId, RectI rect, Layer layer, Type renderer) 
+
+        public LayerBucketGrid(int uId, RectI rect, Layer layer, Type renderer) 
         {
             this.uId = uId;
             this.rect = rect;
             this.layer = layer;
-            this.tilables = new Tilable[rect.size.x * rect.size.y];
-            this.tilablesByType = new Dictionary<TilableType, HashSet<Tilable>>();
-            this.tilablesMatrices = new Dictionary<int, List<Matrix4x4>>();
+            tilables = new Tilable[rect.size.x * rect.size.y];
+            tilablesByType = new Dictionary<TilableType, HashSet<Tilable>>();
+            tilablesMatrices = new Dictionary<int, List<Matrix4x4>>();
             if (renderer != null) {
-                this._staticRenderer = (BucketRenderer)Activator.CreateInstance(renderer, this, this.layer);
+                _staticRenderer = (BucketRenderer)Activator.CreateInstance(renderer, this, this.layer);
             }
         }
         
@@ -117,13 +118,12 @@ namespace StandWorld.World
             return null;
         }
         
-        
 
         public void AddTilable(Tilable tilable)
         {
-            Vector2Int localPosition = this.GetLocalPosition(tilable.position);
-            this.tilables[localPosition.x + localPosition.y * this.rect.size.y] = tilable;
-            tilable.SetBucket(this);;
+            Vector2Int localPosition = GetLocalPosition(tilable.position);
+            tilables[localPosition.x + localPosition.y * rect.size.y] = tilable;
+            tilable.SetBucket(this);
 
             if (tilable.def.type != TilableType.Undefined)
             {
@@ -147,10 +147,25 @@ namespace StandWorld.World
                 }
             }
         }
+        
+        
+        public void DelTilable(Tilable tilable) {
+            Vector2Int localPosition = GetLocalPosition(tilable.position);
+            tilables[localPosition.x + localPosition.y * rect.size.y] = null;
+
+            if (tilable.def.type != TilableType.Undefined) {
+                tilablesByType[tilable.def.type].Remove(tilable);
+                if (tilablesByType[tilable.def.type].Count == 0) {
+                    tilablesByType.Remove(tilable.def.type);
+                }
+            }
+
+            rebuildMatrices = true;
+        }
 
         public void AddMatrice(int graphicID, Matrix4x4 matrice)
         {
-            if (tilablesMatrices.ContainsKey(graphicID))
+            if (!tilablesMatrices.ContainsKey(graphicID))
             {
                 tilablesMatrices.Add(graphicID, new List<Matrix4x4>());
             }

@@ -2,10 +2,7 @@
 using StandWorld.Entities;
 using StandWorld.Helpers;
 using StandWorld.Visuals;
-using UnityEditor;
-using UnityEditorInternal.Profiling.Memory.Experimental;
 using UnityEngine;
-using System.Collections.Generic;
 using System;
 
 namespace StandWorld.World
@@ -19,7 +16,7 @@ namespace StandWorld.World
         
         public  RectI rect { get; protected set; }
         
-        public LayerGridBucket[] buckets { get; protected set; }
+        public LayerBucketGrid[] buckets { get; protected set; }
         
         public Type renderer { get; protected set; }
         
@@ -28,18 +25,14 @@ namespace StandWorld.World
         private int _bucketSizeX;
         private int _bucketCount;
 
-        
         public LayerGrid(Vector2Int size, Layer layer)
         {
             this.layer = layer;
             rect = new RectI(new Vector2Int(0, 0), size);
-            this.renderer = typeof(BucketRenderer);
+            renderer = typeof(BucketRenderer);
             _bucketSizeX = Mathf.CeilToInt(size.x / Settings.BUCKET_SIZE);
             _bucketCount = Mathf.CeilToInt(size.x / Settings.BUCKET_SIZE) * _bucketSizeX;
-            GenerateBuckets();
         }
-        
-     
         
         public void AddTilable(Tilable tilable)
         {
@@ -48,7 +41,7 @@ namespace StandWorld.World
 
         public void GenerateBuckets()
         {
-            buckets = new LayerGridBucket[_bucketCount];
+            buckets = new LayerBucketGrid[_bucketCount];
             for (int x = 0; x < size.x; x += Settings.BUCKET_SIZE)
             {
                 for (int y = 0; y < size.y; y += Settings.BUCKET_SIZE)
@@ -57,12 +50,12 @@ namespace StandWorld.World
                     bucketRect.Clip(rect);
                     int bucketID = (int) (x / Settings.BUCKET_SIZE) +
                                    (int) (y / Settings.BUCKET_SIZE) * _bucketSizeX;
-                    buckets[bucketID] = new LayerGridBucket(bucketID, bucketRect, layer, renderer);
+                    buckets[bucketID] = new LayerBucketGrid(bucketID, bucketRect, layer, renderer);
                 }
             }
         } 
         
-        public LayerGridBucket GetBucketAt(Vector2Int position)
+        public LayerBucketGrid GetBucketAt(Vector2Int position)
         {
             int bucketID = (int) (position.x / Settings.BUCKET_SIZE) +
                            (int) (position.y / Settings.BUCKET_SIZE) * _bucketSizeX;
@@ -77,7 +70,7 @@ namespace StandWorld.World
 
         public Tilable GetTilableAt(Vector2Int position)
         {
-            LayerGridBucket bucket = GetBucketAt(position);
+            LayerBucketGrid bucket = GetBucketAt(position);
 
             if (bucket != null)
             {
@@ -89,7 +82,7 @@ namespace StandWorld.World
 
         public void BuildStaticMeshes()
         {
-            foreach (LayerGridBucket bucket in buckets)
+            foreach (LayerBucketGrid bucket in buckets)
             {
                 bucket.BuildStaticMeshes();
             }
@@ -99,7 +92,7 @@ namespace StandWorld.World
         {
             if (renderer == null)
             {
-                foreach (LayerGridBucket bucket in buckets)
+                foreach (LayerBucketGrid bucket in buckets)
                 {
                     if (!bucket.IsVisible())
                     {
@@ -110,7 +103,7 @@ namespace StandWorld.World
                 return;
             }
             
-            foreach (LayerGridBucket bucket in buckets)
+            foreach (LayerBucketGrid bucket in buckets)
             {
                 if (!bucket.IsVisible())
                 {
@@ -122,15 +115,6 @@ namespace StandWorld.World
             }
         }
 
-    }
-
-    public class GroundGrid : LayerGrid
-    {
-        public GroundGrid(Vector2Int size) : base(size, Layer.Ground)
-        {
-            renderer = typeof(BucketGroundRenderer);
-            GenerateBuckets();
-        }
     }
 }
 
