@@ -233,6 +233,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c26db57810133034f8f98845514db2be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  viewRect:
+    min: {x: 0, y: 0}
+    max: {x: 0, y: 0}
 --- !u!4 &831155488
 Transform:
   m_ObjectHideFlags: 0
@@ -276,9 +279,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b047d08fad8c684a8d2d977ddb4d69b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraController: {fileID: 0}
   DrawGizmosTiles: 0
   DrawGizmosRegions: 0
   DrawNoiseMap: 0
+  DrawBuckets: 0
 --- !u!4 &860043401
 Transform:
   m_ObjectHideFlags: 0
