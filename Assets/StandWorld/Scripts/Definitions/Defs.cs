@@ -143,6 +143,7 @@ namespace StandWorld.Definitions
         public static void LoadColorPalettesFromCode()
         {
             colorPallets = new Dictionary<string, ColorPaletteDef>();
+            
             AddColorPalette(new ColorPaletteDef{
                 uID = "cols_leafsGreen",
                 colors = new List<Color>{
@@ -163,7 +164,7 @@ namespace StandWorld.Definitions
                 uID = "cols_wood",
                 colors = new List<Color>{
                     new Color(0.44f, 0.31f, 0.18f),
-                    new Color(0.21f, 0.19f, 0.67f)
+                    new Color(0.44f, 0.28f, 0.17f)
                 }
             });
         }

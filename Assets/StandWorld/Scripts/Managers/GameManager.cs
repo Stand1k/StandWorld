@@ -59,7 +59,7 @@ namespace StandWorld
         {
             for (;;)
             {
-                yield return new WaitForSeconds(0.1f/tick.speed);
+                yield return new WaitForSeconds(0.1f / tick.speed);
                 tick.DoTick();
             }
         }
@@ -105,7 +105,7 @@ namespace StandWorld
                     }
                 }
 
-                if (DrawGizmosRegions)
+                /*if (DrawGizmosRegions)
                 {
                     foreach (MapRegion region in map.regions)
                     {
@@ -118,7 +118,7 @@ namespace StandWorld
                             new Vector3(region.regionRect.width - 0.5f, region.regionRect.height - 0.5f)
                             );
                     }
-                }
+                }*/
             }
         }
             

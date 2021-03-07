@@ -66,12 +66,12 @@ namespace StandWorld.Visuals
 					z = GraphicInstance.instances[graphicUID].drawPriority;
                     
                     currentMesh.vertices.Add(new Vector3(ground.position.x + 0.5f, ground.position.y, z));			// 0
-                    currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y, z));					// 1
+                    currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y, z));						// 1
                     currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y + 0.5f, z));			// 2
                     currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y + 1, z));				// 3
-                    currentMesh.vertices.Add(new Vector3(ground.position.x + 0.5f, ground.position.y + 1, z));	// 4
-                    currentMesh.vertices.Add(new Vector3(ground.position.x + 1, ground.position.y + 1, z));		// 5
-                    currentMesh.vertices.Add(new Vector3(ground.position.x + 1, ground.position.y + 0.5f, z));	// 6
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 0.5f, ground.position.y + 1, z));		// 4
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 1, ground.position.y + 1, z));			// 5
+                    currentMesh.vertices.Add(new Vector3(ground.position.x + 1, ground.position.y + 0.5f, z));		// 6
                     currentMesh.vertices.Add(new Vector3(ground.position.x + 1, ground.position.y, z));				// 7
                     currentMesh.vertices.Add(new Vector3(ground.position.x + 0.5f, ground.position.y + 0.5f, z));	// 8
 
@@ -121,15 +121,13 @@ namespace StandWorld.Visuals
 						
                     
                     /*
-                     3-----4-----5
-                     |	   |	 |
-                     |	   |	 |
-                     |	   |	 |
-                     2-----8-----6
-                     |	   |	 |	
-                     |	   |	 |
-                     |	   |	 |
-                     1-----0-----7
+                     3------4------5
+                     |	    |	   |
+                     |	    |	   |
+                     2------8------6
+                     |	    |	   |	
+                     |	    |	   |
+                     1------0------7
                     */
                     currentMesh.colors.AddRange(colors);
                     currentMesh.AddTriangle(vIndex, 0, 8, 6);

@@ -15,15 +15,6 @@ namespace StandWorld.World
 
         public RectI mapRect;
 
-        public MapRegion[] regions
-        {
-            get
-            {
-                return _regions;
-            }
-        }
-        private MapRegion[] _regions;
-    
         private Tile[] _tiles;
 
         public float[] groundNoiseMap { get; protected set; }
@@ -54,7 +45,6 @@ namespace StandWorld.World
                 Mathf.CeilToInt(size.y / REGION_SIZE)
             );
             
-            _regions = new MapRegion[_regionLength];
 
             int i = 0;
 
@@ -68,8 +58,6 @@ namespace StandWorld.World
                         REGION_SIZE
                     );
                     sectionRect.Clip(mapRect);
-                    _regions[i] = new MapRegion(i, sectionRect, this);
-
                     i++;
                 }
             }

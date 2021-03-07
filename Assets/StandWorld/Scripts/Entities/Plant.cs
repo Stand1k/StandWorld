@@ -8,7 +8,7 @@ namespace StandWorld.Entities
 {
     public class Plant : Tilable
     {
-       private Color _leafColor;
+        private Color _leafColor;
 		private Color _woodColor;
 		private float _lifetime;
 		private float _ticksPerState;
@@ -19,13 +19,13 @@ namespace StandWorld.Entities
 		{
 			this.position = position;
 			this.def = def;
-			_lifetime = this.def.plantDef.lifetime*Settings.TICKS_PER_DAY;
-			_ticksPerState = _lifetime/this.def.plantDef.states;
-			_sizePerState = 1f/this.def.plantDef.states;
+			_lifetime = this.def.plantDef.lifetime * Settings.TICKS_PER_DAY;
+			_ticksPerState = _lifetime / this.def.plantDef.states;
+			_sizePerState = 1f / this.def.plantDef.states;
 
 			if (randomGrow)
 			{
-				ticks = Random.Range(0, (int)(_lifetime-_ticksPerState));
+				ticks = Random.Range(0, (int)(_lifetime - _ticksPerState));
 				GetState();
 			} 
 			else 
@@ -39,9 +39,10 @@ namespace StandWorld.Entities
 
 		private void UpdateGraphics()
 		{
-			if (def.type == TilableType.Grass) {
+			if (def.type == TilableType.Grass) 
+			{
 				_leafColor = Defs.colorPallets["cols_leafsGreen"].GetRandom();
-				mainGraphic = GraphicInstance.GetNew(def.graphics, _leafColor	);
+				mainGraphic = GraphicInstance.GetNew(def.graphics, _leafColor);
 			}
 			else if (def.type == TilableType.Tree)
 			{
@@ -73,7 +74,8 @@ namespace StandWorld.Entities
 
 		private void GetState() 
 		{
-			int state = Mathf.CeilToInt(ticks/_ticksPerState);
+			int state = Mathf.CeilToInt(ticks / _ticksPerState);
+			
 			if (state > def.plantDef.states) 
 			{
 				state = def.plantDef.states;
@@ -83,10 +85,11 @@ namespace StandWorld.Entities
 			{
 				_currentState = state;
 				scale = new Vector3(
-					_currentState*_sizePerState, 
-					_currentState*_sizePerState, 
+					_currentState * _sizePerState, 
+					_currentState * _sizePerState, 
 					1
 				);
+				
 				if (bucket != null) 
 				{
 					bucket.rebuildMatrices = true;
@@ -98,12 +101,14 @@ namespace StandWorld.Entities
 		{
 			ticks++;
 			GetState();
-			if (ticks >= _lifetime) {
+			if (ticks >= _lifetime) 
+			{
 				Destroy();
 			}
 		}
 
-		public override void Destroy() {
+		public override void Destroy() 
+		{
 			ToolBox.tick.toDel.Enqueue(Update);
 			base.Destroy();
 		}

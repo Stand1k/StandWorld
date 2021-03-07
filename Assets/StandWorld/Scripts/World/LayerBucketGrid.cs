@@ -27,7 +27,6 @@ namespace StandWorld.World
         
         private BucketRenderer _staticRenderer;
 
-
         public LayerBucketGrid(int uId, RectI rect, Layer layer, Type renderer) 
         {
             this.uId = uId;
