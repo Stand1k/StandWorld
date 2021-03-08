@@ -44,8 +44,8 @@ namespace StandWorld.Definitions
                     },
                     plantDef = new PlantDef
                     {
-                        probability = 0.3f,
-                        minFertility = 0.1f
+                        probability = 0.2f,
+                        minFertility = 0.3f
                     }
                 }
                 );

@@ -28,7 +28,7 @@ namespace StandWorld.Controllers
 
         private void UpdateCamera()
         {
-            if (Input.GetMouseButton(2))
+            if (Input.GetMouseButton(2) || Input.GetMouseButton(1))
             {
                 Vector3 diff = _lastMousePosition - mousePosition;
 

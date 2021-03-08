@@ -7,9 +7,18 @@ using UnityEngine;
 
 namespace StandWorld.World
 {
-    public class Map
+    public class Map 
     {
         public const int REGION_SIZE = Settings.REGION_SIZE;
+        
+        public float noiseScale = Settings.noiseScale;
+
+        public int octaves = Settings.octaves;
+        public float persistance = Settings.persistance;
+        public float lacunarity = Settings.lacunarity;
+
+        public int seed = Settings.seed;
+        public Vector2 offset = Settings.offset;
 
         public Vector2Int size { get; protected set; }
 
@@ -63,7 +72,7 @@ namespace StandWorld.World
             }
         }
 
-        /*public IEnumerable<LayerGrid> GetAllGrids()
+        public IEnumerable<LayerGrid> GetAllGrids()
         {
             yield return groundGrid;
             yield return plantGrid;
@@ -96,54 +105,26 @@ namespace StandWorld.World
             }
 
             return fertility;
-        }*/
-
-        public float GetFertilityAt(Vector2Int position)
-        {
-            float fertility = 1f;
-            foreach (Tilable tilable in GetALlTilableAt(position))
-            {
-                if (tilable.def.fertility == 0f)
-                {
-                    return 0f;
-                }
-
-                fertility *= tilable.def.fertility;
-            }
-
-            return fertility;
         }
 
-        public IEnumerable<Tilable> GetALlTilableAt(Vector2Int position)
-        {
-            Tilable tilable = groundGrid.GetTilableAt(position);
-            if (tilable != null)
-            {
-                yield return tilable;
-            }
-
-            tilable = plantGrid.GetTilableAt(position);
-            if (tilable != null)
-            {
-                yield return tilable;
-            }
-        }
-        
-        
         //Використовується чисто для теста 
         public void TempMapGen()
         {
-            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 12, NoiseMap.GroundWave(Random.Range(1f, 1000f)));
+            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, seed, noiseScale, octaves, persistance, lacunarity, offset);
 
             foreach (Vector2Int position in mapRect)
             {
                 groundGrid.AddTilable(
                     new Ground(
                         position,
-                        Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x])
+                        // Повертає TilableDef який вказує який тип потрібно відображати на цьому тайлі
+                        //Порівнює карту шумів і всі типи тайлів і взалежності який підходить такий й повертає
+                        Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x]) 
                     )
                 );
-
+                
+                //Перевіряє родючість і якщо вона підходить, то там спавниться певна рослина
+                //яка в свою чергу має вимоги до родючості
                 float _tileFertility = GetFertilityAt(position);
                 if (_tileFertility > 0f)
                 {
@@ -162,7 +143,7 @@ namespace StandWorld.World
             }
         }
 
-        public Tile this[int x, int y]
+        /*public Tile this[int x, int y]
         {
             get
             {
@@ -189,7 +170,7 @@ namespace StandWorld.World
             {
                 yield return this[v];
             }
-        }
+        }*/
 
         public override string ToString()
         {

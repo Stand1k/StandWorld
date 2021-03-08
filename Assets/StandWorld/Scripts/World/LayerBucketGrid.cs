@@ -5,6 +5,7 @@ using StandWorld.Entities;
 using StandWorld.Helpers;
 using StandWorld.Visuals;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace StandWorld.World
 {
@@ -17,7 +18,7 @@ namespace StandWorld.World
         public int uId { get; protected set; }
 
         public bool rebuildMatrices;
-        
+
         public Dictionary<TilableType, HashSet<Tilable>> tilablesByType { get; protected set; }
         
         //Словник(Dictionary) tilables matrices індексований по GraphicInstance.uId
@@ -35,7 +36,9 @@ namespace StandWorld.World
             tilables = new Tilable[rect.size.x * rect.size.y];
             tilablesByType = new Dictionary<TilableType, HashSet<Tilable>>();
             tilablesMatrices = new Dictionary<int, List<Matrix4x4>>();
-            if (renderer != null) {
+            
+            if (renderer != null)
+            {
                 _staticRenderer = (BucketRenderer)Activator.CreateInstance(renderer, this, this.layer);
             }
         }
@@ -82,9 +85,10 @@ namespace StandWorld.World
                 rebuildMatrices = false;
             }
 
-            foreach (KeyValuePair<int,List<Matrix4x4>> kv in tilablesMatrices)
+          
+            foreach (KeyValuePair<int, List<Matrix4x4>> kv in tilablesMatrices)
             {
-                Graphics.DrawMeshInstanced(
+               Graphics.DrawMeshInstanced(
                     MeshPool.GetPlaneMesh(GraphicInstance.instances[kv.Key].def.size),
                     0,
                     GraphicInstance.instances[kv.Key].material,
@@ -117,7 +121,6 @@ namespace StandWorld.World
             return null;
         }
         
-
         public void AddTilable(Tilable tilable)
         {
             Vector2Int localPosition = GetLocalPosition(tilable.position);
@@ -146,7 +149,6 @@ namespace StandWorld.World
                 }
             }
         }
-        
         
         public void DelTilable(Tilable tilable) {
             Vector2Int localPosition = GetLocalPosition(tilable.position);

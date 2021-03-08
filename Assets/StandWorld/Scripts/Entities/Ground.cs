@@ -17,7 +17,7 @@ namespace StandWorld.Entities
         {
             foreach (TilableDef tilableDef in Defs.groundsByHeight.Values)
             {
-                if (height < tilableDef.groundDef.maxHeight)
+                if (height <= tilableDef.groundDef.maxHeight)
                 {
                     return tilableDef;
                 }

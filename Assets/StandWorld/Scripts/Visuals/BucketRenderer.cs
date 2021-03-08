@@ -63,7 +63,6 @@ namespace StandWorld.Visuals
                     GraphicInstance.instances[kv.Key].material,
                     0
                     );
-                
             }
         }
 

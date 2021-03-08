@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using StandWorld.Controllers;
-using StandWorld.Definitions;
 using StandWorld.Entities;
-using StandWorld.Helpers;
-using StandWorld.Visuals;
 using StandWorld.World;
 using UnityEngine;
 
@@ -18,7 +13,6 @@ namespace StandWorld
         public Tick tick;
         
         public bool DrawGizmosTiles;
-        public bool DrawGizmosRegions;
         public bool DrawNoiseMap;
         public bool DrawBuckets;
         
@@ -36,10 +30,10 @@ namespace StandWorld
         {
             tick = new Tick();
             map = new Map(300, 300);
+            
             Debug.Log(map);
             map.TempMapGen();
             map.groundGrid.BuildStaticMeshes();
-            //map.BuildAllRegionMeshes();
 
             StartCoroutine(TickUpdate());
             _ready = true;
@@ -49,7 +43,6 @@ namespace StandWorld
         {
             if (_ready)
             {
-               // map.DrawRegions();
                map.groundGrid.DrawBuckets();
                map.plantGrid.DrawBuckets(); 
             }
@@ -63,32 +56,40 @@ namespace StandWorld
                 tick.DoTick();
             }
         }
-
+        
         private void OnDrawGizmos()
         {
             if (_ready)
             {
                 if (DrawBuckets)
                 {
-                    foreach (Vector2Int v in map.mapRect)
+                    for (int x = 0; x <  map.size.x; x += Settings.BUCKET_SIZE)
                     {
-                        LayerBucketGrid bucket = map.groundGrid.GetBucketAt(v);
-                        Gizmos.color = new Color(bucket.uId / (float)map.groundGrid.buckets.Length, 0f, 0, 0.6f);
-                        Gizmos.DrawCube(
-                            new Vector3(v.x + .5f, v.y + .5f),
-                            Vector3.one
-                        );
+                        for (int y = 0; y < map.size.y; y += Settings.BUCKET_SIZE)
+                        {
+                            LayerBucketGrid bucket = map.groundGrid.GetBucketAt(new Vector2Int(x,y));
+                            
+                            Gizmos.color =  new Color(0f, 0.91f, 1f, 0.5f);
+                            
+                            Gizmos.DrawCube(
+                                new Vector3(
+                                    bucket.rect.max.x - (bucket.rect.width - 0.5f) / 2,
+                                    bucket.rect.max.y - (bucket.rect.height - 0.5f) / 2 
+                                ),
+                                new Vector3(bucket.rect.width - 0.5f, bucket.rect.height - 0.5f)
+                            );
+                        }
                     }
                 }
                 
                 if (DrawNoiseMap)
                 {
-                    foreach (Vector2Int v in cameraController.viewRect)
+                    foreach (Vector2Int v in map.mapRect)
                     {
                         float h = map.groundNoiseMap[v.x + v.y * map.size.x];
                         Gizmos.color = new Color(h, h, h, 1f);
                         Gizmos.DrawCube(
-                            new Vector3(v.x + .5f, v.y + .5f),
+                            new Vector3(v.x + 0.5f, v.y + 0.5f),
                             Vector3.one
                         );
                     }
@@ -99,26 +100,12 @@ namespace StandWorld
                     foreach (Vector2Int v in cameraController.viewRect)
                     {
                         Gizmos.DrawWireCube(
-                            new Vector3(v.x+.5f, v.y+.5f), 
+                            new Vector3(v.x + 0.5f, v.y + 0.5f), 
                             Vector3.one
                         );
                     }
                 }
-
-                /*if (DrawGizmosRegions)
-                {
-                    foreach (MapRegion region in map.regions)
-                    {
-                        Gizmos.color = new Color(0, 0, 1, 0.5f);
-                        Gizmos.DrawCube(
-                                new Vector3(
-                                    region.regionRect.max.x - (region.regionRect.width - 0.5f) / 2,
-                                    region.regionRect.max.y - (region.regionRect.height - 0.5f) / 2 
-                                    ),
-                            new Vector3(region.regionRect.width - 0.5f, region.regionRect.height - 0.5f)
-                            );
-                    }
-                }*/
+                
             }
         }
             

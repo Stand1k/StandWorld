@@ -46,11 +46,11 @@ namespace StandWorld.Entities
                     new Vector3(
                         position.x
                         - def.graphics.pivot.x * scale.x
-                        +( 1f - scale.x) / 2f
+                        + (1f - scale.x) / 2f
                         ,position.y
                          - def.graphics.pivot.y * scale.y
                          + (1f - scale.y) / 2f
-                        ,LayerUtils.Height(def.layer) + GraphicInstance.instances[graphicUId].drawPriority
+                        ,LayerUtils.Height(def.layer) + GraphicInstance.instances[graphicUId].drawPriority 
                     ), 
                     Quaternion.identity,
                     scale

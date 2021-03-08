@@ -14,7 +14,7 @@ namespace StandWorld.World
             get { return rect.size; }
         }
         
-        public  RectI rect { get; protected set; }
+        public RectI rect { get; protected set; }
         
         public LayerBucketGrid[] buckets { get; protected set; }
         
@@ -48,8 +48,7 @@ namespace StandWorld.World
                 {
                     RectI bucketRect = new RectI(new Vector2Int(x,y), Settings.BUCKET_SIZE, Settings.BUCKET_SIZE);
                     bucketRect.Clip(rect);
-                    int bucketID = (int) (x / Settings.BUCKET_SIZE) +
-                                   (int) (y / Settings.BUCKET_SIZE) * _bucketSizeX;
+                    int bucketID =  (x / Settings.BUCKET_SIZE) + (y / Settings.BUCKET_SIZE) * _bucketSizeX;
                     buckets[bucketID] = new LayerBucketGrid(bucketID, bucketRect, layer, renderer);
                 }
             }
@@ -57,8 +56,7 @@ namespace StandWorld.World
         
         public LayerBucketGrid GetBucketAt(Vector2Int position)
         {
-            int bucketID = (int) (position.x / Settings.BUCKET_SIZE) +
-                           (int) (position.y / Settings.BUCKET_SIZE) * _bucketSizeX;
+            int bucketID = (position.x / Settings.BUCKET_SIZE) + (position.y / Settings.BUCKET_SIZE) * _bucketSizeX;
 
             if (bucketID >= 0 && bucketID < buckets.Length)
             {
@@ -74,7 +72,7 @@ namespace StandWorld.World
 
             if (bucket != null)
             {
-                return GetBucketAt(position).GetTilableAt(position);
+                return bucket.GetTilableAt(position);
             }
 
             return null;
