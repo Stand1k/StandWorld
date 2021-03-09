@@ -17,7 +17,7 @@ namespace StandWorld.World
         public float persistance = Settings.persistance;
         public float lacunarity = Settings.lacunarity;
 
-        public int seed = Settings.seed;
+        public int seed = Random.Range(1, 100000);
         public Vector2 offset = Settings.offset;
 
         public Vector2Int size { get; protected set; }

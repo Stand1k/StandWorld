@@ -66,7 +66,7 @@ namespace StandWorld.Controllers
         private void Start()
         {
             _camera = Camera.main;
-            zoomMin = 0.2f;
+            zoomMin = 0.1f;
             zoomMax = 1f;
             sensitivity = 1f;
             zoomDesired = 0.2f;

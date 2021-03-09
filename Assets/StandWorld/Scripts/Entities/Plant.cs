@@ -49,7 +49,7 @@ namespace StandWorld.Entities
 				addGraphics = new Dictionary<string, GraphicInstance>();
 
 				_leafColor = Defs.colorPallets["cols_leafsGreen"].GetRandom();
-				_woodColor = Defs.colorPallets["cols_wood"].colors[0];
+				_woodColor = Defs.colorPallets["cols_wood"].GetRandom();
 				mainGraphic = GraphicInstance.GetNew(
 					def.graphics, 
 					_woodColor, 

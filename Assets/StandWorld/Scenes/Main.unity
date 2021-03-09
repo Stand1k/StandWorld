@@ -169,9 +169,9 @@ MonoBehaviour:
   mapHeight: 300
   noiseScale: 42
   octaves: 4
-  persistance: 0.3
+  persistance: 0.2
   lacunarity: 1.6
-  seed: 21
+  seed: 3
   offset: {x: 0, y: 0}
   autoUpdate: 1
   regions:

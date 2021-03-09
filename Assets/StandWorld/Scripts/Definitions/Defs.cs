@@ -163,8 +163,9 @@ namespace StandWorld.Definitions
             AddColorPalette(new ColorPaletteDef{
                 uID = "cols_wood",
                 colors = new List<Color>{
-                    new Color(0.44f, 0.31f, 0.18f),
-                    new Color(0.44f, 0.28f, 0.17f)
+                    new Color(0.63f, 0.37f, 0.22f),
+                    new Color(0.48f, 0.27f, 0.18f),
+                    new Color(0.46f, 0.22f, 0.09f)
                 }
             });
         }
