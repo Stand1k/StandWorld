@@ -27,6 +27,7 @@ namespace StandWorld
             DirectionUtils.SetNeighbours();
             Defs.LoadGroundsFromCode();
             Defs.LoadPlantsFromCode();
+            Defs.LoadMountainsFromCode();
             Defs.LoadColorPalettesFromCode();
         }
 

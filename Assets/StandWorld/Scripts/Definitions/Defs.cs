@@ -12,6 +12,8 @@ namespace StandWorld.Definitions
         public static Dictionary<string, ColorPaletteDef> colorPallets;
         
         public static Dictionary<string, TilableDef> plants;
+        
+        public static Dictionary<string, TilableDef> mountains;
 
         public static void AddGround(TilableDef def)
         {
@@ -22,10 +24,32 @@ namespace StandWorld.Definitions
         {
             plants.Add(def.uID, def);
         }
+        
+        public static void AddMountain(TilableDef def)
+        {
+            mountains.Add(def.uID, def);
+        }
 
         public static void AddColorPalette(ColorPaletteDef def)
         {
             colorPallets.Add(def.uID, def);
+        }
+
+        public static void LoadMountainsFromCode()
+        {
+            mountains = new Dictionary<string, TilableDef>();
+            AddMountain(
+                new TilableDef
+                {
+                    uID = "mountain",
+                    layer = Layer.Mountain,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "mountain",
+                        color = new Color(0.8f, 0.8f, 0.8f)
+                    }
+                }
+                );
         }
 
         public static void LoadPlantsFromCode()
@@ -54,7 +78,7 @@ namespace StandWorld.Definitions
                 new TilableDef
                 {
                     uID = "tree",
-                    layer = Layer.Tree,
+                    layer = Layer.Plant,
                     type = TilableType.Tree,
                     graphics = new GraphicDef
                     {

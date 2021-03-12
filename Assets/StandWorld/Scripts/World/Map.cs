@@ -9,7 +9,7 @@ namespace StandWorld.World
 {
     public class Map 
     {
-        public const int REGION_SIZE = Settings.REGION_SIZE;
+        public const int BUCKET_SIZE = Settings.BUCKET_SIZE;
         
         public float noiseScale = Settings.noiseScale;
 
@@ -17,7 +17,7 @@ namespace StandWorld.World
         public float persistance = Settings.persistance;
         public float lacunarity = Settings.lacunarity;
 
-        public int seed = Random.Range(1, 100000);
+        public int seed = Random.Range(100000000, 999999999);
         public Vector2 offset = Settings.offset;
 
         public Vector2Int size { get; protected set; }
@@ -28,59 +28,55 @@ namespace StandWorld.World
 
         public float[] groundNoiseMap { get; protected set; }
 
-        public GroundGrid groundGrid;
-        public PlantGrid plantGrid;
+
+        public Dictionary<Layer, LayerGrid> grids;
         
         public Map(int width, int height)
         {
             size = new Vector2Int(width, height);
             mapRect = new RectI(new Vector2Int(0, 0), width, height);
-           
-            groundGrid = new GroundGrid(size);
-            plantGrid = new PlantGrid(size);
-            
-            /*foreach (Vector2Int v in mapRect)
-            {
-                _tiles[v.x + v.y * size.x] = new Tile(v, this);
-            }*/
 
-            SetRegions();
+            grids = new Dictionary<Layer, LayerGrid>();
+            grids.Add(Layer.Ground, new GroundGrid(size));
+            grids.Add(Layer.Plant, new TilableGrid(size));
+            grids.Add(Layer.Mountain, new TilableGrid(size));
+
         }
 
-        public void SetRegions()
+        public void BuildAllMeshes()
         {
-            int _regionLength = (
-                Mathf.CeilToInt(size.x / REGION_SIZE) *
-                Mathf.CeilToInt(size.y / REGION_SIZE)
-            );
-            
-
-            int i = 0;
-
-            for (int x = 0; x < size.x; x += REGION_SIZE)
+            foreach (LayerGrid grid in grids.Values)
             {
-                for (int y = 0; y < size.y; y += REGION_SIZE)
-                {
-                    RectI sectionRect = new RectI(
-                        new Vector2Int(x, y), 
-                        REGION_SIZE, 
-                        REGION_SIZE
-                    );
-                    sectionRect.Clip(mapRect);
-                    i++;
-                }
+                grid.BuildStaticMeshes(); 
             }
         }
 
-        public IEnumerable<LayerGrid> GetAllGrids()
+        public void CheckAllMatrices()
         {
-            yield return groundGrid;
-            yield return plantGrid;
+            foreach (LayerGrid grid in grids.Values)
+            {
+                grid.CheckMatriceUpdates(); 
+            }
         }
+
+        public void DrawTilables()
+        {
+            foreach (LayerGrid grid in grids.Values)
+            {
+                grid.DrawBuckets(); 
+            }
+        }
+
+        public Tilable GetTilableAt(Vector2Int position, Layer layer)
+        {
+            return grids[layer].GetTilableAt(position);
+        }
+        
+        
 
         public IEnumerable<Tilable> GetAllTilablesAt(Vector2Int position)
         {
-            foreach (LayerGrid grid in GetAllGrids())
+            foreach (LayerGrid grid in grids.Values)
             {
                 Tilable tilable = grid.GetTilableAt(position);
                 if (tilable != null)
@@ -111,10 +107,11 @@ namespace StandWorld.World
         public void TempMapGen()
         {
             groundNoiseMap = NoiseMap.GenerateNoiseMap(size, seed, noiseScale, octaves, persistance, lacunarity, offset);
+            Debug.Log("Seed: " + seed.ToString());
 
             foreach (Vector2Int position in mapRect)
             {
-                groundGrid.AddTilable(
+                grids[Layer.Ground].AddTilable(
                     new Ground(
                         position,
                         // Повертає TilableDef який вказує який тип потрібно відображати на цьому тайлі
@@ -122,6 +119,13 @@ namespace StandWorld.World
                         Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x]) 
                     )
                 );
+
+                if (grids[Layer.Ground].GetTilableAt(position).def.uID == "rock")
+                {
+                    grids[Layer.Mountain].AddTilable(
+                        new Mountain(position, Defs.mountains["mountain"])
+                        );
+                }
                 
                 //Перевіряє родючість і якщо вона підходить, то там спавниться певна рослина
                 //яка в свою чергу має вимоги до родючості
@@ -133,7 +137,7 @@ namespace StandWorld.World
                         if (_tileFertility >= tilableDef.plantDef.minFertility &&
                             Random.value <= tilableDef.plantDef.probability)
                         {
-                            plantGrid.AddTilable(
+                            grids[Layer.Plant].AddTilable(
                                 new Plant(position, tilableDef, true)
                                 );
                             break;
@@ -141,36 +145,26 @@ namespace StandWorld.World
                     }
                 }
             }
-        }
 
-        /*public Tile this[int x, int y]
-        {
-            get
+            foreach (LayerBucketGrid bucket in grids[Layer.Mountain].buckets)
             {
-                if (x >= 0 && y >= 0 && x < size.x && y < size.y)
+                bool changed = false;
+                foreach (Tilable tilable in bucket.tilables)
                 {
-                    return _tiles[x + y * size.x];
+                    if (tilable != null)
+                    {
+                        tilable.UpdateGraphics();
+                        changed = true;
+                    }
                 }
 
-                return null;
+                if (changed)
+                {
+                    bucket.rebuildMatrices = true;
+                }
             }
+            
         }
-
-        public Tile this[Vector2Int v]
-        {
-            get
-            {
-                return this[v.x, v.y];
-            }
-        }
-
-        public IEnumerator<Tile> GetEnumerator()
-        {
-            foreach (Vector2Int v in mapRect)
-            {
-                yield return this[v];
-            }
-        }*/
 
         public override string ToString()
         {

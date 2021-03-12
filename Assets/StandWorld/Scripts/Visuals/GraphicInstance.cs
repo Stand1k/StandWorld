@@ -17,15 +17,14 @@ namespace StandWorld.Visuals
         public GraphicDef def { get; protected set; }
         public float drawPriority { get; protected set; }
 
-        public GraphicInstance(int uId, GraphicDef def, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -21f)
+        public GraphicInstance(int uId, GraphicDef def, Mesh mesh, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -21f)
         {
-            float _priority = (drawPriority == -21f) ? def.drawPriority : drawPriority;
-            
+            this.mesh = mesh;
             this.def = def;
             this.uId = uId;
             material = new Material(Res.materials[def.materialName]);
-            material.mainTexture = (texture == null) ? Res.textures[def.textureName] : texture;
-            this.drawPriority = _priority / -100f;
+            material.mainTexture = texture;
+            this.drawPriority = drawPriority / -100f;
 
             if (color != default(Color))
             {
@@ -39,28 +38,32 @@ namespace StandWorld.Visuals
             material.SetColor("_Color", this.color);
         }
 
-        public static GraphicInstance GetNew(GraphicDef def, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -21f)
+        public static GraphicInstance GetNew(GraphicDef def, Color32 color = default(Color32), Texture2D texture = null, float drawPriority = -21f, Mesh mesh = null)
         {
-            int id = GetUId(def, color, texture, drawPriority);
+            Mesh _mesh = (mesh == null) ? MeshPool.GetPlaneMesh(def.size) : mesh;
+            Color _color = (color == default(Color)) ? def.color : (Color) color; 
+             Texture2D _texture = (texture == null) ? Res.textures[def.textureName] : texture;
+            float _drawPriority = (drawPriority == -21f) ? def.drawPriority : drawPriority;
+            
+            int id = GetUId(def, _color, _texture, _drawPriority, _mesh);
             if(instances.ContainsKey(id))
             {
                 return instances[id];
             }
-            instances.Add(id, new GraphicInstance(id, def, color, texture, drawPriority));
+            instances.Add(id, new GraphicInstance(id, def, _mesh, _color, _texture, _drawPriority));
             return instances[id];
+        }
+        
+        public static int GetUId(GraphicDef def, Color color, Texture2D texture, float drawPriority, Mesh mesh)
+        {
+            
+            
+            return def.materialName.GetHashCode() + texture.GetHashCode() + color.GetHashCode() + drawPriority.GetHashCode() + mesh.GetHashCode();
         }
 
         public override int GetHashCode()
         {
             return uId;
-        }
-
-        public static int GetUId(GraphicDef def, Color color, Texture2D texture, float drawPriority)
-        {
-            int textureHash = (texture == null) ? def.textureName.GetHashCode() : texture.GetHashCode();
-            int colorHash = (color == default(Color)) ? def.color.GetHashCode() : color.GetHashCode();
-            int priorityHash = (drawPriority == -21f) ? def.drawPriority.GetHashCode() : drawPriority.GetHashCode();
-            return def.materialName.GetHashCode() + textureHash + colorHash + priorityHash;
         }
     }
 }

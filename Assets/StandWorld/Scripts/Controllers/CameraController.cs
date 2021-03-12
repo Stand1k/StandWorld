@@ -11,13 +11,7 @@ namespace StandWorld.Controllers
         public float zoomMin { get; protected set; }
         public float zoomMax { get; protected set; }
 
-        public float zoom
-        {
-            get
-            {
-                return (zoomDesired * (ToolBox.map.size.x / PIXEL_PER_UNIT));
-            }
-        }
+        public float zoom => (zoomDesired * (ToolBox.map.size.x / PIXEL_PER_UNIT));
         public float sensitivity { get; protected set; }
         public Vector3 mousePosition { get; protected set; }
         private Vector3 _lastMousePosition;

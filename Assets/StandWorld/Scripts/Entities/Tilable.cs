@@ -13,21 +13,28 @@ namespace StandWorld.Entities
         public Vector3 scale = Vector3.one;
         
         public TilableDef def { get; protected set; }
-        
-        public GraphicInstance mainGraphic { get; protected set; }
-        
-        public Dictionary<string, GraphicInstance> addGraphics { get; protected set; }
+
+        public GraphicInstance mainGraphic;
+
+        public Dictionary<string, GraphicInstance> addGraphics;
 
         private Dictionary<int, Matrix4x4> _matrices;
         
         public bool resetMatrices;
 
         protected int ticks = 0;
+
+        public bool hidden = false;
         
         public LayerBucketGrid bucket { get; protected set; }
         
         public void SetBucket(LayerBucketGrid bucket) {
             this.bucket = bucket;
+        }
+
+        public virtual void UpdateGraphics()
+        {
+            
         }
 
         public Matrix4x4 GetMatrice(int graphicUId)

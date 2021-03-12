@@ -11,37 +11,13 @@ namespace StandWorld.Helpers
     {
         public Vector2Int min;
         public Vector2Int max;
-        public Vector2Int size
-        {
-            get
-            {
-                return new Vector2Int(width, height);
-            }
-        }
-        public int width
-        {
-            get
-            {
-                return max.x - min.x;
-            }
-        }
+        public Vector2Int size => new Vector2Int(width, height);
 
-        public int height
-        {
-            get
-            {
-                return max.y - min.y;
-            }
-        }
-        
-        public int area
-        {
-            get
-            {
-                return width * height;
-                
-            }
-        }
+        public int width => max.x - min.x;
+
+        public int height => max.y - min.y;
+
+        public int area => width * height;
 
         public RectI(Vector2Int min, Vector2Int max)
         {
@@ -95,14 +71,14 @@ namespace StandWorld.Helpers
             return (
                 v.x >= min.x &&
                 v.y >= min.y &&
-                v.x >= min.x &&
-                v.y >= min.y
+                v.x < max.x &&
+                v.y < max.y
                 );
         }
 
         public override int GetHashCode()
         {
-            return min.x + min.y * 21 + (width * 2001 + height);
+            return min.x + min.y * width + max.x * height + max.y;
         }
 
         public override string ToString()

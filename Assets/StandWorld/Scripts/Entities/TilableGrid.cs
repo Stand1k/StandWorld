@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace StandWorld.Entities
 {
-    public class PlantGrid : LayerGrid
+    public class TilableGrid : LayerGrid
     {
-        public PlantGrid(Vector2Int size) : base(size, Layer.Plant)
+        public TilableGrid(Vector2Int size) : base(size, Layer.Plant)
         {
             renderer = null;
             GenerateBuckets();

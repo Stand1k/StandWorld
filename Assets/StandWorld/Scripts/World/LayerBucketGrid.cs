@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Helpers;
@@ -22,6 +23,7 @@ namespace StandWorld.World
         public Dictionary<TilableType, HashSet<Tilable>> tilablesByType { get; protected set; }
         
         //Словник(Dictionary) tilables matrices індексований по GraphicInstance.uId
+        public Dictionary<int, Matrix4x4[]> tilablesMatricesArr { get; protected set; }
         public Dictionary<int, List<Matrix4x4>> tilablesMatrices { get; protected set; }
         
         public Layer layer { get; protected set; }
@@ -33,9 +35,10 @@ namespace StandWorld.World
             this.uId = uId;
             this.rect = rect;
             this.layer = layer;
-            tilables = new Tilable[rect.size.x * rect.size.y];
+            tilables = new Tilable[rect.width * rect.height];
             tilablesByType = new Dictionary<TilableType, HashSet<Tilable>>();
             tilablesMatrices = new Dictionary<int, List<Matrix4x4>>();
+            tilablesMatricesArr = new Dictionary<int, Matrix4x4[]>();
             
             if (renderer != null)
             {
@@ -46,10 +49,10 @@ namespace StandWorld.World
         public bool IsVisible()
         {
             return(
-                rect.min.x >= ToolBox.cameraController.viewRect.min.x - Map.REGION_SIZE && 
-                rect.max.x <= ToolBox.cameraController.viewRect.max.x + Map.REGION_SIZE && 
-                rect.min.y >= ToolBox.cameraController.viewRect.min.y - Map.REGION_SIZE &&
-                rect.max.y <= ToolBox.cameraController.viewRect.max.y + Map.REGION_SIZE
+                rect.min.x >= ToolBox.cameraController.viewRect.min.x - Map.BUCKET_SIZE && 
+                rect.max.x <= ToolBox.cameraController.viewRect.max.x + Map.BUCKET_SIZE && 
+                rect.min.y >= ToolBox.cameraController.viewRect.min.y - Map.BUCKET_SIZE &&
+                rect.max.y <= ToolBox.cameraController.viewRect.max.y + Map.BUCKET_SIZE
             );
         }
 
@@ -70,6 +73,12 @@ namespace StandWorld.World
                     }
                 }
             }
+
+            tilablesMatricesArr = new Dictionary<int, Matrix4x4[]>();
+            foreach (KeyValuePair<int,List<Matrix4x4>> kv in tilablesMatrices)
+            {
+                tilablesMatricesArr.Add(kv.Key, kv.Value.ToArray());
+            }
         }
         
         public void DrawStatics()
@@ -77,28 +86,30 @@ namespace StandWorld.World
             _staticRenderer.Draw();
         }
 
-        public void DrawInstanced()
+        public void CheckMatriceUpdates()
         {
             if (rebuildMatrices && IsVisible())
             {
                 UpdateMatrices();
                 rebuildMatrices = false;
             }
+        }
 
-          
-            foreach (KeyValuePair<int, List<Matrix4x4>> kv in tilablesMatrices)
+        public void DrawInstanced()
+        {
+            foreach (KeyValuePair<int, Matrix4x4[]> kv in tilablesMatricesArr)
             {
                Graphics.DrawMeshInstanced(
-                    MeshPool.GetPlaneMesh(GraphicInstance.instances[kv.Key].def.size),
+                    GraphicInstance.instances[kv.Key].mesh,
                     0,
                     GraphicInstance.instances[kv.Key].material,
-                    kv.Value.ToArray()
+                    kv.Value
                     );
             }
         }
 
         public void BuildStaticMeshes()
-        {
+        { 
             _staticRenderer.BuildMeshes();
         }
 
@@ -112,10 +123,10 @@ namespace StandWorld.World
             Vector2Int localPosition = GetLocalPosition(position);
             if (localPosition.x >= 0 && 
                 localPosition.y >= 0 &&
-                localPosition.x < rect.size.x &&
-                localPosition.y < rect.size.y)
+                localPosition.x < rect.width &&
+                localPosition.y < rect.height)
             {
-                return tilables[localPosition.x + localPosition.y * rect.size.y];
+                return tilables[localPosition.x + localPosition.y * rect.width];
             }
 
             return null;
@@ -124,7 +135,7 @@ namespace StandWorld.World
         public void AddTilable(Tilable tilable)
         {
             Vector2Int localPosition = GetLocalPosition(tilable.position);
-            tilables[localPosition.x + localPosition.y * rect.size.y] = tilable;
+            tilables[localPosition.x + localPosition.y * rect.width] = tilable;
             tilable.SetBucket(this);
 
             if (tilable.def.type != TilableType.Undefined)
@@ -148,11 +159,13 @@ namespace StandWorld.World
                     }
                 }
             }
+
+            rebuildMatrices = true;
         }
         
         public void DelTilable(Tilable tilable) {
             Vector2Int localPosition = GetLocalPosition(tilable.position);
-            tilables[localPosition.x + localPosition.y * rect.size.y] = null;
+            tilables[localPosition.x + localPosition.y * rect.width] = null;
 
             if (tilable.def.type != TilableType.Undefined) {
                 tilablesByType[tilable.def.type].Remove(tilable);

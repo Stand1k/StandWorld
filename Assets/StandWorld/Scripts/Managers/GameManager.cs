@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using StandWorld.Controllers;
+using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.World;
 using UnityEngine;
@@ -33,7 +35,7 @@ namespace StandWorld
             
             Debug.Log(map);
             map.TempMapGen();
-            map.groundGrid.BuildStaticMeshes();
+            map.BuildAllMeshes();
 
             StartCoroutine(TickUpdate());
             _ready = true;
@@ -43,8 +45,15 @@ namespace StandWorld
         {
             if (_ready)
             {
-               map.groundGrid.DrawBuckets();
-               map.plantGrid.DrawBuckets(); 
+             map.DrawTilables();
+            }
+        }
+
+        private void LateUpdate()
+        {
+            if (_ready)
+            {
+                map.CheckAllMatrices();
             }
         }
 
@@ -67,7 +76,7 @@ namespace StandWorld
                     {
                         for (int y = 0; y < map.size.y; y += Settings.BUCKET_SIZE)
                         {
-                            LayerBucketGrid bucket = map.groundGrid.GetBucketAt(new Vector2Int(x,y));
+                            LayerBucketGrid bucket = map.grids[Layer.Ground].GetBucketAt(new Vector2Int(x,y));
                             
                             Gizmos.color =  new Color(0f, 0.91f, 1f, 0.5f);
                             

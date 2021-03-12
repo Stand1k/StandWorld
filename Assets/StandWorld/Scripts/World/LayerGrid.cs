@@ -23,6 +23,7 @@ namespace StandWorld.World
         public Layer layer { get; protected set; }
 
         private int _bucketSizeX;
+        private int _bucketSizeY;
         private int _bucketCount;
 
         public LayerGrid(Vector2Int size, Layer layer)
@@ -30,8 +31,9 @@ namespace StandWorld.World
             this.layer = layer;
             rect = new RectI(new Vector2Int(0, 0), size);
             renderer = typeof(BucketRenderer);
-            _bucketSizeX = Mathf.CeilToInt(size.x / Settings.BUCKET_SIZE);
-            _bucketCount = Mathf.CeilToInt(size.x / Settings.BUCKET_SIZE) * _bucketSizeX;
+            _bucketSizeX = Mathf.CeilToInt(this.size.x / (float)Settings.BUCKET_SIZE);
+            _bucketSizeY = Mathf.CeilToInt(this.size.y / (float)Settings.BUCKET_SIZE);
+            _bucketCount = _bucketSizeY * _bucketSizeX;
         }
         
         public void AddTilable(Tilable tilable)
@@ -78,8 +80,24 @@ namespace StandWorld.World
             return null;
         }
 
+        public void CheckMatriceUpdates()
+        {
+            foreach (LayerBucketGrid bucket in buckets)
+            {
+                if (bucket.IsVisible())
+                {
+                    bucket.CheckMatriceUpdates();
+                }
+            }
+        }
+
         public void BuildStaticMeshes()
         {
+            if (renderer == null)
+            {
+                return;
+            }
+            
             foreach (LayerBucketGrid bucket in buckets)
             {
                 bucket.BuildStaticMeshes();
@@ -92,24 +110,22 @@ namespace StandWorld.World
             {
                 foreach (LayerBucketGrid bucket in buckets)
                 {
-                    if (!bucket.IsVisible())
+                    if (bucket.IsVisible())
                     {
-                        continue;
+                        bucket.DrawInstanced();
                     }
-                    bucket.DrawInstanced();
                 }
                 return;
             }
             
             foreach (LayerBucketGrid bucket in buckets)
             {
-                if (!bucket.IsVisible())
+                if (bucket.IsVisible())
                 {
-                    continue;
+                    bucket.DrawStatics();
+                    bucket.DrawInstanced();
                 }
                 
-                bucket.DrawStatics();
-                bucket.DrawInstanced();
             }
         }
 

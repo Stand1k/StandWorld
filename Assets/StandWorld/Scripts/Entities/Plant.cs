@@ -37,7 +37,7 @@ namespace StandWorld.Entities
 			ToolBox.tick.toAdd.Enqueue(Update);
 		}
 
-		private void UpdateGraphics()
+		public override void UpdateGraphics()
 		{
 			if (def.type == TilableType.Grass) 
 			{

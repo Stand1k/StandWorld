@@ -78,7 +78,7 @@ namespace StandWorld.Visuals
         {
             foreach (Tilable tilable in bucket.tilables)
             {
-                if (tilable != null)
+                if (tilable != null && !tilable.hidden)
                 {
                     MeshData currentMesh = GetMesh(tilable.mainGraphic.uId);
                     int vIndex = currentMesh.vertices.Count;

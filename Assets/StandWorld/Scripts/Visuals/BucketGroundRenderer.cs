@@ -19,6 +19,11 @@ namespace StandWorld.Visuals
 
 			foreach (Ground ground in bucket.tilables)
 			{
+				if (ground.hidden)
+				{
+					continue;
+				}
+
 				neighboursGraphicsList.Clear();
 
 				MeshData currentMesh = GetMesh(ground.mainGraphic.uId, false, (MeshFlags.Base | MeshFlags.Color));
@@ -38,7 +43,7 @@ namespace StandWorld.Visuals
 
 				for (int i = 0; i < DirectionUtils.neighbours.Length; i++)
 				{
-					Tilable neighbourGround = ToolBox.map.groundGrid.GetTilableAt(ground.position + DirectionUtils.neighbours[i]);
+					Tilable neighbourGround = ToolBox.map.GetTilableAt(ground.position + DirectionUtils.neighbours[i], Layer.Ground);
 
 					if (neighbourGround != null)
 					{
