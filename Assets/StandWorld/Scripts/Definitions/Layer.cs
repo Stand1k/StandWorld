@@ -9,6 +9,7 @@ namespace StandWorld.Definitions
         Ground,
         Mountain,
         Plant,
+        Stackable,
         Count // Трік який дає нам кількість наших лейерів
     }
 

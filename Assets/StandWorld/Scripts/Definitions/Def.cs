@@ -54,6 +54,8 @@ namespace StandWorld.Definitions
         public PlantDef plantDef;
 
         public float fertility = 0f;
+
+        public int maxStack = 0;
     }
 
     [System.Serializable]

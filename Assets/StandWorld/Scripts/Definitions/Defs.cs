@@ -14,6 +14,8 @@ namespace StandWorld.Definitions
         public static Dictionary<string, TilableDef> plants;
         
         public static Dictionary<string, TilableDef> mountains;
+        
+        public static Dictionary<string, TilableDef> stackables;
 
         public static void AddGround(TilableDef def)
         {
@@ -34,10 +36,35 @@ namespace StandWorld.Definitions
         {
             colorPallets.Add(def.uID, def);
         }
+        
+        public static void AddStackable(TilableDef def)
+        {
+            stackables.Add(def.uID, def);
+        }
+        
+        public static void LoadStackablesFromCode()
+        {
+            stackables = new Dictionary<string, TilableDef>();
+            
+            AddStackable(
+                new TilableDef
+                {
+                    uID = "logs",
+                    layer = Layer.Stackable,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "logs_stack",
+                        color = new Color(0.63f, 0.37f, 0.22f),
+                    },
+                    maxStack = 25
+                }
+            );
+        }
 
         public static void LoadMountainsFromCode()
         {
             mountains = new Dictionary<string, TilableDef>();
+            
             AddMountain(
                 new TilableDef
                 {
@@ -46,7 +73,7 @@ namespace StandWorld.Definitions
                     graphics = new GraphicDef
                     {
                         textureName = "mountain",
-                        color = new Color(0.8f, 0.8f, 0.8f)
+                        color = new Color(0.91f, 0.91f, 0.91f)
                     }
                 }
                 );
@@ -72,7 +99,7 @@ namespace StandWorld.Definitions
                         minFertility = 0.3f
                     }
                 }
-                );
+            );
             
             AddPlant(
                 new TilableDef
@@ -103,22 +130,22 @@ namespace StandWorld.Definitions
             AddGround(
                 new TilableDef
                 {
-                uID =  "dirt",
-                layer = Layer.Ground,
-                fertility = 1f,
-                graphics = new GraphicDef
-                {
-                    textureName = "dirt",
-                    materialName = "grounds",
-                    isInstanced = false,
-                    drawPriority = 1
-                },
-                groundDef = new GroundDef
-                {
-                    maxHeight = 0.6f
-                }
-            }
-                );
+                    uID =  "dirt",
+                    layer = Layer.Ground,
+                    fertility = 1f,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "dirt",
+                        materialName = "grounds",
+                        isInstanced = false,
+                        drawPriority = 1
+                    },
+                    groundDef = new GroundDef
+                    {
+                        maxHeight = 0.6f
+                    }
+                }   
+            );
 
             AddGround(
                 new TilableDef

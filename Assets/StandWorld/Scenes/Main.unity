@@ -361,6 +361,7 @@ MonoBehaviour:
   DrawGizmosTiles: 0
   DrawNoiseMap: 0
   DrawBuckets: 0
+  mapSize: {x: 300, y: 300}
 --- !u!4 &860043401
 Transform:
   m_ObjectHideFlags: 0

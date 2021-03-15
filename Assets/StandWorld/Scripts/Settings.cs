@@ -9,7 +9,9 @@ namespace StandWorld
         public const int DAYS_PER_SEASON = 14;
         public const int SEASONS_PER_YEAR = 4;
         public const int TICKS_PER_SEASON = TICKS_PER_DAY * DAYS_PER_SEASON;
-        public const int TICKS_PER_YEAR = SEASONS_PER_YEAR * TICKS_PER_SEASON;  
+        public const int TICKS_PER_YEAR = SEASONS_PER_YEAR * TICKS_PER_SEASON;
+
+        public const bool DEBUG = true;
         
         
         public static float noiseScale;

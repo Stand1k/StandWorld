@@ -37,7 +37,7 @@ namespace StandWorld.Visuals
 
         public static MeshData GenCornersPlane(bool[] corners)
         {
-            MeshData meshData = new MeshData(4, (MeshFlags.Base | MeshFlags.UV));
+            MeshData meshData = new MeshData(3, (MeshFlags.Base | MeshFlags.UV));
 
             for (int i = 0; i < 4; i++)
             {

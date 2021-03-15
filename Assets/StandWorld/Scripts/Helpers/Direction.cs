@@ -12,14 +12,14 @@ namespace StandWorld.Helpers
         public static Vector2Int[] neighbours = new Vector2Int[8];
         public static int[] cardinals = new int[4];
         public static int[] corners = new int[4];
-        public static int[] connections = new int[4];
+        public static int[] connections = new int[4]; // 4-bit маска
 
         public static void SetNeighbours()
         {
             /*
-            (↖) ↑  ↗
+             ↖  ↑  ↗
              ←     →
-            (↙)(↓)(↘)
+             ↙  ↓  ↘
              */
             
             neighbours[0] = new Vector2Int(0,-1);    // S  ↓
@@ -36,10 +36,10 @@ namespace StandWorld.Helpers
             cardinals[2] = (int) Direction.E; // →
             cardinals[3] = (int) Direction.S; // ↓
 
-            connections[0] = 1; // ↓
-            connections[1] = 2; // ↙
-            connections[2] = 4; // ↖
-            connections[3] = 8; // ↘
+            connections[0] = 1; 
+            connections[1] = 2; 
+            connections[2] = 4; 
+            connections[3] = 8; 
             
             corners[0] = (int) Direction.SW; // ↙
             corners[1] = (int) Direction.NW; // ↖

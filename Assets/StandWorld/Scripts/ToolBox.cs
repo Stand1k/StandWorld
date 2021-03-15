@@ -9,16 +9,13 @@ namespace StandWorld
     public static class ToolBox
     {
         public static GameManager manager;
-        public static CameraController cameraController
-        {
-            get { return manager.cameraController; }
-        }
-        public static Map map
-        {
-            get { return manager.map; }
-        }
-        
-        
+        public static CameraController cameraController => manager.cameraController;
+
+        public static Map map => manager.map;
+
+        public static StackableLabelController stackableLabelController => manager.stackableLabelController;
+
+
         public static Tick tick { get { return manager.tick; } }
 
         public static void LoadStatics()
@@ -27,7 +24,8 @@ namespace StandWorld
             DirectionUtils.SetNeighbours();
             Defs.LoadGroundsFromCode();
             Defs.LoadPlantsFromCode();
-            Defs.LoadMountainsFromCode();
+            Defs.LoadMountainsFromCode();    
+            Defs.LoadStackablesFromCode();    
             Defs.LoadColorPalettesFromCode();
         }
 

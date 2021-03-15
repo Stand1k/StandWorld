@@ -30,7 +30,7 @@ namespace StandWorld.Visuals
 				int vIndex = currentMesh.vertices.Count;
 				float z = ground.mainGraphic.drawPriority;
 
-				currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y, z));
+				currentMesh.vertices.Add(new Vector3(ground. position.x, ground.position.y, z));
 				currentMesh.vertices.Add(new Vector3(ground.position.x, ground.position.y + 1, z));
 				currentMesh.vertices.Add(new Vector3(ground.position.x+1, ground.position.y + 1, z));
 				currentMesh.vertices.Add(new Vector3(ground.position.x+1, ground.position.y, z));

@@ -64,6 +64,7 @@ namespace StandWorld.Visuals
                     0
                     );
             }
+            
         }
 
         public void ClearMeshes()

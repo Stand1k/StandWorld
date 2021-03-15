@@ -42,7 +42,7 @@ namespace StandWorld.Visuals
         {
             Mesh _mesh = (mesh == null) ? MeshPool.GetPlaneMesh(def.size) : mesh;
             Color _color = (color == default(Color)) ? def.color : (Color) color; 
-             Texture2D _texture = (texture == null) ? Res.textures[def.textureName] : texture;
+            Texture2D _texture = (texture == null) ? Res.textures[def.textureName] : texture;
             float _drawPriority = (drawPriority == -21f) ? def.drawPriority : drawPriority;
             
             int id = GetUId(def, _color, _texture, _drawPriority, _mesh);
@@ -56,8 +56,6 @@ namespace StandWorld.Visuals
         
         public static int GetUId(GraphicDef def, Color color, Texture2D texture, float drawPriority, Mesh mesh)
         {
-            
-            
             return def.materialName.GetHashCode() + texture.GetHashCode() + color.GetHashCode() + drawPriority.GetHashCode() + mesh.GetHashCode();
         }
 

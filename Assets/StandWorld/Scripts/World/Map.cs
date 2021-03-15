@@ -40,7 +40,15 @@ namespace StandWorld.World
             grids.Add(Layer.Ground, new GroundGrid(size));
             grids.Add(Layer.Plant, new TilableGrid(size));
             grids.Add(Layer.Mountain, new TilableGrid(size));
+            grids.Add(Layer.Stackable, new TilableGrid(size));
+        }
 
+        public void Spawn(Vector2Int position, Tilable tilable, bool force = false)
+        {
+            if (force || tilable.def.layer == Layer.Undefined || GetTilableAt(position, tilable.def.layer) == null)
+            {
+                grids[tilable.def.layer].AddTilable(tilable);
+            }
         }
 
         public void BuildAllMeshes()
@@ -71,8 +79,6 @@ namespace StandWorld.World
         {
             return grids[layer].GetTilableAt(position);
         }
-        
-        
 
         public IEnumerable<Tilable> GetAllTilablesAt(Vector2Int position)
         {
@@ -99,7 +105,7 @@ namespace StandWorld.World
 
                 fertility *= tilable.def.fertility;
             }
-
+            
             return fertility;
         }
 
@@ -111,18 +117,20 @@ namespace StandWorld.World
 
             foreach (Vector2Int position in mapRect)
             {
-                grids[Layer.Ground].AddTilable(
+                Spawn(
+                    position,
                     new Ground(
                         position,
                         // Повертає TilableDef який вказує який тип потрібно відображати на цьому тайлі
                         //Порівнює карту шумів і всі типи тайлів і взалежності який підходить такий й повертає
-                        Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x]) 
+                        Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x])
                     )
                 );
-
+                
                 if (grids[Layer.Ground].GetTilableAt(position).def.uID == "rock")
                 {
-                    grids[Layer.Mountain].AddTilable(
+                    Spawn(
+                        position,
                         new Mountain(position, Defs.mountains["mountain"])
                         );
                 }
@@ -137,7 +145,8 @@ namespace StandWorld.World
                         if (_tileFertility >= tilableDef.plantDef.minFertility &&
                             Random.value <= tilableDef.plantDef.probability)
                         {
-                            grids[Layer.Plant].AddTilable(
+                            Spawn(
+                                position,
                                 new Plant(position, tilableDef, true)
                                 );
                             break;
@@ -162,6 +171,15 @@ namespace StandWorld.World
                 {
                     bucket.rebuildMatrices = true;
                 }
+            }
+            
+            foreach(Vector2Int position in new RectI(new Vector2Int(30,30),10,10))
+            {
+                Spawn(position, new Stackable(
+                    position,
+                    Defs.stackables["logs"],
+                    Random.Range(1, Defs.stackables["logs"].maxStack)
+                    ));
             }
             
         }
