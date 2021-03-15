@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace StandWorld
+namespace StandWorld.Game
 {
     public static class Settings
     {

@@ -6,11 +6,11 @@ namespace StandWorld.Helpers
 {
     public class GameObjectPool
     {
-        public Queue<GameObject> queue = new Queue<GameObject>();
+        public Queue<GameObject> go_Queue = new Queue<GameObject>();
 
         public GameObject GetFromPool()
         {
-            GameObject go = queue.Dequeue();
+            GameObject go = go_Queue.Dequeue();
             go.SetActive(true);
             return go;
         }
@@ -19,15 +19,15 @@ namespace StandWorld.Helpers
         {
             for (int i = 0; i < qty; i++)
             {
-                AddTolPool(GameObject.Instantiate(go, parent));
+                AddToPool(GameObject.Instantiate(go, parent));
             }
             Object.Destroy(go);
         }
 
-        public void AddTolPool(GameObject go)
+        public void AddToPool(GameObject go)
         {
             go.SetActive(false);
-            queue.Enqueue(go);
+            go_Queue.Enqueue(go);
         }
         
     }

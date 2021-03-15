@@ -14,7 +14,7 @@ namespace StandWorld.Controllers
 
         private void Awake()
         {
-            if (goPool.queue.Count == 0)
+            if (goPool.go_Queue.Count == 0)
             {
                 GameObject go = new GameObject("Label GameObject");
                 go.transform.SetParent(transform);

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using StandWorld.MapGenerator;
 using UnityEditor;
 
 [CustomEditor (typeof (MapGenerator))]

@@ -5,7 +5,7 @@ namespace StandWorld.Entities
 {
     public class InventoryTilable
     {
-        public Queue<Item> list = new Queue<Item>();
+        public Queue<Item> inventoryQueue = new Queue<Item>();
 
         public int max
         {
@@ -25,29 +25,11 @@ namespace StandWorld.Entities
             }
         }
 
-        public int count
-        {
-            get
-            {
-                return list.Count;
-            }
-        }
+        public int count => inventoryQueue.Count;
 
-        public int free
-        {
-            get
-            {
-                return max - count;
-            }
-        }
+        public int free => max - count;
 
-        public bool full
-        {
-            get
-            {
-                return free <= 0;
-            }
-        }
+        public bool full => free <= 0;
 
         private int _max;
 
@@ -64,7 +46,7 @@ namespace StandWorld.Entities
                     return _parent.def;
                 }
 
-                return def;
+                return _def;
             }
         }
 
@@ -93,14 +75,14 @@ namespace StandWorld.Entities
                 {
                     break;
                 }
-                list.Enqueue(new Item(_parent.def));
+                inventoryQueue.Enqueue(new Item(_parent.def));
             }
         }
 
         public void InitInventory(TilableDef def)
         {
             _def = def;
-            list = new Queue<Item>();
+            inventoryQueue = new Queue<Item>();
         }
 
         public void TransfertTo(ref InventoryTilable to, int qty)
@@ -113,13 +95,13 @@ namespace StandWorld.Entities
                 }
 
                 int added = 0;
-                while (list.Count != 0 && added > qty && !full)
+                while (inventoryQueue.Count != 0 && added > qty && !full)
                 {
-                    to.list.Enqueue(list.Dequeue());
+                    to.inventoryQueue.Enqueue(inventoryQueue.Dequeue());
                     added++;
                 }
 
-                if (list.Count == 0)
+                if (inventoryQueue.Count == 0)
                 {
                     if (_parent == null)
                     {

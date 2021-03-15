@@ -2,7 +2,9 @@
 using System.Linq;
 using StandWorld.Definitions;
 using StandWorld.Entities;
+using StandWorld.Game;
 using StandWorld.Helpers;
+using StandWorld.MapGenerator;
 using UnityEngine;
 
 namespace StandWorld.World
@@ -23,8 +25,6 @@ namespace StandWorld.World
         public Vector2Int size { get; protected set; }
 
         public RectI mapRect;
-
-        private Tile[] _tiles;
 
         public float[] groundNoiseMap { get; protected set; }
 

@@ -4,7 +4,7 @@ using StandWorld.Entities;
 using StandWorld.Helpers;
 using StandWorld.World;
 
-namespace StandWorld
+namespace StandWorld.Game
 {
     public static class ToolBox
     {

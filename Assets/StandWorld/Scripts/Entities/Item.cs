@@ -1,17 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using StandWorld.Definitions;
-using StandWorld.Entities;
-using UnityEngine;
+﻿using StandWorld.Definitions;
 
-public class Item : Tilable
+namespace StandWorld.Entities
 {
-
-    private InventoryTilable _inventory;
-
-    public Item(TilableDef def)
+    public class Item : Tilable
     {
-        this.def = def;
-    }
+        private InventoryTilable _inventory;
 
+        public Item(TilableDef def)
+        {
+            this.def = def;
+        }
+
+    }
 }

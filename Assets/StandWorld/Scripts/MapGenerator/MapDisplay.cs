@@ -1,17 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
 
-public class MapDisplay : MonoBehaviour
+namespace StandWorld.MapGenerator
 {
-
-	public Renderer textureRender;
-
-	public void DrawTexture(Texture2D texture)
+	public class MapDisplay : MonoBehaviour
 	{
-		textureRender.sharedMaterial.mainTexture = texture;
-		textureRender.transform.localScale = new Vector3 (-texture.width, texture.height, 100);
-		Quaternion quaternion = Quaternion.Euler(0f,0f,270f);
-		textureRender.transform.rotation = quaternion;
-	}
+
+		public Renderer textureRender;
+
+		public void DrawTexture(Texture2D texture)
+		{
+			textureRender.sharedMaterial.mainTexture = texture;
+			textureRender.transform.localScale = new Vector3 (-texture.width, texture.height, 100);
+			Quaternion quaternion = Quaternion.Euler(0f,0f,270f);
+			textureRender.transform.rotation = quaternion;
+		}
 	
+	}
 }

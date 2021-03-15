@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using StandWorld.Controllers;
-using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Visuals;
 using StandWorld.World;
 using UnityEngine;
 
-namespace StandWorld
+namespace StandWorld.Game
 {
     public class GameManager : MonoBehaviour
     {

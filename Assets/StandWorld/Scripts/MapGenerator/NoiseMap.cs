@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace StandWorld.Helpers
+namespace StandWorld.MapGenerator
 {
 	public static class NoiseMap
     {
