@@ -48,14 +48,16 @@ namespace StandWorld.Controllers
         {
             viewRect = new RectI(
                 new Vector2Int(
-                    Mathf.FloorToInt(_camera.transform.position.x - _camera.orthographicSize * _camera.aspect - 1f), 
-                    Mathf.FloorToInt(_camera.transform.position.y - _camera.orthographicSize - 1f)
+                    Mathf.FloorToInt(_camera.transform.position.x - _camera.orthographicSize * _camera.aspect + 1f), 
+                    Mathf.FloorToInt(_camera.transform.position.y - _camera.orthographicSize + 1f)
                 ),
                 new Vector2Int(
                     Mathf.FloorToInt(_camera.transform.position.x + _camera.orthographicSize * _camera.aspect), 
                     Mathf.FloorToInt(_camera.transform.position.y + _camera.orthographicSize)
                 )
             );
+            
+            ToolBox.map.UpdateVisibles();
         }
 
         private void Start()

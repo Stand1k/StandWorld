@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using StandWorld.Characters;
 using StandWorld.Controllers;
 using StandWorld.Entities;
 using StandWorld.Visuals;
 using StandWorld.World;
 using UnityEngine;
-
+    
 namespace StandWorld.Game
 {
     public class GameManager : MonoBehaviour
@@ -23,7 +24,7 @@ namespace StandWorld.Game
         [Space]
         
         private bool _ready;
-        
+
         private void Awake()
         {
             _ready = false;
@@ -41,6 +42,12 @@ namespace StandWorld.Game
             Debug.Log(map);
             map.TempMapGen();
             map.BuildAllMeshes();
+            
+            Debug.Log(new HumanStats());
+            Debug.Log(new HumanStats());
+            Debug.Log(new HumanStats());
+            Debug.Log(new HumanStats());
+            Debug.Log(new HumanStats());
          
             StartCoroutine(TickUpdate());
             _ready = true;

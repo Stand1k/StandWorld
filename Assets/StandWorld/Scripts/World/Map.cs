@@ -92,6 +92,23 @@ namespace StandWorld.World
             }
         }
 
+        public void UpdateVisibles()
+        {
+            int i = 0;
+            foreach (LayerBucketGrid bucket in grids[Layer.Ground].buckets)
+            {
+                bool bucketVisible = bucket.CalcVisible();
+                foreach (LayerGrid grid in grids.Values)
+                {
+                    if (grid.layer != Layer.Ground)
+                    {
+                        grid.buckets[i].SetVisible(bucketVisible);
+                    }
+                }
+                i++;
+            }
+        }
+
         public float GetFertilityAt(Vector2Int position)
         {
             float fertility = 1f;

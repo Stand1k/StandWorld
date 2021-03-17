@@ -32,6 +32,8 @@ namespace StandWorld.World
         
         private BucketRenderer _staticRenderer;
 
+        private bool _visible;
+
         public LayerBucketGrid(int uId, RectI rect, Layer layer, Type renderer) 
         {
             this.uId = uId;
@@ -47,15 +49,27 @@ namespace StandWorld.World
                 _staticRenderer = (BucketRenderer)Activator.CreateInstance(renderer, this, this.layer);
             }
         }
-        
-        public bool IsVisible()
+
+        public void SetVisible(bool visible)
         {
-            return(
-                rect.min.x >= ToolBox.cameraController.viewRect.min.x - Map.BUCKET_SIZE && 
-                rect.max.x <= ToolBox.cameraController.viewRect.max.x + Map.BUCKET_SIZE && 
+            _visible = visible;
+        }
+
+        public bool CalcVisible()
+        {
+            _visible = (
+                rect.min.x >= ToolBox.cameraController.viewRect.min.x - Map.BUCKET_SIZE &&
+                rect.max.x <= ToolBox.cameraController.viewRect.max.x + Map.BUCKET_SIZE &&
                 rect.min.y >= ToolBox.cameraController.viewRect.min.y - Map.BUCKET_SIZE &&
                 rect.max.y <= ToolBox.cameraController.viewRect.max.y + Map.BUCKET_SIZE
             );
+
+            return _visible;
+        }
+        
+        public bool IsVisible()
+        {
+            return _visible;
         }
 
         public void UpdateMatrices()
