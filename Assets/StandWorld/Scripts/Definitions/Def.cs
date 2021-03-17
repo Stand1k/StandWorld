@@ -56,6 +56,14 @@ namespace StandWorld.Definitions
         public float fertility = 0f;
 
         public int maxStack = 0;
+
+        public float pathCost = 1f;
+        
+        public bool blockPath = false;
+        public bool blockBuilding = false;
+        public bool blockPlant = false;
+        public bool blockStackable = false;
+        public bool supportRoof = false;
     }
 
     [System.Serializable]

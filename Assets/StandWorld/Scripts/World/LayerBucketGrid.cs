@@ -177,6 +177,7 @@ namespace StandWorld.World
                 }
             }
 
+            ToolBox.map[tilable.position].Update();
             rebuildMatrices = true;
         }
         

@@ -18,6 +18,7 @@ namespace StandWorld.Game
         public bool DrawGizmosTiles;
         public bool DrawNoiseMap;
         public bool DrawBuckets;
+        public bool DrawFertility;
 
         [Header("World size")] 
         public Vector2 mapSize;
@@ -95,6 +96,11 @@ namespace StandWorld.Game
                 if (DrawGizmosTiles)
                 {
                     DebugRenderer.DrawTiles();
+                }
+
+                if (DrawFertility)
+                {
+                    DebugRenderer.DrawFertility();
                 }
                 
             }

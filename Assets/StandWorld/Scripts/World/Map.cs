@@ -27,21 +27,30 @@ namespace StandWorld.World
         public RectI mapRect;
 
         public float[] groundNoiseMap { get; protected set; }
-
-
+        
         public Dictionary<Layer, LayerGrid> grids;
+        
+        public TileProperty[] tiles { get; protected set; }
         
         public Map(int width, int height)
         {
             size = new Vector2Int(width, height);
             mapRect = new RectI(new Vector2Int(0, 0), width, height);
-
+            tiles = new TileProperty[width * height];
+            
             grids = new Dictionary<Layer, LayerGrid>();
             grids.Add(Layer.Ground, new GroundGrid(size));
             grids.Add(Layer.Plant, new TilableGrid(size));
             grids.Add(Layer.Mountain, new TilableGrid(size));
             grids.Add(Layer.Stackable, new TilableGrid(size));
+
+            foreach (Vector2Int position in mapRect)
+            {
+                tiles[position.x + position.y * width] = new TileProperty(position);
+            }
         }
+
+       
 
         public void Spawn(Vector2Int position, Tilable tilable, bool force = false)
         {
@@ -199,6 +208,19 @@ namespace StandWorld.World
                     ));
             }
             
+        }
+        
+        public TileProperty this[Vector2Int position]
+        {
+            get
+            {
+                if (position.x >= 0 && position.y >= 0 && position.x < size.x && position.y < size.y)
+                {
+                    return tiles[position.x + position.y * size.y];
+                }
+
+                return tiles[0];
+            }
         }
 
         public override string ToString()
