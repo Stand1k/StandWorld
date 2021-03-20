@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using StandWorld.Characters;
 using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Game;
@@ -13,45 +14,45 @@ namespace StandWorld.World
     {
         public const int BUCKET_SIZE = Settings.BUCKET_SIZE;
         
-        public float noiseScale = Settings.noiseScale;
-
-        public int octaves = Settings.octaves;
-        public float persistance = Settings.persistance;
-        public float lacunarity = Settings.lacunarity;
-
-        public int seed = Random.Range(100000000, 999999999);
-        public Vector2 offset = Settings.offset;
-
         public Vector2Int size { get; protected set; }
 
         public RectI mapRect;
 
         public float[] groundNoiseMap { get; protected set; }
-        
+    
         public Dictionary<Layer, LayerGrid> grids;
         
         public TileProperty[] tiles { get; protected set; }
+        
+        public List<BaseCharacter> characters { get; protected set; }
+        
+        private float noiseScale = Settings.noiseScale;
+        private int octaves = Settings.octaves;
+        private float persistance = Settings.persistance;
+        private float lacunarity = Settings.lacunarity;
+        private int seed = Random.Range(100000000, 999999999);
+        private Vector2 offset = Settings.offset;
         
         public Map(int width, int height)
         {
             size = new Vector2Int(width, height);
             mapRect = new RectI(new Vector2Int(0, 0), width, height);
             tiles = new TileProperty[width * height];
+
+            foreach (Vector2Int position in mapRect)
+            {
+                tiles[position.x + position.y * size.y] = new TileProperty(position);
+            }
+
+            characters = new List<BaseCharacter>();
             
             grids = new Dictionary<Layer, LayerGrid>();
             grids.Add(Layer.Ground, new GroundGrid(size));
             grids.Add(Layer.Plant, new TilableGrid(size));
             grids.Add(Layer.Mountain, new TilableGrid(size));
             grids.Add(Layer.Stackable, new TilableGrid(size));
-
-            foreach (Vector2Int position in mapRect)
-            {
-                tiles[position.x + position.y * width] = new TileProperty(position);
-            }
         }
-
-       
-
+        
         public void Spawn(Vector2Int position, Tilable tilable, bool force = false)
         {
             if (force || tilable.def.layer == Layer.Undefined || GetTilableAt(position, tilable.def.layer) == null)
@@ -60,6 +61,19 @@ namespace StandWorld.World
             }
         }
 
+        public void SpawnCharacter(BaseCharacter character)
+        {
+            characters.Add(character);
+        }
+
+        public void UpdateCharacters()
+        {
+            foreach (BaseCharacter character in characters)
+            {
+                character.UpdateDraw();
+            }
+        }
+        
         public void BuildAllMeshes()
         {
             foreach (LayerGrid grid in grids.Values)
@@ -135,10 +149,9 @@ namespace StandWorld.World
             return fertility;
         }
 
-        //Використовується чисто для теста 
         public void TempMapGen()
         {
-            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, seed, noiseScale, octaves, persistance, lacunarity, offset);
+            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 613864505, noiseScale, octaves, persistance, lacunarity, offset);
             Debug.Log("Seed: " + seed.ToString());
 
             foreach (Vector2Int position in mapRect)
@@ -163,12 +176,11 @@ namespace StandWorld.World
                 
                 //Перевіряє родючість і якщо вона підходить, то там спавниться певна рослина
                 //яка в свою чергу має вимоги до родючості
-                float _tileFertility = GetFertilityAt(position);
-                if (_tileFertility > 0f)
+                if (this[position].fertility > 0f && !this[position].blockPlant)
                 {
                     foreach (TilableDef tilableDef in Defs.plants.Values)
                     {
-                        if (_tileFertility >= tilableDef.plantDef.minFertility &&
+                        if (this[position].fertility >= tilableDef.plantDef.minFertility &&
                             Random.value <= tilableDef.plantDef.probability)
                         {
                             Spawn(
@@ -201,11 +213,14 @@ namespace StandWorld.World
             
             foreach(Vector2Int position in new RectI(new Vector2Int(30,30),10,10))
             {
-                Spawn(position, new Stackable(
-                    position,
-                    Defs.stackables["logs"],
-                    Random.Range(1, Defs.stackables["logs"].maxStack)
+                if (this[position].blockStackable == false)
+                {
+                    Spawn(position, new Stackable(
+                        position,
+                        Defs.stackables["logs"],
+                        Random.Range(1, Defs.stackables["logs"].maxStack)
                     ));
+                }
             }
             
         }

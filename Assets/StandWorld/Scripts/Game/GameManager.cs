@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using StandWorld.Characters;
 using StandWorld.Controllers;
+using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Visuals;
 using StandWorld.World;
@@ -19,6 +20,8 @@ namespace StandWorld.Game
         public bool DrawNoiseMap;
         public bool DrawBuckets;
         public bool DrawFertility;
+        public bool DrawAStar;
+        public bool DrawPaths;
 
         [Header("World size")] 
         public Vector2 mapSize;
@@ -44,11 +47,18 @@ namespace StandWorld.Game
             map.TempMapGen();
             map.BuildAllMeshes();
             
+            /*Debug.Log(new HumanStats());
             Debug.Log(new HumanStats());
             Debug.Log(new HumanStats());
             Debug.Log(new HumanStats());
-            Debug.Log(new HumanStats());
-            Debug.Log(new HumanStats());
+            Debug.Log(new HumanStats());*/
+            
+            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
          
             StartCoroutine(TickUpdate());
             _ready = true;
@@ -58,7 +68,8 @@ namespace StandWorld.Game
         {
             if (_ready)
             {
-             map.DrawTilables();
+                map.DrawTilables();
+                map.UpdateCharacters();
             }
         }
 
@@ -74,7 +85,7 @@ namespace StandWorld.Game
         {
             for (;;)
             {
-                yield return new WaitForSeconds(0.1f / tick.speed);
+                yield return new WaitForSeconds(0.01f / tick.speed);
                 tick.DoTick();
             }
         }
@@ -102,7 +113,20 @@ namespace StandWorld.Game
                 {
                     DebugRenderer.DrawFertility();
                 }
-                
+
+                if (DrawAStar)
+                {
+                    DebugRenderer.DrawAStar();
+                }
+
+                if (DrawPaths)
+                {
+                    foreach (BaseCharacter character in map.characters)
+                    {
+                        DebugRenderer.DrawCurrentPath(character.movement);
+                    }
+                }
+
             }
         }
             

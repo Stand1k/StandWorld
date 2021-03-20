@@ -18,11 +18,16 @@ namespace StandWorld.Definitions
                 new TilableDef
                 {
                     uID = "mountain",
+                    blockPath = true,
+                    blockStackable = true,
+                    supportRoof = true,
+                    blockBuilding = true,
+                    blockPlant = true,
                     layer = Layer.Mountain,
                     graphics = new GraphicDef
                     {
                         textureName = "mountain",
-                        color = new Color(0.91f, 0.91f, 0.91f)
+                        color = new Color(0.64f, 0.64f, 0.64f)
                     }
                 }
             );

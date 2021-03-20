@@ -27,6 +27,7 @@ namespace StandWorld.Game
             Defs.LoadMountainsFromCode();    
             Defs.LoadStackablesFromCode();    
             Defs.LoadColorPalettesFromCode();
+            Defs.LoadAnimalsFromCode();
         }
 
         public static void NewGame(GameManager manager)

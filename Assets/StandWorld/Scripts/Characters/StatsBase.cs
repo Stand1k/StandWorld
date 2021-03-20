@@ -20,8 +20,6 @@ namespace StandWorld.Characters
         }
     }
 
-  
-
     //Модифікує неявні харакатеристики
     public class StatModifier
     {

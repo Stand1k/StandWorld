@@ -16,5 +16,7 @@ namespace StandWorld.Definitions
         public static Dictionary<string, TilableDef> mountains;
 
         public static Dictionary<string, TilableDef> stackables;
+        
+        public static Dictionary<string, AnimalDef> animals;
     }
 }

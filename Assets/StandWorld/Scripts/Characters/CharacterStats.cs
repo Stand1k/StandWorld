@@ -10,8 +10,7 @@ namespace StandWorld.Characters
         public static Vitals[] vitals = (Vitals[]) Enum.GetValues(typeof(Vitals));
         public static Skills[] skills = (Skills[]) Enum.GetValues(typeof(Skills));
     }
-    
-    
+
     [System.Serializable]
     public enum Stats
     {
@@ -25,40 +24,38 @@ namespace StandWorld.Characters
     [System.Serializable]
     public enum Attributes
     {
-        WalkSpeed, // [Strength + Endurance ]
-        Charisma, //[Wisdom + Strength]
-        InventorySize, // [Strength]
-        PhysicalResistance, // [Strength + Endurance]
-        PhysicalAttack, // [Strength + Agility]
-        MagicalAttack, // [Intellect + Wisdom]
-        MagicalResistance, // [Wisdom + Endurance]
-        HealthRegen, // [Endurance + Strength]
-        EnergyRegen, // [Wisdom + Endurance]
-        ManaRegen, // [Intellect + Wisdom]
-        CriticalChance, // [Agility + Intellect]
+        WalkSpeed,              // [Strength + Endurance ]
+        Charisma,               //[Wisdom + Strength]
+        InventorySize,          // [Strength]
+        PhysicalResistance,     // [Strength + Endurance]
+        PhysicalAttack,         // [Strength + Agility]
+        MagicalAttack,          // [Intellect + Wisdom]
+        MagicalResistance,      // [Wisdom + Endurance]
+        HealthRegen,            // [Endurance + Strength]
+        EnergyRegen,            // [Wisdom + Endurance]
+        ManaRegen,              // [Intellect + Wisdom]
+        CriticalChance,         // [Agility + Intellect]
     }    
     
     [System.Serializable]
     public enum Vitals 
     {
-        Healt, //[Endurance]
+        Healt,  //[Endurance]
         Energy, //[Endurance]
-        Mana, //[Intillect]
+        Mana,   //[Intillect]
     }
 
     [System.Serializable]
     public enum Skills
     {
-        Healing, //[Wisdom + Intellect]
-        Building, //[Agility + Intellect]
-        Manufacturing, // [Agility + Intellect]
-        Entertaining, // [Charisma]
-        Growing, //[Agility + Wisdom]
-        Cutting, // [Strength + Agility]
-        Mining, // [Strngth + Agility]
-        Cooking, // [Agility + Intellect]
-        
-        
+        Healing,            //[Wisdom + Intellect]
+        Building,           //[Agility + Intellect]
+        Manufacturing,      // [Agility + Intellect]
+        Entertaining,       // [Charisma]
+        Growing,            //[Agility + Wisdom]
+        Cutting,            // [Strength + Agility]
+        Mining,             // [Strngth + Agility]
+        Cooking,             // [Agility + Intellect]
     }
 }
 

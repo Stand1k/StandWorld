@@ -1,35 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Priority_Queue;
 using StandWorld.Entities;
 using StandWorld.Game;
 using UnityEngine;
 
-public class TileProperty
+/// <summary>
+/// Дані проходимості тайла
+/// </summary>
+public class TileProperty   
 {
-    public Vector2Int position;
-    public float pathCost;
-    public float fertility;
+    public Vector2Int position { get; protected set; }
+    public float pathCost { get; protected set; }
+    public float fertility { get; protected set; }
 
-    public bool blockPath;
-    public bool blockPlant;
-    public bool blockStackable;
-    public bool blockBuilding;
-    public bool supportRoof;
+    public bool blockPath { get; protected set; }
+    public bool blockPlant { get; protected set; }
+    public bool blockStackable { get; protected set; }
+    public bool blockBuilding { get; protected set; }
+    public bool supportRoof { get; protected set; }
+
+    public float gCost;
+    public float hCost;
+    public float fCost
+    {
+        get { return gCost + hCost; }
+    }
+    public TileProperty parent;
 
     public TileProperty(Vector2Int position)
     {
         this.position = position;
-        pathCost = 1f;
-        fertility = 1f;
-
-        blockPath = false;
-        blockBuilding = false;
-        blockPlant = false;
-        blockStackable = false;
-        supportRoof = false;
+        Reset();
     }
 
-    public void Update()
+    public void Reset()
     {
         fertility = 1f;
         pathCost = 1f;
@@ -38,7 +43,15 @@ public class TileProperty
         blockPlant = false;
         blockStackable = false;
         supportRoof = false;
-        
+        gCost = 0;
+        hCost = 0;
+        parent = null;
+    }
+
+    public void Update()
+    {
+        Reset();
+
         foreach (Tilable tilable in ToolBox.map.GetAllTilablesAt(position))
         {
             if (fertility != 0f)
@@ -58,7 +71,7 @@ public class TileProperty
             
             if (blockStackable == false)
             {
-                blockBuilding = tilable.def.blockStackable;
+                blockStackable = tilable.def.blockStackable;
             }
             
             if (blockPlant == false)
@@ -75,6 +88,15 @@ public class TileProperty
             {
                 supportRoof = tilable.def.supportRoof;
             }
+        }
+
+        if (blockPath)
+        {
+            pathCost = 0f;
+        }
+        else if (pathCost <= 0)
+        {
+            blockPath = true;
         }
 
     }

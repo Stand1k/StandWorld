@@ -19,6 +19,8 @@ namespace StandWorld.Controllers
                 GameObject go = new GameObject("Label GameObject");
                 go.transform.SetParent(transform);
                 go.AddComponent<LabelComponent>();
+                
+                //Додаємо в пул n клонів GameObject go
                 goPool.AddFromClone(go,transform,100);
             }
         }

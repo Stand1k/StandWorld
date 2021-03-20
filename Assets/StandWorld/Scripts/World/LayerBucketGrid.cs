@@ -12,21 +12,25 @@ using Random = UnityEngine.Random;
 
 namespace StandWorld.World
 {
+    /// <summary>
+    /// Регіон нашої сітки 
+    /// </summary>
     public class LayerBucketGrid
     {
+        //Розмір цього регіона
         public RectI rect { get; protected set; }
         
         public Tilable[] tilables { get; protected set; }
         
         public int uId { get; protected set; }
-
+        
         public bool rebuildMatrices;
 
         public Dictionary<TilableType, HashSet<Tilable>> tilablesByType { get; protected set; }
-        
+
         //Словник(Dictionary) tilables matrices індексований по GraphicInstance.uId
-        public Dictionary<int, Matrix4x4[]> tilablesMatricesArr { get; protected set; }
         public Dictionary<int, List<Matrix4x4>> tilablesMatrices { get; protected set; }
+        private Dictionary<int, Matrix4x4[]> tilablesMatricesArr;
         
         public Layer layer { get; protected set; }
         
@@ -55,6 +59,10 @@ namespace StandWorld.World
             _visible = visible;
         }
 
+        /// <summary>
+        /// Перевіряє чи попадає даний регіон під область видимості камери
+        /// </summary>
+        /// <returns>Повертає true коли регіон попав під видимість камери</returns>
         public bool CalcVisible()
         {
             _visible = (
@@ -130,6 +138,11 @@ namespace StandWorld.World
             _staticRenderer.BuildMeshes();
         }
 
+        /// <summary>
+        /// Конвертує глобальні координати тайла в локальні для цього регіона
+        /// </summary>
+        /// <param name="globalPosition">Глобальна позиція на сітці</param>
+        /// <returns>Повертає локальну позицію тайлу для цього регіона</returns>
         public Vector2Int GetLocalPosition(Vector2Int globalPosition)
         {
             return new Vector2Int(globalPosition.x - rect.min.x, globalPosition.y - rect.min.y);
@@ -154,6 +167,8 @@ namespace StandWorld.World
             Vector2Int localPosition = GetLocalPosition(tilable.position);
             tilables[localPosition.x + localPosition.y * rect.width] = tilable;
             tilable.SetBucket(this);
+            //При додавані тайлу оновлюємо дані нашого TileProperty для Pathfinding 
+            ToolBox.map[tilable.position].Update();
 
             if (tilable.def.type != TilableType.Undefined)
             {
@@ -177,13 +192,13 @@ namespace StandWorld.World
                 }
             }
 
-            ToolBox.map[tilable.position].Update();
             rebuildMatrices = true;
         }
         
         public void DelTilable(Tilable tilable) {
             Vector2Int localPosition = GetLocalPosition(tilable.position);
             tilables[localPosition.x + localPosition.y * rect.width] = null;
+            ToolBox.map[tilable.position].Update();
 
             if (tilable.def.type != TilableType.Undefined) {
                 tilablesByType[tilable.def.type].Remove(tilable);
@@ -192,7 +207,10 @@ namespace StandWorld.World
                 }
             }
 
-            rebuildMatrices = true;
+            if (tilable.def.graphics.isInstanced)
+            {
+               rebuildMatrices = true;
+            }
         }
 
         public void AddMatrice(int graphicID, Matrix4x4 matrice)

@@ -2,7 +2,7 @@
 {
     Properties
     {
-        _MainTexture("MainTexture", 2D) = "white" {}
+        _MainTex ("Main texture", 2D) = "white" {}
         _Flow ("Flow", 2D) = "white" {}
         _Wave ("Wave", 2D) = "white" {}
     }
@@ -18,7 +18,7 @@
             #include "UnityCG.cginc"
  
             // Colour texture / atlas for my tileset.
-            sampler2D _MainTexture;
+            sampler2D _MainTex;
             // Flowmap texture.
             sampler2D _Flow;
             // Wave surface texture.
@@ -96,7 +96,7 @@ float2 WaveAmount(float2 uv, float2 sampleSite)
 fixed4 Frag(v2f IN) : COLOR
 {
     // Sample the tilemap texture.
-    fixed4 c = tex2D(_MainTexture, IN.texcoord);
+    fixed4 c = tex2D(_MainTex, IN.texcoord);
  
     // In my case, I just select the water areas based on
     // how blue they are. A more robust method would be

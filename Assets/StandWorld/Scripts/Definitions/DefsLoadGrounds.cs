@@ -39,6 +39,7 @@ namespace StandWorld.Definitions
                 {
                     uID =  "water",
                     layer = Layer.Ground,
+                    blockPath = true,
                     graphics = new GraphicDef
                     {
                         textureName = "water",
@@ -58,6 +59,7 @@ namespace StandWorld.Definitions
                 {
                     uID =  "rock",
                     layer = Layer.Ground,
+                    pathCost = 1.05f,
                     graphics = new GraphicDef
                     {
                         textureName = "rock",

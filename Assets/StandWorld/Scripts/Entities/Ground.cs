@@ -10,7 +10,7 @@ namespace StandWorld.Entities
         {
             this.position = position;
             this.def = def;
-            this.mainGraphic = GraphicInstance.GetNew(def.graphics);
+            mainGraphic = GraphicInstance.GetNew(def.graphics);
         }
 
         public static TilableDef GroundByHeight(float height)
@@ -23,7 +23,7 @@ namespace StandWorld.Entities
                 }
             }
 
-            return Defs.grounds["water"];
+            return Defs.grounds["ground"];
         }
     }
 }

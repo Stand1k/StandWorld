@@ -36,14 +36,16 @@ namespace StandWorld.Controllers
 
             zoomDesired -= zoomDesired * Input.GetAxis("Mouse ScrollWheel") * sensitivity;
             zoomDesired = Mathf.Clamp(zoomDesired, zoomMin, zoomMax);
-
+            
+            //При зміні зума перераховуємо видимість камери
             if (zoom != _camera.orthographicSize)
             {
-                _camera.orthographicSize = zoom;
+                _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, zoom, 10 * Time.deltaTime);
                 UpdateViewRect();
             }
         }
 
+        // Задає розміри видимості камери
         private void UpdateViewRect()
         {
             viewRect = new RectI(
@@ -57,6 +59,7 @@ namespace StandWorld.Controllers
                 )
             );
             
+            //Оновлює дані видимості у всіх регіонах
             ToolBox.map.UpdateVisibles();
         }
 
@@ -66,7 +69,7 @@ namespace StandWorld.Controllers
             zoomMin = 0.1f;
             zoomMax = 1f;
             sensitivity = 1f;
-            zoomDesired = 0.2f;
+            zoomDesired = 0.3f;
         }
 
         private void Update()

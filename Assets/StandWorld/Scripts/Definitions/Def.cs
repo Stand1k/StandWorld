@@ -38,7 +38,22 @@ namespace StandWorld.Definitions
             return colors[Random.Range(0, colors.Count)];
         }
     }
-
+    
+    [System.Serializable]
+    public class GroundDef : Def
+    {
+        public float maxHeight;
+    }
+    
+    [System.Serializable]
+    public class PlantDef : Def
+    {
+        public float probability = 0f;
+        public float minFertility = 0f;
+        public int states = 5;
+        public float lifetime = 2f; // В днях
+    }
+    
     [System.Serializable]
     public class TilableDef : Def
     {
@@ -64,20 +79,5 @@ namespace StandWorld.Definitions
         public bool blockPlant = false;
         public bool blockStackable = false;
         public bool supportRoof = false;
-    }
-
-    [System.Serializable]
-    public class GroundDef : Def
-    {
-        public float maxHeight;
-    }
-    
-    [System.Serializable]
-    public class PlantDef : Def
-    {
-        public float probability = 0f;
-        public float minFertility = 0f;
-        public int states = 5;
-        public float lifetime = 2f; // В днях
     }
 }

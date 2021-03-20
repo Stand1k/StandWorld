@@ -6,6 +6,9 @@ using UnityEngine;
 
 namespace StandWorld.Entities
 {
+    /// <summary>
+    /// Перевіряє сусідні тайли і встановлює відповідний спрайт данному тайлу
+    /// </summary>
     public class ConnectedTilable
     {
         public bool[] connections = new bool[8];
@@ -83,6 +86,7 @@ namespace StandWorld.Entities
                 i++;
             }
 
+            // Оновлює спрайт данному тайлу
             if (connsInt != connectionsInt)
             {
                 connectionsInt = connsInt;

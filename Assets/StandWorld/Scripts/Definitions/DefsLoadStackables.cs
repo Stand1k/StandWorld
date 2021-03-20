@@ -19,6 +19,7 @@ namespace StandWorld.Definitions
                 {
                     uID = "logs",
                     layer = Layer.Stackable,
+                    blockStackable = true,
                     graphics = new GraphicDef
                     {
                         textureName = "logs_stack",

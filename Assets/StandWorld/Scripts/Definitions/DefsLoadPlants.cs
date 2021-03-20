@@ -19,6 +19,9 @@ namespace StandWorld.Definitions
                 {
                     uID = "grass",
                     layer = Layer.Plant,
+                    pathCost = .95f,
+                    blockPlant = true,
+                    blockStackable = true,
                     type = TilableType.Grass,
                     graphics = new GraphicDef
                     {
@@ -38,6 +41,9 @@ namespace StandWorld.Definitions
                     uID = "tree",
                     layer = Layer.Plant,
                     type = TilableType.Tree,
+                    blockPath = true,
+                    blockStackable = true,
+                    blockPlant = true,
                     graphics = new GraphicDef
                     {
                         textureName = "tree",

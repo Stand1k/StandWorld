@@ -1,4 +1,5 @@
-﻿using StandWorld.Definitions;
+﻿using StandWorld.Characters;
+using StandWorld.Definitions;
 using StandWorld.Game;
 using StandWorld.World;
 using UnityEngine;
@@ -7,6 +8,34 @@ namespace StandWorld.Visuals
 {
     public static class DebugRenderer 
     {
+        public static void DrawCurrentPath(CharacterMovement movement)
+        {
+            if (movement.destination != movement.position)
+            {
+                Gizmos.color = Color.blue;
+                Vector2Int[] path = movement.path.ToArray();
+
+                for (int i = 0; i < path.Length; i++)
+                {
+                    if (i == 0)
+                    {
+                        Gizmos.DrawLine(
+                            new Vector3(movement.visualPosition.x + 0.5f, movement.visualPosition.y + 0.5f),
+                            new Vector3(path[i].x + 0.5f, path[i].y + 0.5f)
+                        );
+                    }
+                    else
+                    {
+                        Gizmos.DrawLine(
+                            new Vector3(path[i - 1].x + 0.5f, path[i - 1].y + 0.5f),
+                            new Vector3(path[i].x + 0.5f, path[i].y + 0.5f)
+                            );
+                    }
+                }
+            }
+        }
+        
+        
         public static void DrawFertility()
         {
             Color color1 = new Color(1, 0, 0, 0.5f);
@@ -14,6 +43,21 @@ namespace StandWorld.Visuals
             foreach (Vector2Int v in ToolBox.cameraController.viewRect)
             {
                 Gizmos.color = Color.Lerp(color1, color2, ToolBox.map[v].fertility);
+                
+                Gizmos.DrawCube(
+                    new Vector3(v.x + 0.5f, v.y + 0.5f), 
+                    Vector3.one
+                );
+            }
+        }
+        
+        public static void DrawAStar()
+        {
+            Color color1 = new Color(1, 0, 0, 0.5f);
+            Color color2 = new Color(0, 1, 0, 0.5f);
+            foreach (Vector2Int v in ToolBox.cameraController.viewRect)
+            {
+                Gizmos.color = Color.Lerp(color1, color2, ToolBox.map[v].pathCost);
                 
                 Gizmos.DrawCube(
                     new Vector3(v.x + 0.5f, v.y + 0.5f), 
