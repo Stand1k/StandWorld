@@ -60,7 +60,7 @@ namespace StandWorld.Characters.AI
 
                         if (neighbourCost > neighbour.gCost || !openSet.Contains(neighbour))
                         {
-                            neighbour.gCost = neighbourCost;
+                            neighbour.gCost = neighbourCost; 
                             neighbour.hCost = Utils.Distance(neighbour.position, end.position);
                             neighbour.parent = current;
 

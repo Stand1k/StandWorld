@@ -13,19 +13,16 @@ public class TileProperty
     public Vector2Int position { get; protected set; }
     public float pathCost { get; protected set; }
     public float fertility { get; protected set; }
-
     public bool blockPath { get; protected set; }
     public bool blockPlant { get; protected set; }
     public bool blockStackable { get; protected set; }
     public bool blockBuilding { get; protected set; }
     public bool supportRoof { get; protected set; }
+    public bool reserved { get; set; }
 
     public float gCost;
     public float hCost;
-    public float fCost
-    {
-        get { return gCost + hCost; }
-    }
+    public float fCost => gCost + hCost;
     public TileProperty parent;
 
     public TileProperty(Vector2Int position)
@@ -43,6 +40,7 @@ public class TileProperty
         blockPlant = false;
         blockStackable = false;
         supportRoof = false;
+        reserved = false;
         gCost = 0;
         hCost = 0;
         parent = null;

@@ -171,7 +171,7 @@ MonoBehaviour:
   octaves: 4
   persistance: 0.463
   lacunarity: 1.6
-  seed: 10
+  seed: 17
   offset: {x: 0, y: 0}
   autoUpdate: 1
   regions:

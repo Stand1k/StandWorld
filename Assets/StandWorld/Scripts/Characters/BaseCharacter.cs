@@ -1,19 +1,19 @@
-﻿using StandWorld.Definitions;
+﻿using StandWorld.Characters.AI;
+using StandWorld.Definitions;
+using StandWorld.Entities;
 using StandWorld.Game;
 using StandWorld.Visuals;
 using UnityEngine;
 
 namespace StandWorld.Characters
 {
-    public abstract class BaseCharacter 
+    public abstract class BaseCharacter : Entity
     {
         public BaseStats stats { get; protected set; }
         public LivingDef def { get; protected set; }
         public GraphicInstance graphics { get; protected set; }
         
         public CharacterMovement movement { get; protected set; }
-        
-        public Vector2Int position { get; protected set; }
 
         private Mesh _mesh;
 
@@ -21,6 +21,7 @@ namespace StandWorld.Characters
         {
             stats = new BaseStats();
             this.def = def;
+            this.position = position;
             movement = new CharacterMovement(position);
 
             if (this.def.graphics != null)
@@ -33,7 +34,7 @@ namespace StandWorld.Characters
 
         public virtual void Update()
         {
-            movement.Move(new Vector2Int(Random.Range(15,35), Random.Range(15,35)));
+            movement.Move(Target.GetRandomTargetInRange(position));
         }
         
         public virtual void UpdateDraw()

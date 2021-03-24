@@ -211,7 +211,7 @@ namespace StandWorld.World
                 }
             }
             
-            foreach(Vector2Int position in new RectI(new Vector2Int(30,30),10,10))
+            /*foreach(Vector2Int position in new RectI(new Vector2Int(30,30),10,10))
             {
                 if (this[position].blockStackable == false)
                 {
@@ -221,7 +221,7 @@ namespace StandWorld.World
                         Random.Range(1, Defs.stackables["logs"].maxStack)
                     ));
                 }
-            }
+            }*/
             
         }
         

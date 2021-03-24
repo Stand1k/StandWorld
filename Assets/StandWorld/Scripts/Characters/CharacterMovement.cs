@@ -43,11 +43,11 @@ namespace StandWorld.Characters
             
         }
 
-        public void Move(Vector2Int dest)
+        public void Move(Target target)
         {
             if (_hasDestination == false)
             {
-                PathResult pathResult = Pathfinder.GetPath(position, dest);
+                PathResult pathResult = Pathfinder.GetPath(position, target.position);
 
                 if (pathResult.success == false)
                 {
@@ -57,7 +57,7 @@ namespace StandWorld.Characters
                 
                 _hasDestination = true;
                 _path = new Queue<Vector2Int>(pathResult.path);
-                destination = dest;
+                destination = target.position;
             }
 
             if (destination == position)

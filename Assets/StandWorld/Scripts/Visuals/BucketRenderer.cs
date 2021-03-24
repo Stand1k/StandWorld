@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace StandWorld.Visuals
 {
-    public class BucketRenderer 
+    public class BucketRenderer
     {
         public LayerBucketGrid bucket { get; protected set; }
 

@@ -6,10 +6,13 @@ using UnityEngine;
 
 namespace StandWorld.Entities
 {
-    public class Tilable 
+    public abstract class  Entity
     {
         public Vector2Int position { get; protected set; }
-        
+    }
+
+    public class Tilable : Entity
+    {
         public Vector3 scale = Vector3.one;
         
         public TilableDef def { get; protected set; }

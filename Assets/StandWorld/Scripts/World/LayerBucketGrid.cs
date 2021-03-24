@@ -130,14 +130,13 @@ namespace StandWorld.World
                     kv.Value
                     );
             }
-            
         }
 
         public void BuildStaticMeshes()
         { 
             _staticRenderer.BuildMeshes();
         }
-
+        
         /// <summary>
         /// Конвертує глобальні координати тайла в локальні для цього регіона
         /// </summary>

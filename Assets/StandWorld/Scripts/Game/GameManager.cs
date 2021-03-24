@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using StandWorld.Characters;
+using StandWorld.Characters.AI;
 using StandWorld.Controllers;
 using StandWorld.Definitions;
 using StandWorld.Entities;
@@ -47,18 +48,13 @@ namespace StandWorld.Game
             map.TempMapGen();
             map.BuildAllMeshes();
             
-            /*Debug.Log(new HumanStats());
             Debug.Log(new HumanStats());
             Debug.Log(new HumanStats());
-            Debug.Log(new HumanStats());
-            Debug.Log(new HumanStats());*/
             
-            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10,10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            
          
             StartCoroutine(TickUpdate());
             _ready = true;
@@ -81,6 +77,20 @@ namespace StandWorld.Game
             }
         }
 
+
+        private float time = 5f;
+
+        void TimeMinuas(float decreaser)
+        {
+            if (time < 0f) 
+            {
+                tick.DoTick();
+                time = 5f;
+            }
+
+            time -= Time.fixedTime;
+        }
+        
         IEnumerator TickUpdate()
         {
             for (;;)
