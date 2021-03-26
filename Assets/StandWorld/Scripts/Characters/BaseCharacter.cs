@@ -12,8 +12,9 @@ namespace StandWorld.Characters
         public BaseStats stats { get; protected set; }
         public LivingDef def { get; protected set; }
         public GraphicInstance graphics { get; protected set; }
-        
+        public new Vector2Int position => movement.position;
         public CharacterMovement movement { get; protected set; }
+        public TaskRunner taskRunner { get; protected set; }
 
         private Mesh _mesh;
 
@@ -21,8 +22,8 @@ namespace StandWorld.Characters
         {
             stats = new BaseStats();
             this.def = def;
-            this.position = position;
             movement = new CharacterMovement(position);
+            taskRunner = new TaskRunner();
 
             if (this.def.graphics != null)
             {
@@ -34,7 +35,14 @@ namespace StandWorld.Characters
 
         public virtual void Update()
         {
-            movement.Move(Target.GetRandomTargetInRange(position));
+            if (taskRunner.running == false || taskRunner.task.taskStatus == TaskStatus.Failed || taskRunner.task.taskStatus == TaskStatus.Success)
+            {
+                taskRunner.StartTask(Defs.tasks["task_idle"],this, new TargetList(Target.GetRandomTargetInRange(position)));
+            }
+            else
+            {
+                taskRunner.task.Update();
+            }
         }
         
         public virtual void UpdateDraw()
@@ -56,13 +64,6 @@ namespace StandWorld.Characters
                 graphics.material,
                 0
                 );
-        }
-    }
-
-    public class Animal : BaseCharacter
-    {
-        public Animal(Vector2Int position, LivingDef def) : base(position, def)
-        {
         }
     }
 }

@@ -18,5 +18,7 @@ namespace StandWorld.Definitions
         public static Dictionary<string, TilableDef> stackables;
         
         public static Dictionary<string, AnimalDef> animals;
+        
+        public static Dictionary<string, TaskDef> tasks;
     }
 }

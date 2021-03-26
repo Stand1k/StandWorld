@@ -54,6 +54,15 @@ namespace StandWorld.Game
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             
          
             StartCoroutine(TickUpdate());

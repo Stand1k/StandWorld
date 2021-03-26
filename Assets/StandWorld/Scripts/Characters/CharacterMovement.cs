@@ -43,21 +43,22 @@ namespace StandWorld.Characters
             
         }
 
-        public void Move(Target target)
+        public void Move(Task task)
         {
             if (_hasDestination == false)
             {
-                PathResult pathResult = Pathfinder.GetPath(position, target.position);
+                PathResult pathResult = Pathfinder.GetPath(position, task.targets.currentPosition);
 
                 if (pathResult.success == false)
                 {
                     Debug.LogError("Move success == false");
+                    task.taskStatus = TaskStatus.Failed; 
                     return;
                 }
                 
                 _hasDestination = true;
                 _path = new Queue<Vector2Int>(pathResult.path);
-                destination = target.position;
+                destination = task.targets.currentPosition;
             }
 
             if (destination == position)
@@ -73,7 +74,6 @@ namespace StandWorld.Characters
             }
 
             float distance = Utils.Distance(position, _nextPosition);
-
             float distanceThisFrame = _speed * ToolBox.map[position].pathCost;
             _movementPercent += distanceThisFrame / distance;
 
