@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace StandWorld.Characters
 {
@@ -17,7 +15,7 @@ namespace StandWorld.Characters
             foreach (Stats stat in StatsUtils.stats)
             {
                 stats.Add(stat, new StatsBase(stat.ToString()));
-                stats[stat].baseValue = Random.Range(1, 10);
+                stats[stat].baseValue = Random.Range(5, 10);
             }
 
             vitals = new Dictionary<Vitals, Vital>();
@@ -25,7 +23,7 @@ namespace StandWorld.Characters
             {
                 vitals.Add(vital, new Vital(vital.ToString()));
             }
-            
+
             LoadVitals();
 
             attributes = new Dictionary<Attributes, Attribute>();
@@ -37,16 +35,31 @@ namespace StandWorld.Characters
             LoadAttributes();
         }
 
-        public virtual void  LoadAttributes()
+        protected virtual void LoadAttributes()
         {
-            attributes[Attributes.WalkSpeed].AddModifier(new StatModifier(stats[Stats.Strength], 1f));
-            attributes[Attributes.WalkSpeed].AddModifier(new StatModifier(stats[Stats.Endurance], 1f));
-            
-            attributes[Attributes.HealthRegen].AddModifier(new StatModifier(stats[Stats.Strength], 0.5f));
-            attributes[Attributes.HealthRegen].AddModifier(new StatModifier(stats[Stats.Endurance], 0.5f));
-            
-            attributes[Attributes.EnergyRegen].AddModifier(new StatModifier(stats[Stats.Wisdom], 0.5f));
-            attributes[Attributes.EnergyRegen].AddModifier(new StatModifier(stats[Stats.Endurance], 0.5f));
+            attributes[Attributes.WalkSpeed].AddModifier(new StatModifier(stats[Stats.Strength], .3f));
+            attributes[Attributes.WalkSpeed].AddModifier(new StatModifier(stats[Stats.Endurance], .2f));
+
+            attributes[Attributes.HealthRegen].AddModifier(new StatModifier(stats[Stats.Strength], .1f));
+            attributes[Attributes.HealthRegen].AddModifier(new StatModifier(stats[Stats.Endurance], .2f));
+
+            attributes[Attributes.EnergyRegen].AddModifier(new StatModifier(stats[Stats.Endurance], .2f));
+
+            attributes[Attributes.PhysicalResistance].AddModifier(new StatModifier(stats[Stats.Strength], .1f));
+            attributes[Attributes.MagicalResistance].AddModifier(new StatModifier(stats[Stats.Endurance], .3f));
+
+            attributes[Attributes.PhysicalAttack].AddModifier(new StatModifier(stats[Stats.Strength], .3f));
+            attributes[Attributes.PhysicalAttack].AddModifier(new StatModifier(stats[Stats.Agility], .2f));
+
+            attributes[Attributes.ManaRegen].AddModifier(new StatModifier(stats[Stats.Intellect], .3f));
+            attributes[Attributes.ManaRegen].AddModifier(new StatModifier(stats[Stats.Wisdom], .2f));
+
+            attributes[Attributes.CriticalChance].AddModifier(new StatModifier(stats[Stats.Agility], .2f));
+            attributes[Attributes.CriticalChance].AddModifier(new StatModifier(stats[Stats.Intellect], .2f));
+
+            attributes[Attributes.Charisma].AddModifier(new StatModifier(stats[Stats.Wisdom], .2f));
+            attributes[Attributes.Charisma].AddModifier(new StatModifier(stats[Stats.Strength], .2f));
+
 
             foreach (Attribute att in attributes.Values)
             {
@@ -54,14 +67,14 @@ namespace StandWorld.Characters
             }
         }
 
-        public virtual void LoadVitals()
+        protected virtual void LoadVitals()
         {
-            vitals[Vitals.Healt].AddModifier(new StatModifier(stats[Stats.Endurance], 20f));
-            vitals[Vitals.Energy].AddModifier(new StatModifier(stats[Stats.Agility], 2f));
-            vitals[Vitals.Energy].AddModifier(new StatModifier(stats[Stats.Strength], 2f));
-            vitals[Vitals.Energy].AddModifier(new StatModifier(stats[Stats.Wisdom], 2f));
+            vitals[Vitals.Health].AddModifier(new StatModifier(stats[Stats.Endurance], 20f));
+            vitals[Vitals.Energy].AddModifier(new StatModifier(stats[Stats.Agility], 5f));
+            vitals[Vitals.Energy].AddModifier(new StatModifier(stats[Stats.Strength], 5f));
+            vitals[Vitals.Energy].AddModifier(new StatModifier(stats[Stats.Wisdom], 5f));
             vitals[Vitals.Mana].AddModifier(new StatModifier(stats[Stats.Intellect], 10f));
-            
+
             foreach (Vital vital in vitals.Values)
             {
                 vital.Update();
@@ -69,22 +82,30 @@ namespace StandWorld.Characters
             }
         }
 
+        public virtual void Update()
+        {
+            if (vitals[Vitals.Energy].currentValue > 0)
+            {
+                vitals[Vitals.Energy].currentValue -= 0.02f;
+            }
+        }
+
         public override string ToString()
         {
-            string str = "HumanStats(";
-            foreach (StatsBase statsBase in stats.Values)
+            string str = "BaseStats(";
+            foreach (StatsBase stat in stats.Values)
             {
-                str += statsBase.name + ": " + statsBase.value + " | ";
+                str += stat.name + ":" + stat.value + ",";
             }
-            
-            foreach (Vital vital in vitals.Values)
+
+            foreach (Vital stat in vitals.Values)
             {
-                str += vital.name + ": " + vital.value + " | ";
+                str += stat.name + ":" + stat.value + ",";
             }
-            
-            foreach (Attribute att in attributes.Values)
+
+            foreach (Attribute stat in attributes.Values)
             {
-                str += att.name + ": " + att.value + " | ";
+                str += stat.name + ":" + stat.value + ",";
             }
 
             return str + ")";

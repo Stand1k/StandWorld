@@ -7,7 +7,7 @@ using StandWorld.Entities;
 using StandWorld.Visuals;
 using StandWorld.World;
 using UnityEngine;
-    
+
 namespace StandWorld.Game
 {
     public class GameManager : MonoBehaviour
@@ -16,7 +16,7 @@ namespace StandWorld.Game
         public StackableLabelController stackableLabelController;
         public Map map;
         public Tick tick;
-        
+
         public bool DrawGizmosTiles;
         public bool DrawNoiseMap;
         public bool DrawBuckets;
@@ -24,10 +24,10 @@ namespace StandWorld.Game
         public bool DrawAStar;
         public bool DrawPaths;
 
-        [Header("World size")] 
-        public Vector2 mapSize;
-        [Space]
-        
+        [Header("World size")] public Vector2 mapSize;
+
+        public bool ready => _ready;
+
         private bool _ready;
 
         private void Awake()
@@ -42,15 +42,12 @@ namespace StandWorld.Game
         private void Start()
         {
             tick = new Tick();
-            map = new Map((int)mapSize.x, (int)mapSize.y);
-            
+            map = new Map((int) mapSize.x, (int) mapSize.y);
+
             Debug.Log(map);
             map.TempMapGen();
             map.BuildAllMeshes();
-            
-            Debug.Log(new HumanStats());
-            Debug.Log(new HumanStats());
-            
+
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
@@ -63,8 +60,8 @@ namespace StandWorld.Game
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            
-         
+
+
             StartCoroutine(TickUpdate());
             _ready = true;
         }
@@ -86,12 +83,11 @@ namespace StandWorld.Game
             }
         }
 
-
         private float time = 5f;
 
         void TimeMinuas(float decreaser)
         {
-            if (time < 0f) 
+            if (time < 0f)
             {
                 tick.DoTick();
                 time = 5f;
@@ -99,7 +95,7 @@ namespace StandWorld.Game
 
             time -= Time.fixedTime;
         }
-        
+
         IEnumerator TickUpdate()
         {
             for (;;)
@@ -108,21 +104,21 @@ namespace StandWorld.Game
                 tick.DoTick();
             }
         }
-        
+
         private void OnDrawGizmos()
         {
             if (_ready && Settings.DEBUG)
             {
                 if (DrawBuckets)
                 {
-                   DebugRenderer.DrawBuckets();
+                    DebugRenderer.DrawBuckets();
                 }
-                
+
                 if (DrawNoiseMap)
                 {
                     DebugRenderer.DrawNoiseMap();
                 }
-                
+
                 if (DrawGizmosTiles)
                 {
                     DebugRenderer.DrawTiles();
@@ -145,10 +141,7 @@ namespace StandWorld.Game
                         DebugRenderer.DrawCurrentPath(character.movement);
                     }
                 }
-
             }
         }
-            
     }
 }
-

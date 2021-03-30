@@ -15,6 +15,8 @@ namespace StandWorld.Characters
         public new Vector2Int position => movement.position;
         public CharacterMovement movement { get; protected set; }
         public TaskRunner taskRunner { get; protected set; }
+        
+        public string name { get; protected set; }
 
         private Mesh _mesh;
 
@@ -22,8 +24,9 @@ namespace StandWorld.Characters
         {
             stats = new BaseStats();
             this.def = def;
-            movement = new CharacterMovement(position);
+            movement = new CharacterMovement(position, this);
             taskRunner = new TaskRunner();
+            name = "Chel " + Random.Range(1, 1000);
 
             if (this.def.graphics != null)
             {
@@ -43,6 +46,8 @@ namespace StandWorld.Characters
             {
                 taskRunner.task.Update();
             }
+            
+            stats.Update();
         }
         
         public virtual void UpdateDraw()

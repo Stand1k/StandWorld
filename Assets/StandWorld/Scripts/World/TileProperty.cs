@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Priority_Queue;
+using StandWorld.Characters;
 using StandWorld.Entities;
 using StandWorld.Game;
 using UnityEngine;
@@ -20,14 +21,17 @@ public class TileProperty
     public bool supportRoof { get; protected set; }
     public bool reserved { get; set; }
 
-    public float gCost;
-    public float hCost;
+    public float gCost { get; set; }
+    public float hCost { get; set; }
     public float fCost => gCost + hCost;
-    public TileProperty parent;
+    public TileProperty parent { get; set; }
+
+    public List<BaseCharacter> characters { get; set; }
 
     public TileProperty(Vector2Int position)
     {
         this.position = position;
+        characters = new List<BaseCharacter>();
         Reset();
     }
 

@@ -118,7 +118,7 @@ namespace StandWorld.Characters.AI
         
         public virtual bool Perform()
         {
-            if (def.ticksToPerform == 0)
+            if (def.ticksToPerform <= 0)
             {
                 End();
                 return true;

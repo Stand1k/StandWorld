@@ -25,7 +25,7 @@ namespace StandWorld.Characters
     public enum Attributes
     {
         WalkSpeed,              // [Strength + Endurance ]
-        Charisma,               //[Wisdom + Strength]
+        Charisma,               // [Wisdom + Strength]
         InventorySize,          // [Strength]
         PhysicalResistance,     // [Strength + Endurance]
         PhysicalAttack,         // [Strength + Agility]
@@ -40,7 +40,7 @@ namespace StandWorld.Characters
     [System.Serializable]
     public enum Vitals 
     {
-        Healt,  //[Endurance]
+        Health,  //[Endurance]
         Energy, //[Endurance]
         Mana,   //[Intillect]
     }
@@ -48,14 +48,14 @@ namespace StandWorld.Characters
     [System.Serializable]
     public enum Skills
     {
-        Healing,            //[Wisdom + Intellect]
-        Building,           //[Agility + Intellect]
+        Healing,            // [Wisdom + Intellect]
+        Building,           // [Agility + Intellect]
         Manufacturing,      // [Agility + Intellect]
         Entertaining,       // [Charisma]
-        Growing,            //[Agility + Wisdom]
+        Growing,            // [Agility + Wisdom]
         Cutting,            // [Strength + Agility]
         Mining,             // [Strngth + Agility]
-        Cooking,             // [Agility + Intellect]
+        Cooking,            // [Agility + Intellect]
     }
 }
 

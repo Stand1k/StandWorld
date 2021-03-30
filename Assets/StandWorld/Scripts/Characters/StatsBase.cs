@@ -6,11 +6,11 @@ namespace StandWorld.Characters
     {
         public string name;
         
-        public int baseValue;
+        public float baseValue;
 
-        public int buffValue;
+        public float buffValue;
 
-        public int value => baseValue + buffValue;
+        public float value => baseValue + buffValue;
 
         public StatsBase(string name)
         {
@@ -64,15 +64,20 @@ namespace StandWorld.Characters
 
     public class Vital : Attribute
     {
-        private int _currentValue;
+        private float _currentValue;
 
-        public int currentValue
+        public float currentValue
         {
             get
             {
                 if (_currentValue > value)
                 {
                     _currentValue = value;
+                }
+
+                if (_currentValue < 0)
+                {
+                    _currentValue = 0;
                 }
 
                 return _currentValue;

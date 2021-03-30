@@ -13,7 +13,6 @@ namespace StandWorld.Game
 
         public const bool DEBUG = true;
         
-        
         public static float noiseScale;
         public static int octaves;
         public static  float persistance;

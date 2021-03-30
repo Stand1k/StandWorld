@@ -21,5 +21,10 @@ namespace StandWorld.Helpers
                 Mathf.Pow(a.y - (float)b.y, 2)				
             );
         }
+        
+        public static float Normalize(float min, float max, float value)
+        {
+            return (value - min) / (max - min);
+        }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+﻿    using System.Collections.Generic;
 using UnityEngine;
 
 namespace StandWorld.Definitions
@@ -18,6 +18,7 @@ namespace StandWorld.Definitions
                 new AnimalDef
                 {
                     uID = "chiken",
+                    shortDescription = "Курица — самая многочисленная и распространённая домашняя птица.",
                     graphics = new GraphicDef
                     {
                         textureName = "chicken_front"

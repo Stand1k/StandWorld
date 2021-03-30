@@ -15,11 +15,13 @@ namespace StandWorld.Controllers
         public float zoom => (zoomDesired * (ToolBox.map.size.x / PIXEL_PER_UNIT));
         public float sensitivity { get; protected set; }
         public Vector3 mousePosition { get; protected set; }
-        private Vector3 _lastMousePosition;
-        
+
+        public Vector2Int tileMapMousePosition => new Vector2Int((int) mousePosition.x, (int) mousePosition.y);
+
         public RectI viewRect;
 
         private Camera _camera;
+        private Vector3 _lastMousePosition;
 
         private void UpdateCamera()
         {

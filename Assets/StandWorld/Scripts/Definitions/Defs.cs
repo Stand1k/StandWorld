@@ -10,6 +10,8 @@ namespace StandWorld.Definitions
         public static SortedDictionary<float, TilableDef> groundsByHeight;
 
         public static Dictionary<string, ColorPaletteDef> colorPallets;
+        
+        public static Dictionary<string, NamedColorPaletteDef> namedColorPallets;
 
         public static Dictionary<string, TilableDef> plants;
 

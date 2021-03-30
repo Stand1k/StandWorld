@@ -11,7 +11,7 @@ namespace StandWorld.Characters
         {
         }
 
-        public override void LoadAttributes()
+        protected override void LoadAttributes()
         {
             base.LoadAttributes();
             

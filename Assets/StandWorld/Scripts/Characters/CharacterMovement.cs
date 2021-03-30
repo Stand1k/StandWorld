@@ -7,11 +7,12 @@ using UnityEngine;
 
 namespace StandWorld.Characters
 {
-    public class CharacterMovement 
+    public class CharacterMovement
     {
         public Vector2Int position { get; protected set; }
-        public Vector2Int destination { get; protected set; }
         public Direction lookingAt { get; protected set; }
+        public Vector2Int destination { get; protected set; }
+
         public Queue<Vector2Int> path => _path;
 
         public Vector3 visualPosition
@@ -19,28 +20,30 @@ namespace StandWorld.Characters
             get
             {
                 return new Vector3(
-                    Mathf.Lerp(position.x,_nextPosition.x,_movementPercent),
-                    Mathf.Lerp(position.y,_nextPosition.y,_movementPercent),
+                    Mathf.Lerp(position.x, _nextPosition.x, _movementPercent),
+                    Mathf.Lerp(position.y, _nextPosition.y, _movementPercent),
                     LayerUtils.Height(Layer.Count)
                 );
             }
         }
 
-        private Queue<Vector2Int> _path;
         private float _movementPercent;
         private Vector2Int _nextPosition;
         private bool _hasDestination;
+        private Queue<Vector2Int> _path;
         private float _speed = 0.02f;
+        private BaseCharacter _character;
 
-        public CharacterMovement(Vector2Int position)
+        public CharacterMovement(Vector2Int position, BaseCharacter character)
         {
             this.position = position;
+            _character = character;
+            ToolBox.map[this.position].characters.Add(_character);
             ResetMovement();
         }
 
         private void UpdateLookingAt()
         {
-            
         }
 
         public void Move(Task task)
@@ -51,11 +54,11 @@ namespace StandWorld.Characters
 
                 if (pathResult.success == false)
                 {
-                    Debug.LogError("Move success == false");
-                    task.taskStatus = TaskStatus.Failed; 
+                    task.taskStatus = TaskStatus.Failed; // Maybe a special failed condition;
+                    ResetMovement();
                     return;
                 }
-                
+
                 _hasDestination = true;
                 _path = new Queue<Vector2Int>(pathResult.path);
                 destination = task.targets.currentPosition;
@@ -79,10 +82,13 @@ namespace StandWorld.Characters
 
             if (_movementPercent >= 1f)
             {
+                ToolBox.map[position].characters.Remove(_character);
+                ToolBox.map[_nextPosition].characters.Add(_character);
                 position = _nextPosition;
                 _movementPercent = 0f;
             }
         }
+
 
         private void ResetMovement()
         {
