@@ -1,6 +1,6 @@
 ﻿using System;
 using StandWorld.Definitions;
-using StandWorld.Entities;
+using UnityEngine;
 
 namespace StandWorld.Characters.AI
 {
@@ -34,18 +34,22 @@ namespace StandWorld.Characters.AI
         public TaskRunner taskRunner { get; protected set; }
         public TaskStatus taskStatus { get; set; }
         public TargetList targets { get; protected set; }
-        public TaskDef def => taskRunner.def;
 
-        private bool _start = false;
-        private bool _inRange = false;
-        private int _ticks = 0;
-        private int _tickToPerform = 0;
-
-        public Task(BaseCharacter character, TaskRunner taskRunner, TargetList targets)
+        public TaskDef def
         {
-            this.character = character;
+            get { return taskRunner.def; }
+        }
+
+        private bool _inRange;
+        private int _ticks;
+        private int _ticksToPerform;
+
+        public Task(TaskData taskData, TaskRunner taskRunner)
+        {
             this.taskRunner = taskRunner;
-            this.targets = targets;
+            character = taskData.character;
+            targets = taskData.targets;
+            _ticksToPerform = taskData.ticksToPerform;
             Start();
         }
 
@@ -59,7 +63,7 @@ namespace StandWorld.Characters.AI
 
             if (def.targetType == TargetType.None)
             {
-               Run();
+                Run();
             }
             else
             {
@@ -78,61 +82,55 @@ namespace StandWorld.Characters.AI
         {
             if (targets.current == null)
             {
-                taskStatus = TaskStatus.Failed;
-                return;
+                taskStatus = TaskStatus.Failed; 
             }
-
-            if (character.position == targets.currentPosition)
+            else
             {
-                _inRange = true;
-                return;
+                if (
+                    character.position == targets.currentPosition
+                )
+                {
+                    _inRange = true;
+                    return;
+                }
+
+                character.movement.Move(this);
             }
-                
-            character.movement.Move(this);
         }
 
         private void Run()
         {
-            if (!_start)
-            {
-                _start = true;
-                Start();
-            }
-
             if (Perform())
             {
                 End();
             }
         }
-        
+
         public virtual void End()
         {
             taskStatus = TaskStatus.Success;
+            taskRunner.EndTask();
         }
-        
+
         public virtual void Start()
         {
             taskStatus = TaskStatus.Running;
-            _tickToPerform = def.ticksToPerform;
         }
-        
+
         public virtual bool Perform()
         {
-            if (def.ticksToPerform <= 0)
+            if (_ticksToPerform <= 0)
             {
-                End();
                 return true;
             }
 
             _ticks++;
-            if (_ticks >= _tickToPerform)
+            if (_ticks >= _ticksToPerform)
             {
-                End();
                 return true;
             }
 
             return false;
         }
-
     }
 }

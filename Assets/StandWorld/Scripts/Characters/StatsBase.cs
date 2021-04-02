@@ -1,44 +1,43 @@
 ﻿using System.Collections.Generic;
+using StandWorld.Helpers;
 
 namespace StandWorld.Characters
 {
-    public class StatsBase
+    public class Stat
     {
         public string name;
-        
+
         public float baseValue;
 
         public float buffValue;
 
         public float value => baseValue + buffValue;
 
-        public StatsBase(string name)
+        public Stat(string name)
         {
-            this.name = name;   
+            this.name = name;
             baseValue = 0;
             buffValue = 0;
         }
     }
 
-    //Модифікує неявні харакатеристики
     public class StatModifier
     {
-        public StatsBase stat;
+        public Stat stat;
 
         public float ratio;
 
-        public StatModifier(StatsBase stat, float ratio)
+        public StatModifier(Stat stat, float ratio)
         {
             this.stat = stat;
             this.ratio = ratio;
         }
     }
-    
-    //Неявні(Implicit) характеристики (розраховується у співвідношенні до однієї або багатьох неявних(Explicit) характеристик)
-    public class Attribute : StatsBase
+
+    public class Attribute : Stat
     {
         private List<StatModifier> _modifiers;
-
+        
         public Attribute(string name) : base(name)
         {
             _modifiers = new List<StatModifier>();
@@ -82,11 +81,17 @@ namespace StandWorld.Characters
 
                 return _currentValue;
             }
+            set { _currentValue = value; }
+        }
 
-            set
+        public bool ValueInfToPercent(float v)
+        {
+            if (v >= Utils.Normalize(0, value, currentValue))
             {
-                _currentValue = value;
+                return true;
             }
+
+            return false;
         }
 
         public Vital(string name) : base(name)
@@ -100,3 +105,4 @@ namespace StandWorld.Characters
         }
     }
 }
+

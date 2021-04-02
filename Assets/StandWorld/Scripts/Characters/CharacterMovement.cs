@@ -54,7 +54,7 @@ namespace StandWorld.Characters
 
                 if (pathResult.success == false)
                 {
-                    task.taskStatus = TaskStatus.Failed; // Maybe a special failed condition;
+                    task.taskStatus = TaskStatus.Failed; 
                     ResetMovement();
                     return;
                 }

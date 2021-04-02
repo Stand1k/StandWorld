@@ -60,13 +60,13 @@ namespace StandWorld.Characters.AI
                 Random.Range(position.y - range, position.y + range)
             );
 
-            /*while (ToolBox.map[targerPosition] == null || ToolBox.map[targerPosition].blockPath || ToolBox.map[targerPosition].reserved)
+            while (ToolBox.map[targerPosition] == null || ToolBox.map[targerPosition].blockPath || ToolBox.map[targerPosition].reserved)
             {
                 targerPosition = new Vector2Int(
                     Random.Range(position.x - range, position.x + range),
                     Random.Range(position.y - range, position.y + range)
                 );
-            }*/
+            }
 
             return new Target(targerPosition);
         }

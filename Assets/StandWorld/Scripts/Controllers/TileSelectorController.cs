@@ -6,40 +6,55 @@ using UnityEngine;
 
 namespace StandWorld.Controllers
 {
-    public class TileSelectorController : MonoBehaviour {
+    public class TileSelectorController : MonoBehaviour
+    {
         private Vector2Int currentTilePosition;
-        private int currentIndex = 0;
+        private int currentIndex;
         private Dictionary<BaseCharacter, WindowCharacter> _characterWindows;
-		
-        private void Awake() {
-            this._characterWindows = new Dictionary<BaseCharacter, WindowCharacter>();
+
+        private void Awake()
+        {
+            _characterWindows = new Dictionary<BaseCharacter, WindowCharacter>();
         }
 
-        private void Update() {
-            if (ToolBox.manager.ready) {
+        private void Update()
+        {
+            if (ToolBox.manager.ready)
+            {
                 int i = 0;
-                if (Input.GetMouseButton(0)) { /// Check if we're in building mode;
-                    foreach (BaseCharacter character in ToolBox.map[ToolBox.cameraController.tileMapMousePosition].characters) {
-                        if (i == this.currentIndex) {
-                            this.DisplayCharacterData(ToolBox.cameraController.tileMapMousePosition, character);
+                if (Input.GetMouseButton(0))
+                {
+                    foreach (BaseCharacter character in ToolBox.map[ToolBox.cameraController.tileMapMousePosition].characters)
+                    {
+                        if (i == currentIndex)
+                        {
+                            DisplayCharacterData(ToolBox.cameraController.tileMapMousePosition, character);
                         }
+
                         i++;
                     }
                 }
             }
         }
 
-        private void DisplayCharacterData(Vector2Int position, BaseCharacter character) {
-            if (this.currentTilePosition == position) {
-                this.currentIndex++;
-            } else {
-                this.currentIndex = 0;
+        private void DisplayCharacterData(Vector2Int position, BaseCharacter character)
+        {
+            if (currentTilePosition == position)
+            {
+                currentIndex++;
             }
-			
-            if (this._characterWindows.ContainsKey(character)) {
-                this._characterWindows[character].Show();
-            } else {
-                this._characterWindows.Add(character, new WindowCharacter(character));
+            else
+            {
+                currentIndex = 0;
+            }
+
+            if (_characterWindows.ContainsKey(character))
+            {
+                _characterWindows[character].Show();
+            }
+            else
+            {
+                _characterWindows.Add(character, new WindowCharacter(character));
             }
         }
     }

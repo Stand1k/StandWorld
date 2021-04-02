@@ -23,7 +23,7 @@ namespace StandWorld.UI
                 foreach (Vital vital in _character.stats.vitals.Values)
                 {
                     WindowComponents.FillableBarWithLabelValue(
-                        vGrid.GetNewRect(20f),
+                        vGrid.GetNewRect(30f),
                         vital.name,
                         vital,
                         Defs.namedColorPallets["cols_vitals"].colors[vital.name]
@@ -31,9 +31,9 @@ namespace StandWorld.UI
                 }
 
                 vGrid.H2("Stats");
-                foreach (StatsBase stat in _character.stats.stats.Values)
+                foreach (Stat stat in _character.stats.stats.Values)
                 {
-                    WindowComponents.SimpleStat(vGrid.GetNewRect(20f), stat.name, stat.value, stat.baseValue);
+                    WindowComponents.SimpleStat(vGrid.GetNewRect(25f), stat.name, stat.value, stat.baseValue);
                 }
             }
             else if (activeTab == 1)
@@ -41,9 +41,9 @@ namespace StandWorld.UI
                 vGrid.H2("Info");
                 vGrid.Paragraph(_character.def.shortDescription);
                 vGrid.H2("Detailled Stats");
-                foreach (StatsBase attr in _character.stats.attributes.Values)
+                foreach (Stat attr in _character.stats.attributes.Values)
                 {
-                    WindowComponents.SimpleStat(vGrid.GetNewRect(20f), attr.name, attr.value, attr.baseValue);
+                    WindowComponents.SimpleStat(vGrid.GetNewRect(25f), attr.name, attr.value, attr.baseValue);
                 }
             }
         }

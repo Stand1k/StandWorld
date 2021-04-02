@@ -1,4 +1,5 @@
 ﻿using StandWorld.Characters.AI;
+using StandWorld.Characters.AI.Node;
 using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Game;
@@ -9,12 +10,12 @@ namespace StandWorld.Characters
 {
     public abstract class BaseCharacter : Entity
     {
-        public BaseStats stats { get; protected set; }
+        public CharacterStats stats { get; protected set; }
         public LivingDef def { get; protected set; }
         public GraphicInstance graphics { get; protected set; }
         public new Vector2Int position => movement.position;
         public CharacterMovement movement { get; protected set; }
-        public TaskRunner taskRunner { get; protected set; }
+        public CharacterBrain brain { get; protected set; }
         
         public string name { get; protected set; }
 
@@ -22,10 +23,10 @@ namespace StandWorld.Characters
 
         public BaseCharacter(Vector2Int position, LivingDef def)
         {
-            stats = new BaseStats();
+            stats = new HumanStats(); //TODO: Переробити шоб все було через UpCast
             this.def = def;
             movement = new CharacterMovement(position, this);
-            taskRunner = new TaskRunner();
+            brain = new CharacterBrain(this, GetBrainNode());
             name = "Chel " + Random.Range(1, 1000);
 
             if (this.def.graphics != null)
@@ -36,17 +37,21 @@ namespace StandWorld.Characters
             ToolBox.tick.toAdd.Enqueue(Update);
         }
 
+        public virtual BrainNodePriority GetBrainNode()
+        {
+            BrainNodePriority brainNode = new BrainNodePriority();
+
+            brainNode.AddSubnode(new SleepNode(
+                () => stats.vitals[Vitals.Energy].ValueInfToPercent(0.2f))
+            );
+            brainNode.AddSubnode(new IdleNodeTaskData());
+            
+            return brainNode;
+        }
+
         public virtual void Update()
         {
-            if (taskRunner.running == false || taskRunner.task.taskStatus == TaskStatus.Failed || taskRunner.task.taskStatus == TaskStatus.Success)
-            {
-                taskRunner.StartTask(Defs.tasks["task_idle"],this, new TargetList(Target.GetRandomTargetInRange(position)));
-            }
-            else
-            {
-                taskRunner.task.Update();
-            }
-            
+            brain.Update();
             stats.Update();
         }
         

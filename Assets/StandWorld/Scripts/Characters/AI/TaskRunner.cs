@@ -1,4 +1,5 @@
-﻿using StandWorld.Definitions;
+﻿using System;
+using StandWorld.Definitions;
 
 namespace StandWorld.Characters.AI
 {
@@ -7,22 +8,23 @@ namespace StandWorld.Characters.AI
         public TaskDef def { get; protected set; }
         public Task task { get; protected set; } 
         public bool running { get; protected set; }
+        public Action onEndTask = null;
 
         public TaskRunner()
         {
             running = false;
         }
 
-        public void StartTask(TaskDef def, BaseCharacter character, TargetList targets)
+        public void StartTask(TaskData taskData)
         {
-            this.def = def;
-            if (this.def.taskType == TaskType.Sleep)
+            def = taskData.def;
+            if (def.taskType == TaskType.Sleep)
             {
-                task = new TaskSleep(character, this, targets);
+                task = new TaskSleep(taskData, this);
             }
-            else if (this.def.taskType == TaskType.Idle)
+            else if (def.taskType == TaskType.Idle)
             {
-                task = new TaskIdle(character, this, targets);
+                task = new TaskIdle(taskData, this);
             }
 
             running = true;
@@ -30,7 +32,13 @@ namespace StandWorld.Characters.AI
 
         public void EndTask()
         {
+            if (onEndTask != null)
+            {
+                onEndTask();
+            }
+            
             running = false;
+            task = null;
         }
     }
 }

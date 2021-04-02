@@ -1,20 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
-using Random = UnityEngine.Random;
-
-namespace StandWorld.Characters
+﻿namespace StandWorld.Characters
 {
-    public class HumanStats : BaseStats
+    public class HumanStats : CharacterStats
     {
-        public HumanStats() : base()
-        {
-        }
-
         protected override void LoadAttributes()
         {
             base.LoadAttributes();
-            
+
             attributes[Attributes.InventorySize].AddModifier(new StatModifier(stats[Stats.Strength], 3f));
 
             foreach (Attribute att in attributes.Values)
@@ -23,23 +14,42 @@ namespace StandWorld.Characters
             }
         }
         
+        // TODO: Змінити тут все
+        public override void Update()
+        {
+            if (!sleep)
+            {
+                if (vitals[Vitals.Energy].currentValue > 0)
+                {
+                    
+                    vitals[Vitals.Energy].currentValue -= 0.1f;
+                }
+            }
+            else
+            {
+                if (vitals[Vitals.Energy].currentValue < vitals[Vitals.Energy].value)
+                {
+                    vitals[Vitals.Energy].currentValue += 0.2f;
+                }
+            }
+        }
 
         public override string ToString()
         {
             string str = "HumanStats(";
-            foreach (StatsBase statsBase in stats.Values)
+            foreach (Stat stat in stats.Values)
             {
-                str += statsBase.name + ": " + statsBase.value + " | ";
+                str += stat.name + ":" + stat.value + ",";
             }
-            
-            foreach (Vital vital in vitals.Values)
+
+            foreach (Vital stat in vitals.Values)
             {
-                str += vital.name + ": " + vital.value + " | ";
+                str += stat.name + ":" + stat.value + ",";
             }
-            
-            foreach (Attribute att in attributes.Values)
+
+            foreach (Attribute stat in attributes.Values)
             {
-                str += att.name + ": " + att.value + " | ";
+                str += stat.name + ":" + stat.value + ",";
             }
 
             return str + ")";

@@ -28,7 +28,7 @@ namespace StandWorld.Characters.AI
             Enqueue(entity);
             Next();
         }
-        
+
         public TargetList(Target target)
         {
             Enqueue(target);
@@ -47,9 +47,10 @@ namespace StandWorld.Characters.AI
             {
                 Enqueue(entity);
             }
+
             Next();
         }
-        
+
         public void Enqueue(Target target)
         {
             ToolBox.map[target.position].reserved = true;
@@ -67,15 +68,15 @@ namespace StandWorld.Characters.AI
             ToolBox.map[position].reserved = true;
             targets.Enqueue(new Target(position));
         }
-        
+
         public void Next()
         {
             if (current != null)
             {
                 ToolBox.map[current.position].reserved = false;
             }
+
             current = targets.Dequeue();
         }
-        
     }
 }

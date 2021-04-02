@@ -26,7 +26,7 @@ namespace StandWorld.UI
 
             labelStyle = new GUIStyle("label");
             labelStyle.alignment = TextAnchor.MiddleLeft;
-            labelStyle.fontSize = 13;
+            labelStyle.fontSize = 18;
 
             titleStyle = new GUIStyle("label");
             titleStyle.fontSize = 16;
@@ -34,7 +34,7 @@ namespace StandWorld.UI
             titleStyle.alignment = TextAnchor.MiddleCenter;
 
             subTitleStyle = new GUIStyle("label");
-            subTitleStyle.fontSize = 14;
+            subTitleStyle.fontSize = 24;
             subTitleStyle.fontStyle = FontStyle.Bold;
             subTitleStyle.alignment = TextAnchor.MiddleLeft;
 
@@ -51,7 +51,7 @@ namespace StandWorld.UI
             vitalLabelStyle.alignment = TextAnchor.MiddleCenter;
 
             blockTextStyle = new GUIStyle("label");
-            blockTextStyle.fontSize = 12;
+            blockTextStyle.fontSize = 18;
             blockTextStyle.padding = new RectOffset(2, 2, 2, 2);
             blockTextStyle.alignment = TextAnchor.UpperLeft;
             blockTextStyle.wordWrap = true;

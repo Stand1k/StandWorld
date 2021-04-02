@@ -54,13 +54,6 @@ namespace StandWorld.Game
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
             map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-
 
             StartCoroutine(TickUpdate());
             _ready = true;
@@ -81,19 +74,6 @@ namespace StandWorld.Game
             {
                 map.CheckAllMatrices();
             }
-        }
-
-        private float time = 5f;
-
-        void TimeMinuas(float decreaser)
-        {
-            if (time < 0f)
-            {
-                tick.DoTick();
-                time = 5f;
-            }
-
-            time -= Time.fixedTime;
         }
 
         IEnumerator TickUpdate()
