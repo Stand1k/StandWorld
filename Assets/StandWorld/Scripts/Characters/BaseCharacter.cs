@@ -37,17 +37,7 @@ namespace StandWorld.Characters
             ToolBox.tick.toAdd.Enqueue(Update);
         }
 
-        public virtual BrainNodePriority GetBrainNode()
-        {
-            BrainNodePriority brainNode = new BrainNodePriority();
-
-            brainNode.AddSubnode(new SleepNode(
-                () => stats.vitals[Vitals.Energy].ValueInfToPercent(0.2f))
-            );
-            brainNode.AddSubnode(new IdleNodeTaskData());
-            
-            return brainNode;
-        }
+        public abstract BrainNodePriority GetBrainNode();
 
         public virtual void Update()
         {

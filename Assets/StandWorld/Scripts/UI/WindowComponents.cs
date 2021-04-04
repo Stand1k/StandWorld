@@ -67,7 +67,7 @@ namespace StandWorld.UI
             DrawTextureWithBorder(rect, Res.textures["fillable_border"]);
             rect = rect.Contract(2f);
             GUI.DrawTexture(rect.Width(rect.width * percent), Res.TextureUnicolor(fillColor));
-            GUI.Label(rect, vital.currentValue + " / " + vital.value, vitalLabelStyle);
+            GUI.Label(rect, Mathf.Round(vital.currentValue).ToString() + " / " + vital.value.ToString(), vitalLabelStyle);
         }
 
         public static void FillableBarWithLabelValue(Rect rect, string name, Vital vital, Color fillColor)

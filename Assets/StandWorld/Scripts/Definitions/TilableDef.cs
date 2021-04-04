@@ -16,6 +16,8 @@
 
         public float fertility = 0f;
 
+        public float nutriments = 0f;
+
         public int maxStack = 0;
 
         public float pathCost = 1f;

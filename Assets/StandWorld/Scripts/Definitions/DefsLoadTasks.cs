@@ -25,6 +25,12 @@ namespace StandWorld.Definitions
                 uID = "task_idle",
                 taskType = TaskType.Idle
             });
+            
+            AddTask(new TaskDef
+            {
+                uID = "task_eat",
+                taskType = TaskType.Eat
+            });
         }
     }
 }

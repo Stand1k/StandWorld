@@ -35,10 +35,7 @@ namespace StandWorld.Characters.AI
         public TaskStatus taskStatus { get; set; }
         public TargetList targets { get; protected set; }
 
-        public TaskDef def
-        {
-            get { return taskRunner.def; }
-        }
+        public TaskDef def => taskRunner.def;
 
         private bool _inRange;
         private int _ticks;
@@ -82,13 +79,11 @@ namespace StandWorld.Characters.AI
         {
             if (targets.current == null)
             {
-                taskStatus = TaskStatus.Failed; 
+                taskStatus = TaskStatus.Failed;
             }
             else
             {
-                if (
-                    character.position == targets.currentPosition
-                )
+                if (character.position == targets.currentPosition)
                 {
                     _inRange = true;
                     return;

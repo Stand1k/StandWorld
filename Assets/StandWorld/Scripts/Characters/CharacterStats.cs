@@ -26,7 +26,14 @@ namespace StandWorld.Characters
             vitals = new Dictionary<Vitals, Vital>();
             foreach (Vitals vital in StatsUtils.vitals)
             {
-                vitals.Add(vital, new Vital(vital.ToString()));
+                if (vital == Vitals.Hunger || vital == Vitals.Joy)
+                {
+                    vitals.Add(vital, new Vital(vital.ToString(), 100));
+                }
+                else
+                {
+                    vitals.Add(vital, new Vital(vital.ToString()));
+                }
             }
 
             LoadVitals();
@@ -102,6 +109,11 @@ namespace StandWorld.Characters
                 {
                     vitals[Vitals.Energy].currentValue += attributes[Attributes.EnergyRegen].value;
                 }
+            }
+
+            if (vitals[Vitals.Hunger].currentValue > 0)
+            {
+                vitals[Vitals.Hunger].currentValue -= 0.1f;
             }
         }
 

@@ -32,6 +32,11 @@
                     vitals[Vitals.Energy].currentValue += 0.2f;
                 }
             }
+            
+            if (vitals[Vitals.Hunger].currentValue > 0)
+            {
+                vitals[Vitals.Hunger].currentValue -= 0.1f;
+            }
         }
 
         public override string ToString()

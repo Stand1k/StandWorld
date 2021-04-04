@@ -63,7 +63,6 @@ namespace StandWorld.Characters
             if (nextTaskData != null)
             {
                 currentTaskData = nextTaskData;
-                Debug.Log("Next Task Data: " + nextTaskData.def.uID);
             }
         }
     }

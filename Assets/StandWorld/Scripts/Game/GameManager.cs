@@ -48,12 +48,11 @@ namespace StandWorld.Game
             map.TempMapGen();
             map.BuildAllMeshes();
 
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
-            map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            for (int i = 0; i < 10; i++)
+            {
+                map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+            }
+           
 
             StartCoroutine(TickUpdate());
             _ready = true;

@@ -21,6 +21,7 @@ namespace StandWorld.Definitions
                     layer = Layer.Plant,
                     pathCost = .95f,
                     blockPlant = true,
+                    nutriments = 1f,
                     blockStackable = true,
                     type = TilableType.Grass,
                     graphics = new GraphicDef

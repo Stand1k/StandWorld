@@ -42,6 +42,8 @@ namespace StandWorld.Characters
         Health,  //[Endurance]
         Energy, //[Endurance]
         Mana,   //[Intillect]
+        Hunger,
+        Joy
     }
 
     [Serializable]

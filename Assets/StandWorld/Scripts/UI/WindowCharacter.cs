@@ -19,6 +19,15 @@ namespace StandWorld.UI
         {
             if (activeTab == 0)
             {
+                if (_character.brain.currentTaskData != null)
+                {
+                    vGrid.Span(_character.brain.currentTaskData.def.uID);
+                }
+                else
+                {
+                    vGrid.Span("Халтурить ...");
+                }
+                
                 vGrid.H2("Vitals");
                 foreach (Vital vital in _character.stats.vitals.Values)
                 {
@@ -41,7 +50,7 @@ namespace StandWorld.UI
                 vGrid.H2("Info");
                 vGrid.Paragraph(_character.def.shortDescription);
                 vGrid.H2("Detailled Stats");
-                foreach (Stat attr in _character.stats.attributes.Values)
+                foreach (Attribute attr in _character.stats.attributes.Values)
                 {
                     WindowComponents.SimpleStat(vGrid.GetNewRect(25f), attr.name, attr.value, attr.baseValue);
                 }

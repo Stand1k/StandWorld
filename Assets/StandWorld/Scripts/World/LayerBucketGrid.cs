@@ -12,11 +12,25 @@ using Random = UnityEngine.Random;
 
 namespace StandWorld.World
 {
+    public class BucketProperty
+    {
+        public float vegetalNutriments;
+        public float nutriments;
+
+        public BucketProperty()
+        {
+            vegetalNutriments = 0f;
+            nutriments = 0f;
+        }
+    }
+
     /// <summary>
     /// Регіон нашої сітки 
     /// </summary>
     public class LayerBucketGrid
     {
+        public BucketProperty properties { get; protected set; }
+        
         //Розмір цього регіона
         public RectI rect { get; protected set; }
         
@@ -47,6 +61,7 @@ namespace StandWorld.World
             tilablesByType = new Dictionary<TilableType, HashSet<Tilable>>();
             tilablesMatrices = new Dictionary<int, List<Matrix4x4>>();
             tilablesMatricesArr = new Dictionary<int, Matrix4x4[]>();
+            properties = new BucketProperty();
             
             if (renderer != null)
             {
@@ -178,6 +193,15 @@ namespace StandWorld.World
 
                 tilablesByType[tilable.def.type].Add(tilable);
             }
+
+            if (tilable.def.type == TilableType.Grass)
+            {
+                if (tilable.def.nutriments > 0f)
+                {
+                    properties.vegetalNutriments += tilable.def.nutriments;
+                    properties.nutriments += tilable.def.nutriments;
+                }
+            }
             
             if (tilable.def.graphics.isInstanced)
             {
@@ -196,6 +220,16 @@ namespace StandWorld.World
         
         public void DelTilable(Tilable tilable) {
             Vector2Int localPosition = GetLocalPosition(tilable.position);
+            
+            if (tilable.def.type == TilableType.Grass)
+            {
+                if (tilable.def.nutriments > 0f)
+                {
+                    properties.vegetalNutriments -= tilable.def.nutriments;
+                    properties.nutriments -= tilable.def.nutriments;
+                }
+            }
+            
             tilables[localPosition.x + localPosition.y * rect.width] = null;
             ToolBox.map[tilable.position].Update();
 

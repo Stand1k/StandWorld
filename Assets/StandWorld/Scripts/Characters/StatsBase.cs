@@ -19,6 +19,13 @@ namespace StandWorld.Characters
             baseValue = 0;
             buffValue = 0;
         }
+
+        public Stat(string name, int max)
+        {
+            this.name = name;
+            baseValue = max;
+            buffValue = 0;
+        }
     }
 
     public class StatModifier
@@ -42,6 +49,11 @@ namespace StandWorld.Characters
         {
             _modifiers = new List<StatModifier>();
         }
+        
+        public Attribute(string name, int max) : base(name, max)
+        {
+            _modifiers = new List<StatModifier>();
+        }
 
         public void AddModifier(StatModifier modifier)
         {
@@ -50,12 +62,14 @@ namespace StandWorld.Characters
 
         public void Update()
         {
-            baseValue = 0;
-            if (_modifiers.Count > 0)
+            if (baseValue == 0)
             {
-                foreach (StatModifier modifier in _modifiers)
+                if (_modifiers.Count > 0)
                 {
-                    baseValue += (int) (modifier.stat.value * modifier.ratio);
+                    foreach (StatModifier modifier in _modifiers)
+                    {
+                        baseValue += (int) (modifier.stat.value * modifier.ratio);
+                    }
                 }
             }
         }
@@ -97,6 +111,12 @@ namespace StandWorld.Characters
         public Vital(string name) : base(name)
         {
             _currentValue = 0;
+        }
+
+        public Vital(string name, int max) : base(name, max)
+        {
+            baseValue = max;
+            _currentValue = max;
         }
 
         public void Fill()
