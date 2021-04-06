@@ -48,11 +48,15 @@ namespace StandWorld.Game
             map.TempMapGen();
             map.BuildAllMeshes();
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 5; i++)
             {
-                map.SpawnCharacter(new Animal(new Vector2Int(10, 10), Defs.animals["chiken"]));
+                map.SpawnCharacter(new Animal(new Vector2Int(15, 15), Defs.animals["chiken"]));
             }
            
+            for (int i = 0; i < 7; i++)
+            {
+                map.SpawnCharacter(new Human(new Vector2Int(10, 10), Defs.animals["human"]));
+            }
 
             StartCoroutine(TickUpdate());
             _ready = true;

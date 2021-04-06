@@ -21,11 +21,20 @@ namespace StandWorld.Definitions
                     shortDescription = "Курица — самая многочисленная и распространённая домашняя птица.",
                     graphics = new GraphicDef
                     {
-                        textureName = "chicken_front"
+                        textureName = "chicken_front",
+                        size = new Vector2(0.7f, 0.7f),
                     }
                 }
             );
-
+            
+            AddAnimal(
+                new AnimalDef
+                {
+                    uID = "human",
+                    shortDescription = "Чел це чел",
+                    graphics = new GraphicDef()
+                }
+            );
         }
 
     }

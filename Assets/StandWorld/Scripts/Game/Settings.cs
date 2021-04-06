@@ -12,6 +12,10 @@ namespace StandWorld.Game
         public const int TICKS_PER_YEAR = SEASONS_PER_YEAR * TICKS_PER_SEASON;
 
         public const bool DEBUG = true;
+
+        public const int EYE_COUNT = 1;
+        public const int HAIR_COUNT = 1;
+        public const int CLOUTHES_COUNT = 2;
         
         public static float noiseScale;
         public static int octaves;

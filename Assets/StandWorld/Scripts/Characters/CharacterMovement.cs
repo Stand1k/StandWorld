@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StandWorld.Characters.AI;
 using StandWorld.Definitions;
 using StandWorld.Game;
@@ -9,6 +10,7 @@ namespace StandWorld.Characters
 {
     public class CharacterMovement
     {
+        public Action<Direction> onChangeDirection;
         public Vector2Int position { get; protected set; }
         public Direction lookingAt { get; protected set; }
         public Vector2Int destination { get; protected set; }
@@ -42,8 +44,32 @@ namespace StandWorld.Characters
             ResetMovement();
         }
 
-        private void UpdateLookingAt()
+        private void UpdateLookingAt(Vector2Int nextPos)
         {
+            Direction original = lookingAt;
+            Vector2Int dir = nextPos - position;
+
+            if (dir.x > 0)
+            {
+                lookingAt = Direction.E;
+            }
+            else if (dir.x < 0)
+            {
+                lookingAt = Direction.W;
+            }
+            else if (dir.y > 0)
+            {
+                lookingAt = Direction.N;
+            }
+            else
+            {
+                lookingAt = Direction.S;
+            }
+            
+            if(lookingAt != original && onChangeDirection != null)
+            {
+                onChangeDirection(lookingAt);
+            }
         }
 
         public void Move(Task task)
@@ -73,7 +99,7 @@ namespace StandWorld.Characters
             if (position == _nextPosition)
             {
                 _nextPosition = _path.Dequeue();
-                UpdateLookingAt();
+                UpdateLookingAt(_nextPosition);
             }
 
             float distance = Utils.Distance(position, _nextPosition);

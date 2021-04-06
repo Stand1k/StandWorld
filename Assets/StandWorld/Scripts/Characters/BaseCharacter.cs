@@ -27,14 +27,19 @@ namespace StandWorld.Characters
             this.def = def;
             movement = new CharacterMovement(position, this);
             brain = new CharacterBrain(this, GetBrainNode());
-            name = "Chel " + Random.Range(1, 1000);
+            name = SetName();
 
-            if (this.def.graphics != null)
+            if (this.def.graphics != null && def.graphics.textureName != string.Empty)
             {
                 graphics = GraphicInstance.GetNew(this.def.graphics);
             }
             
             ToolBox.tick.toAdd.Enqueue(Update);
+        }
+
+        public virtual string SetName()
+        {
+            return "Chel" + Random.Range(1, 1000);
         }
 
         public abstract BrainNodePriority GetBrainNode();
