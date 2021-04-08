@@ -235,7 +235,7 @@ namespace StandWorld.World
                     return tiles[position.x + position.y * size.y];
                 }
 
-                return tiles[0];
+                return null;
             }
         }
 

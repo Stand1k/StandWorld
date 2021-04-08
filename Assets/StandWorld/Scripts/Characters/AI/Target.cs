@@ -55,20 +55,20 @@ namespace StandWorld.Characters.AI
         
         public static Target GetRandomTargetInRange(Vector2Int position, int range = 7)
         {
-            Vector2Int targerPosition = new Vector2Int(
+            Vector2Int targetPosition = new Vector2Int(
                 Random.Range(position.x - range, position.x + range),
                 Random.Range(position.y - range, position.y + range)
             );
 
-            while (ToolBox.map[targerPosition] == null || ToolBox.map[targerPosition].blockPath || ToolBox.map[targerPosition].reserved)
+            while (ToolBox.map[targetPosition] == null || ToolBox.map[targetPosition].blockPath || ToolBox.map[targetPosition].reserved)
             {
-                targerPosition = new Vector2Int(
+                targetPosition = new Vector2Int(
                     Random.Range(position.x - range, position.x + range),
                     Random.Range(position.y - range, position.y + range)
                 );
             }
 
-            return new Target(targerPosition);
+            return new Target(targetPosition);
         }
      
     }
