@@ -9,7 +9,7 @@ namespace StandWorld.Characters.AI.Node
     {
         private class EatVegiesTaskData : BrainNode
         {
-            public override TaskData GetTaskData()
+            public override TaskData GetTask()
             {
                 BucketResult bucketResult = WorldUtils.HasVegetalNutrimentsInBucket(character.position);
 

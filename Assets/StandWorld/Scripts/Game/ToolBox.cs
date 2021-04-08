@@ -22,6 +22,7 @@ namespace StandWorld.Game
         {
             Res.Load();
             DirectionUtils.SetNeighbours();
+            Defs.LoadDefaultDefs();
             Defs.LoadGroundsFromCode();
             Defs.LoadPlantsFromCode();
             Defs.LoadMountainsFromCode();    

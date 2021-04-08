@@ -4,7 +4,7 @@ namespace StandWorld.Game
 {
     public static class Settings
     {
-        public const int BUCKET_SIZE = 32;
+        public const int BUCKET_SIZE = 31;
         public const int TICKS_PER_DAY = 15000;
         public const int DAYS_PER_SEASON = 30;
         public const int SEASONS_PER_YEAR = 4;

@@ -39,7 +39,7 @@ namespace StandWorld.Characters
 
         public virtual string SetName()
         {
-            return "Chel" + Random.Range(1, 1000);
+            return "Chel " + Random.Range(1, 1000);
         }
 
         public abstract BrainNodePriority GetBrainNode();

@@ -1,6 +1,7 @@
 ﻿using StandWorld.Characters.AI;
 using StandWorld.Characters.AI.Node;
 using StandWorld.Definitions;
+using StandWorld.World;
 using UnityEngine;
 using Random = System.Random;
 
@@ -26,6 +27,7 @@ namespace StandWorld.Characters
                 /*.AddSubnode(new EatVegiesNode(
                     () => stats.vitals[Vitals.Hunger].ValueInfToPercent(0.25f))
                 )*/
+                .AddSubnode(new GrowNode(WorldUtils.FieldHasWork))
                 .AddSubnode(new IdleNodeTaskData());
             
             return brainNode;

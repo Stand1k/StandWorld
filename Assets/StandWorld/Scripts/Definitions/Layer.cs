@@ -7,6 +7,7 @@ namespace StandWorld.Definitions
     {
         Undefined,
         Ground,
+        Helpers,
         Mountain,
         Stackable,
         Plant,

@@ -9,6 +9,7 @@ namespace StandWorld.Characters.AI
     {
         public Queue<Target> targets = new Queue<Target>();
         public Target current { get; protected set; }
+        public bool setAdj = false;
 
         public Vector2Int currentPosition
         {

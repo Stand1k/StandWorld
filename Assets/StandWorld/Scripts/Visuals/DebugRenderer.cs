@@ -35,7 +35,6 @@ namespace StandWorld.Visuals
             }
         }
         
-        
         public static void DrawFertility()
         {
             Color color1 = new Color(1, 0, 0, 0.5f);
@@ -74,7 +73,7 @@ namespace StandWorld.Visuals
                 {
                     LayerBucketGrid bucket = ToolBox.map.grids[Layer.Ground].GetBucketAt(new Vector2Int(x,y));
                                 
-                    Gizmos.color =  new Color(0f, 0.91f, 1f, 0.5f);
+                    Gizmos.color = new Color(0f, 0.91f, 1f, 0.5f);
                                 
                     Gizmos.DrawCube(
                         new Vector3(
@@ -95,6 +94,21 @@ namespace StandWorld.Visuals
                     new Vector3(v.x + 0.5f, v.y + 0.5f), 
                     Vector3.one
                 );
+            }
+        }
+        
+        public static void DrawReserved()
+        {
+            Gizmos.color = new Color(0.97f, 0f, 0f);
+            foreach (Vector2Int v in ToolBox.cameraController.viewRect)
+            {
+                if (ToolBox.map[v] != null && ToolBox.map[v].reserved)
+                {
+                    Gizmos.DrawWireCube(
+                        new Vector3(v.x + 0.5f, v.y + 0.5f), 
+                        Vector3.one
+                    );
+                }
             }
         }
 

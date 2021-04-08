@@ -13,6 +13,34 @@ namespace StandWorld.Definitions
         public static void LoadTasksFromCode()
         {
             tasks = new Dictionary<string, TaskDef>();
+            
+            AddTask(new TaskDef
+            {
+                uID = "task_cut",
+                taskType = TaskType.Cut,
+                targetType = TargetType.Adjacent,
+            });
+            
+            AddTask(new TaskDef
+            {
+                uID = "task_harvers",
+                taskType = TaskType.Harvers,
+                targetType = TargetType.Adjacent,
+            });
+            
+            AddTask(new TaskDef
+            {
+                uID = "task_sow",
+                taskType = TaskType.Sow,
+                targetType = TargetType.Adjacent,
+            });
+            
+            AddTask(new TaskDef
+            {
+                uID = "task_dirt",
+                taskType = TaskType.Dirt,
+                targetType = TargetType.Adjacent,
+            });
 
             AddTask(new TaskDef
             {

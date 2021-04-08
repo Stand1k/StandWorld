@@ -4,6 +4,7 @@ using StandWorld.Characters.AI;
 using StandWorld.Controllers;
 using StandWorld.Definitions;
 using StandWorld.Entities;
+using StandWorld.Helpers;
 using StandWorld.Visuals;
 using StandWorld.World;
 using UnityEngine;
@@ -23,6 +24,7 @@ namespace StandWorld.Game
         public bool DrawFertility;
         public bool DrawAStar;
         public bool DrawPaths;
+        public bool DrawReserved;
 
         [Header("World size")] public Vector2 mapSize;
 
@@ -53,10 +55,14 @@ namespace StandWorld.Game
                 map.SpawnCharacter(new Animal(new Vector2Int(15, 15), Defs.animals["chiken"]));
             }
            
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < 21; i++)
             {
                 map.SpawnCharacter(new Human(new Vector2Int(10, 10), Defs.animals["human"]));
             }
+
+            GrowArea area = new GrowArea(Defs.plants["carrot"]);
+            area.Add(new RectI(new Vector2Int(15,15),5,5));
+            
 
             StartCoroutine(TickUpdate());
             _ready = true;
@@ -115,6 +121,11 @@ namespace StandWorld.Game
                 if (DrawAStar)
                 {
                     DebugRenderer.DrawAStar();
+                }
+                
+                if (DrawReserved)
+                {
+                    DebugRenderer.DrawReserved();
                 }
 
                 if (DrawPaths)

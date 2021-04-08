@@ -17,6 +17,28 @@ namespace StandWorld.Definitions
             AddPlant(
                 new TilableDef
                 {
+                    uID = "carrot",
+                    layer = Layer.Plant,
+                    pathCost = .95f,
+                    blockPlant = true,
+                    nutriments = 2f,
+                    blockStackable = true,
+                    type = TilableType.Plant,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "carrot"
+                    },
+                    plantDef = new PlantDef
+                    {
+                        probability = 0.1f,
+                        minFertility = 0.1f
+                    }
+                }
+            );
+            
+            AddPlant(
+                new TilableDef
+                {
                     uID = "grass",
                     layer = Layer.Plant,
                     pathCost = .95f,

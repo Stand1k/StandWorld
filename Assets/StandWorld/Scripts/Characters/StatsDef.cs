@@ -39,11 +39,11 @@ namespace StandWorld.Characters
     [Serializable]
     public enum Vitals 
     {
-        Health,  //[Endurance]
-        Energy, //[Endurance]
-        Mana,   //[Intillect]
-        Hunger,
-        Joy
+        Health,  // [Endurance]
+        Energy,  // [Endurance]
+        Mana,    // [Intillect]
+        Hunger,  // [Endurance]
+        Joy      // [Wisdom]
     }
 
     [Serializable]

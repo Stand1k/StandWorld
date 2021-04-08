@@ -26,6 +26,10 @@ namespace StandWorld.Characters.AI
         Idle,
         Sleep,
         Eat,
+        Cut,
+        Harvers,
+        Sow,
+        Dirt,
     }
 
     public abstract class Task
@@ -47,6 +51,12 @@ namespace StandWorld.Characters.AI
             character = taskData.character;
             targets = taskData.targets;
             _ticksToPerform = taskData.ticksToPerform;
+
+            if (taskRunner.def.targetType == TargetType.Adjacent)
+            {
+                targets.current.ClosestNeighbour(character.position);
+            }
+            
             Start();
         }
 
@@ -80,6 +90,7 @@ namespace StandWorld.Characters.AI
             if (targets.current == null)
             {
                 taskStatus = TaskStatus.Failed;
+                Debug.LogError(" taskStatus = TaskStatus.Failed;");
             }
             else
             {
