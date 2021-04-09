@@ -265,7 +265,7 @@ MonoBehaviour:
   drawMode: 1
   mapWidth: 300
   mapHeight: 300
-  noiseScale: 42
+  noiseScale: 111.88
   octaves: 4
   persistance: 0.463
   lacunarity: 1.6
@@ -465,7 +465,7 @@ MonoBehaviour:
   DrawFertility: 0
   DrawAStar: 0
   DrawPaths: 1
-  DrawReserved: 1
+  DrawReserved: 0
   mapSize: {x: 300, y: 300}
 --- !u!4 &860043401
 Transform:
