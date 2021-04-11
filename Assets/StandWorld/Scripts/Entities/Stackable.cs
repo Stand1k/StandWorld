@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using StandWorld.Definitions;
+﻿using StandWorld.Definitions;
 using StandWorld.Game;
 using StandWorld.Helpers;
 using StandWorld.Visuals;
@@ -10,6 +9,7 @@ namespace StandWorld.Entities
     public class Stackable : Tilable
     {
         public InventoryTilable inventory { get; protected set; }
+        public StockArea stockArea { get; protected set; }
 
         public Stackable(Vector2Int position, TilableDef def, int count)
         {
@@ -17,9 +17,23 @@ namespace StandWorld.Entities
             this.def = def;
             inventory = new InventoryTilable(this, count);
             mainGraphic = GraphicInstance.GetNew(this.def.graphics);
-            
+            stockArea = null;
+
             ToolBox.stackableLabelController.AddLabel(this);
         }
-        
+
+        public Stackable(Vector2Int position, StockArea stockArea)
+        {
+            this.position = position;
+            def = Defs.empty;
+            this.stockArea = stockArea;
+            inventory = null;
+            mainGraphic = GraphicInstance.GetNew(
+                def.graphics,
+                stockArea.color,
+                Res.TextureUnicolor(stockArea.color),
+                1
+            );
+        }
     }
 }

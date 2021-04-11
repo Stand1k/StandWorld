@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using StandWorld.Characters;
-using StandWorld.Characters.AI;
 using StandWorld.Controllers;
 using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Helpers;
+using StandWorld.UI;
 using StandWorld.Visuals;
 using StandWorld.World;
 using UnityEngine;
@@ -59,10 +59,12 @@ namespace StandWorld.Game
             {
                 map.SpawnCharacter(new Human(new Vector2Int(10, 10), Defs.animals["human"]));
             }
+            
+            StockArea stockarea = new StockArea(Defs.empty);
+            stockarea.Add(new RectI(new Vector2Int(5,5), 6, 6));
 
             GrowArea area = new GrowArea(Defs.plants["carrot"]);
             area.Add(new RectI(new Vector2Int(15,15),5,5));
-            
 
             StartCoroutine(TickUpdate());
             _ready = true;
