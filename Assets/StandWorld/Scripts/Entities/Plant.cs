@@ -3,6 +3,7 @@ using StandWorld.Definitions;
 using StandWorld.Game;
 using StandWorld.Helpers;
 using StandWorld.Visuals;
+using StandWorld.World;
 using UnityEngine;
 
 namespace StandWorld.Entities
@@ -18,7 +19,7 @@ namespace StandWorld.Entities
 
         public int state => _currentState;
 
-        protected bool cutOrdered = false;
+        protected bool cutOrdered;
 
         public Plant(Vector2Int position, TilableDef def, bool randomGrow = false)
         {
@@ -129,6 +130,12 @@ namespace StandWorld.Entities
             }
         }
 
+        public override void AddOrder(MenuOrderDef def)
+        {
+            base.AddOrder(def);
+            WorldUtils.cutOrdered.Add(this);
+        }
+
         public override void Destroy()
         {
             ToolBox.tick.toDel.Enqueue(Update);
@@ -137,6 +144,23 @@ namespace StandWorld.Entities
 
         public void Cut()
         {
+            if (WorldUtils.cutOrdered.Contains(this))
+            {
+                WorldUtils.cutOrdered.Remove(this);
+            }
+
+            int qtyLoot = Defs.stackables["logs"].maxStack / ((def.plantDef.states + 1) - _currentState);
+
+            if (def.type == TilableType.Tree)
+            {
+                ToolBox.map.Spawn(position, new Stackable
+                (
+                    position,
+                    Defs.stackables["logs"],
+                    qtyLoot
+                ));
+            }
+
             Destroy();
         }
     }

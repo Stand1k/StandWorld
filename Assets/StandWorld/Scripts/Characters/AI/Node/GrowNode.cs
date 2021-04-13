@@ -9,9 +9,9 @@ namespace StandWorld.Characters.AI.Node
     {
         private class CutPlantsAtPosition : BrainNode
         {
-            public override TaskData GetTask()
+            public override TaskData GetTaskData()
             {
-                Tilable tilable = WorldUtils.FieldNextPlantToCut(character.position);
+                Tilable tilable = WorldUtils.FieldNextToCut(character.position);
 
                 if (tilable != null)
                 {
@@ -28,7 +28,7 @@ namespace StandWorld.Characters.AI.Node
         
         private class HarvestPlantAtPosition : BrainNode
         {
-            public override TaskData GetTask()
+            public override TaskData GetTaskData()
             {
                 throw new NotImplementedException();
             }
@@ -36,7 +36,7 @@ namespace StandWorld.Characters.AI.Node
         
         private class SowPlantAtPosition : BrainNode
         {
-            public override TaskData GetTask()
+            public override TaskData GetTaskData()
             {
                 Tilable tilable = WorldUtils.FieldNextTileToSow(character.position);
 
@@ -55,7 +55,7 @@ namespace StandWorld.Characters.AI.Node
         
         private class DirtAtPosition : BrainNode
         {
-            public override TaskData GetTask()
+            public override TaskData GetTaskData()
             {
                 Tilable tilable = WorldUtils.FieldNextTileToDirt(character.position);
 

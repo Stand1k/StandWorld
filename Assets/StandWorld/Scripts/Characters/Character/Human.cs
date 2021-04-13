@@ -21,12 +21,10 @@ namespace StandWorld.Characters
         {
             BrainNodePriority brainNode = new BrainNodePriority();
 
-            brainNode.AddSubnode(new SleepNode(
-                    () => stats.vitals[Vitals.Energy].ValueInfToPercent(0.2f))
-                )
-                /*.AddSubnode(new EatVegiesNode(
-                    () => stats.vitals[Vitals.Hunger].ValueInfToPercent(0.25f))
-                )*/
+            brainNode
+                .AddSubnode(new SleepNode(() => stats.vitals[Vitals.Energy].ValueInfToPercent(0.2f)))
+                /*.AddSubnode(new EatVegiesNode( () => stats.vitals[Vitals.Hunger].ValueInfToPercent(0.25f)))*/
+                .AddSubnode(new CutNode(WorldUtils.HasPlantToCut))
                 .AddSubnode(new GrowNode(WorldUtils.FieldHasWork))
                 .AddSubnode(new IdleNodeTaskData());
             

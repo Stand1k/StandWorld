@@ -9,7 +9,9 @@ namespace StandWorld.World
 {
     public static partial class WorldUtils
     {
-        public static Tilable FieldNextPlantToCut(Vector2Int characterPosition)
+        public static List<Tilable> cutOrdered = new List<Tilable>();
+
+        public static Tilable FieldNextToCut(Vector2Int characterPosition)
         {
             List<Tilable> toCut = new List<Tilable>();
 
@@ -26,6 +28,20 @@ namespace StandWorld.World
             }
 
             return ClosestTilableFromEnumarable(characterPosition, toCut);
+        }
+
+        public static Tilable NextToCut(Vector2Int playerPosition)
+        {
+            List<Tilable> toCut = new List<Tilable>();
+            foreach (Tilable tilable in WorldUtils.cutOrdered)
+            {
+                if (!ToolBox.map[tilable.position].reserved)
+                {
+                    toCut.Add(tilable);
+                }
+            }
+
+            return ClosestTilableFromEnumarable(playerPosition, toCut);
         }
 
         public static Tilable FieldNextTileToDirt(Vector2Int characterPosition)
@@ -68,7 +84,7 @@ namespace StandWorld.World
         public static bool FieldHasWork()
         {
             if (FieldHasPlantsToCut() ||
-                FieldHasDirtToWork()  ||
+                FieldHasDirtToWork() ||
                 FieldHasPlantsToSow()
             )
             {
@@ -85,7 +101,8 @@ namespace StandWorld.World
                 foreach (Vector2Int position in growArea.positions)
                 {
                     Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && tilable != null && tilable.def != growArea.def && tilable.def.cuttable)
+                    if (!ToolBox.map[position].reserved && tilable != null && tilable.def != growArea.def &&
+                        tilable.def.cuttable)
                     {
                         return true;
                     }
@@ -145,6 +162,11 @@ namespace StandWorld.World
             }
 
             return false;
+        }
+
+        public static bool HasPlantToCut()
+        {
+            return cutOrdered.Count > 0;
         }
 
         public static BucketResult HasVegetalNutrimentsInBucket(Vector2Int position)

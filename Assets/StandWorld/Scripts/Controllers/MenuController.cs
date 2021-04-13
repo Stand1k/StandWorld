@@ -54,8 +54,8 @@ namespace StandWorld.Controllers
         [SerializeField] private  Color activeColor;
         [SerializeField] private Color defaultColor;
         [SerializeField] private int current = -1;
-        [SerializeField] private MenuOrderDef currentOrder;
         [SerializeField] private List<MenuOrderTabLink> links;
+        public MenuOrderDef currentOrder;
 
         void Start()
         {
@@ -145,10 +145,13 @@ namespace StandWorld.Controllers
                     delegate
                     {
                         ClearOrders();
-                        currentOrder = order;
-                        orderLink.image.color = activeColor;
-                        info.title.text = order.name;
-                        info.desc.text = order.shortDesc;
+                        if (currentOrder != order)
+                        {
+                            currentOrder = order;
+                            orderLink.image.color = activeColor;
+                            info.title.text = order.name;
+                            info.desc.text = order.shortDesc;
+                        }
                     }
                 );
                 links.Add(orderLink);
@@ -164,10 +167,17 @@ namespace StandWorld.Controllers
             button.onClick.AddListener(
                 delegate
                 {
-                    ClearSelection();
-                    current = id;
-                    buttons[current].image.color = activeColor;
-                    tabs[current].go.SetActive(true);
+                    if (current != id)
+                    {
+                        ClearSelection();
+                        current = id;
+                        buttons[current].image.color = activeColor;
+                        tabs[current].go.SetActive(true);
+                    }
+                    else
+                    {
+                        Reset();
+                    }
                 }
             );
             buttons[id] = new MenuOrderButton(go, button, text, image);

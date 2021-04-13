@@ -17,7 +17,7 @@ namespace StandWorld.Characters.AI
             }
         }
 
-        public virtual TaskData GetTask()
+        public virtual TaskData GetTaskData()
         {
             return null;
         }
@@ -31,11 +31,11 @@ namespace StandWorld.Characters.AI
 
     public class BrainNodePriority : BrainNode
     {
-        public override TaskData GetTask()
+        public override TaskData GetTaskData()
         {
             foreach (BrainNode node in subNodes)
             {
-                TaskData taskData = node.GetTask();
+                TaskData taskData = node.GetTaskData();
                 if (taskData != null)
                 {
                     return taskData;
@@ -55,11 +55,11 @@ namespace StandWorld.Characters.AI
             this.condition = condition;
         }
 
-        public override TaskData GetTask()
+        public override TaskData GetTaskData()
         {
             if (condition())
             {
-                return base.GetTask();
+                return base.GetTaskData();
             }
 
             return null;

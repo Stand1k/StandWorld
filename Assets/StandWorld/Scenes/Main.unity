@@ -877,6 +877,7 @@ GameObject:
   - component: {fileID: 5700605102336096081}
   - component: {fileID: 5700605102336096083}
   - component: {fileID: 5700605102336096095}
+  - component: {fileID: 5700605102336096096}
   m_Layer: 5
   m_Name: UserMenu
   m_TagString: Untagged
@@ -940,6 +941,41 @@ MonoBehaviour:
       cuttable: 0
     sprite: {fileID: 0}
     selector: 0
+    graphicDef:
+      uID: 
+      textureName: 
+      materialName: tilables
+      size: {x: 1, y: 1}
+      pivot: {x: 0, y: 0}
+      color: {r: 1, g: 1, b: 1, a: 1}
+      drawPriority: 0
+      isInstanced: 1
+    layer: 0
+--- !u!114 &5700605102336096096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5700605102336096094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aed5c67db33f411e830f3d09b4e77050, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  menuController: {fileID: 0}
+  isDragging: 0
+  origin: {x: 0, y: 0}
+  currentSelection:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  currentSelectionOnMap:
+    min: {x: 0, y: 0}
+    max: {x: 0, y: 0}
+  currentMousePosition: {x: 0, y: 0}
 --- !u!222 &5700605102606088616
 CanvasRenderer:
   m_ObjectHideFlags: 0

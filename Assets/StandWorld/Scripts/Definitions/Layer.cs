@@ -10,6 +10,8 @@ namespace StandWorld.Definitions
         Helpers,
         Mountain,
         Stackable,
+        Orders,
+        FX,
         Plant,
         Count // Трік який дає нам кількість наших лейерів
     }

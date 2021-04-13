@@ -51,6 +51,8 @@ namespace StandWorld.World
             grids.Add(Layer.Plant, new TilableGrid(size));
             grids.Add(Layer.Mountain, new TilableGrid(size));
             grids.Add(Layer.Stackable, new TilableGrid(size));
+            grids.Add(Layer.Orders, new TilableGrid(size));
+            grids.Add(Layer.FX, new TilableGrid(size));
             grids.Add(Layer.Helpers, new TilableGrid(size));
         }
 

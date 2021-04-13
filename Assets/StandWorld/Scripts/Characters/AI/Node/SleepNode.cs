@@ -7,7 +7,7 @@ namespace StandWorld.Characters.AI.Node
     {
         private class SleepNodeTaskData : BrainNode
         {
-            public override TaskData GetTask()
+            public override TaskData GetTaskData()
             {
                 return new TaskData(
                     Defs.tasks["task_sleep"],

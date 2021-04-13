@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using StandWorld.Definitions;
+using StandWorld.Helpers;
 using StandWorld.Visuals;
 using StandWorld.World;
 using UnityEngine;
@@ -28,8 +29,10 @@ namespace StandWorld.Entities
         protected int ticks = 0;
 
         public bool hidden = false;
-
         public LayerBucketGrid bucket { get; protected set; }
+        public MenuOrderDef currentOrderDef { get; protected set; }
+
+        public bool hasOrder => currentOrderDef != null;
 
         public void SetBucket(LayerBucketGrid bucket)
         {
@@ -54,7 +57,7 @@ namespace StandWorld.Entities
 
                 mat.SetTRS(
                     new Vector3(
-                        position.x 
+                        position.x
                         - def.graphics.pivot.x * scale.x
                         + (1f - scale.x) / 2f
                         , position.y
@@ -70,6 +73,38 @@ namespace StandWorld.Entities
             }
 
             return _matrices[graphicUId];
+        }
+
+        public virtual void AddOrder(MenuOrderDef def)
+        {
+            currentOrderDef = def;
+            if (addGraphics == null)
+            {
+                addGraphics = new Dictionary<string, GraphicInstance>();
+            }
+
+            UpdateOrderGraphics();
+        }
+
+        public virtual void ClearOrder()
+        {
+            addGraphics.Remove(currentOrderDef.name);
+            currentOrderDef = null;
+        }
+
+        public virtual void UpdateOrderGraphics()
+        {
+            if (!addGraphics.ContainsKey(currentOrderDef.name))
+            {
+                addGraphics.Add(currentOrderDef.name,
+                    GraphicInstance.GetNew(
+                        currentOrderDef.graphicDef,
+                        Color.white,
+                        Res.textures[currentOrderDef.graphicDef.textureName],
+                        42
+                    )
+                );
+            }
         }
 
         public virtual void Destroy()

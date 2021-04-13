@@ -5,7 +5,7 @@ namespace StandWorld.Characters.AI.Node
 {
     public class IdleNodeTaskData : BrainNode
     {
-        public override TaskData GetTask()
+        public override TaskData GetTaskData()
         {
             return new TaskData(
                 Defs.tasks["task_idle"],

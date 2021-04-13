@@ -58,7 +58,7 @@ namespace StandWorld.Characters
 
         public void GetNextTaskData()
         {
-            TaskData nextTaskData = brainNode.GetTask();
+            TaskData nextTaskData = brainNode.GetTaskData();
 
             if (nextTaskData != null)
             {

@@ -2,6 +2,7 @@
 using StandWorld.Entities;
 using StandWorld.Game;
 using StandWorld.Helpers;
+using UnityEngine;
 
 namespace StandWorld.Definitions
 {
@@ -42,14 +43,17 @@ namespace StandWorld.Definitions
                     shortDesc = "Зрізає рослини в зазначеній області.",
                     selector = SelectorType.AreaTile,
                     sprite = Res.sprites["order_to_cut_plant"],
-                    action = position =>
-                    {
-                        Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                        if (plant != null && plant.def.cuttable)
-                        {
-                            plant.OrderToCut();
+                    actionArea = (RectI rect) => {
+                        foreach (Vector2Int position in rect) {
+                            Plant plant = (Plant)ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
+                            if (plant != null && plant.def.cuttable) {
+                                plant.AddOrder(orders["cut_plants"]);
+                            }
                         }
-                    }
+                    },
+                    graphicDef = new GraphicDef{
+                        textureName = "order_to_cut_plant"
+                    },
                 }
             );
             AddMenuOrder(
@@ -57,16 +61,24 @@ namespace StandWorld.Definitions
                 {
                     uID = "harvest_plants",
                     name = "Зібрати врожай",
+                    layer = Layer.Orders,
                     shortDesc = "Збирає врожай в зазначеній області.",
                     selector = SelectorType.AreaTile,
                     sprite = Res.sprites["order_harvest"],
-                    action = position =>
+                    actionArea = (RectI rect) =>
                     {
-                        Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                        if (plant != null && plant.def.cuttable && plant.def.type == TilableType.Plant)
+                        foreach (Vector2Int position in rect)
                         {
-                            plant.OrderToCut();
+                            Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
+                            if (plant != null && plant.def.cuttable && plant.def.type == TilableType.Plant)
+                            {
+                                plant.AddOrder(orders["harvest_plants"]);
+                            }
                         }
+                    },
+                    graphicDef = new GraphicDef
+                    {
+                        textureName = "order_harvest"
                     }
                 }
             );
