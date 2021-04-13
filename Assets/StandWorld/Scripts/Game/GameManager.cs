@@ -35,7 +35,7 @@ namespace StandWorld.Game
         private void Awake()
         {
             _ready = false;
-            cameraController = FindObjectOfType<CameraController>();
+            cameraController = GetComponentInChildren<CameraController>();
             stackableLabelController = GetComponentInChildren<StackableLabelController>();
             ToolBox.LoadStatics();
             ToolBox.NewGame(this);
@@ -50,6 +50,12 @@ namespace StandWorld.Game
             map.TempMapGen();
             map.BuildAllMeshes();
 
+            StockArea stockarea = new StockArea(Defs.empty);
+            stockarea.Add(new RectI(new Vector2Int(5,5), 6, 6));
+
+            GrowArea area = new GrowArea(Defs.plants["carrot"]);
+            area.Add(new RectI(new Vector2Int(15,15),5,5));
+            
             for (int i = 0; i < 5; i++)
             {
                 map.SpawnCharacter(new Animal(new Vector2Int(15, 15), Defs.animals["chiken"]));
@@ -59,12 +65,6 @@ namespace StandWorld.Game
             {
                 map.SpawnCharacter(new Human(new Vector2Int(10, 10), Defs.animals["human"]));
             }
-            
-            StockArea stockarea = new StockArea(Defs.empty);
-            stockarea.Add(new RectI(new Vector2Int(5,5), 6, 6));
-
-            GrowArea area = new GrowArea(Defs.plants["carrot"]);
-            area.Add(new RectI(new Vector2Int(15,15),5,5));
 
             StartCoroutine(TickUpdate());
             _ready = true;

@@ -7,6 +7,7 @@ namespace StandWorld.Helpers
     {
         public static Dictionary<string, Material> materials;
         public static Dictionary<string, Texture2D> textures;
+        public static Dictionary<string, Sprite> sprites;
         public static Dictionary<string, GameObject> prefabs;
         public static Dictionary<Color, Texture2D> unicolorTextures = new Dictionary<Color, Texture2D>();
         public static GUISkin defaultGUI;
@@ -28,9 +29,15 @@ namespace StandWorld.Helpers
             }
 
             textures = new Dictionary<string, Texture2D>();
-            foreach (Texture2D text in Resources.LoadAll<Texture2D>("Textures/"))
+            foreach (Texture2D texture2D in Resources.LoadAll<Texture2D>("Textures/"))
             {
-                textures.Add(text.name, text);
+                textures.Add(texture2D.name, texture2D);
+            }
+            
+            sprites = new Dictionary<string, Sprite>();
+            foreach (Sprite sprite in Resources.LoadAll<Sprite>("Textures/"))
+            {
+                sprites.Add(sprite.name, sprite);
             }
         }
 

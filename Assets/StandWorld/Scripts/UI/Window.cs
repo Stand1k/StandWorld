@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using StandWorld.Helpers;
 using UnityEngine;
-using Vector2 = System.Numerics.Vector2;
 
 namespace StandWorld.UI
 {
@@ -42,6 +41,7 @@ namespace StandWorld.UI
         protected bool _hasTitle;
         protected bool _hasTabs;
         protected bool _show = true;
+        protected bool _centered = true;
 
         private int _id;
 
@@ -59,6 +59,12 @@ namespace StandWorld.UI
             padding = new RectOffset(20, 20, 20, 20);
             initialSize = new Vector2(700f, 700f);
             rect = GetRectAtCenter();
+
+            if (_centered)
+            {
+                rect = GetRectAtCenter();
+            }
+            
             size = initialSize;
         }
 
@@ -97,17 +103,20 @@ namespace StandWorld.UI
         public Rect GetRectAtCenter()
         {
             return new Rect(
-                (Screen.width - initialSize.X) / 2f,
-                (Screen.height - initialSize.X) / 2f,
-                initialSize.X,
-                initialSize.Y
+                (Screen.width - initialSize.x) / 2f,
+                (Screen.height - initialSize.x) / 2f,
+                initialSize.x,
+                initialSize.y
             );
         }
 
         public void UpdateHeight(float height)
         {
-            initialSize = new Vector2(initialSize.X, height);
-            rect = GetRectAtCenter();
+            initialSize = new Vector2(initialSize.x, height);
+            if (_centered)
+            {
+                rect = GetRectAtCenter();
+            }
         }
 
         public virtual void Header()

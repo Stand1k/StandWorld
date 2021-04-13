@@ -68,7 +68,7 @@ namespace StandWorld.World
         public static bool FieldHasWork()
         {
             if (FieldHasPlantsToCut() ||
-                FieldHasDirtToWork() ||
+                FieldHasDirtToWork()  ||
                 FieldHasPlantsToSow()
             )
             {
@@ -85,7 +85,7 @@ namespace StandWorld.World
                 foreach (Vector2Int position in growArea.positions)
                 {
                     Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && tilable != null && tilable.def != growArea.def)
+                    if (!ToolBox.map[position].reserved && tilable != null && tilable.def != growArea.def && tilable.def.cuttable)
                     {
                         return true;
                     }

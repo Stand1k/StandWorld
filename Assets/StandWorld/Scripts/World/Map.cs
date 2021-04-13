@@ -10,29 +10,29 @@ using UnityEngine;
 
 namespace StandWorld.World
 {
-    public class Map 
+    public class Map
     {
         public const int BUCKET_SIZE = Settings.BUCKET_SIZE;
-        
+
         public Vector2Int size { get; protected set; }
 
         public RectI mapRect;
 
         public float[] groundNoiseMap { get; protected set; }
-    
+
         public Dictionary<Layer, LayerGrid> grids;
-        
+
         public TileProperty[] tiles { get; protected set; }
-        
+
         public List<BaseCharacter> characters { get; protected set; }
-        
+
         private float noiseScale = Settings.noiseScale;
         private int octaves = Settings.octaves;
         private float persistance = Settings.persistance;
         private float lacunarity = Settings.lacunarity;
         private int seed = Random.Range(100000000, 999999999);
         private Vector2 offset = Settings.offset;
-        
+
         public Map(int width, int height)
         {
             size = new Vector2Int(width, height);
@@ -45,7 +45,7 @@ namespace StandWorld.World
             }
 
             characters = new List<BaseCharacter>();
-            
+
             grids = new Dictionary<Layer, LayerGrid>();
             grids.Add(Layer.Ground, new GroundGrid(size));
             grids.Add(Layer.Plant, new TilableGrid(size));
@@ -53,7 +53,7 @@ namespace StandWorld.World
             grids.Add(Layer.Stackable, new TilableGrid(size));
             grids.Add(Layer.Helpers, new TilableGrid(size));
         }
-        
+
         public void Spawn(Vector2Int position, Tilable tilable, bool force = false)
         {
             if (force || tilable.def.layer == Layer.Undefined || GetTilableAt(position, tilable.def.layer) == null)
@@ -74,12 +74,12 @@ namespace StandWorld.World
                 character.UpdateDraw();
             }
         }
-        
+
         public void BuildAllMeshes()
         {
             foreach (LayerGrid grid in grids.Values)
             {
-                grid.BuildStaticMeshes(); 
+                grid.BuildStaticMeshes();
             }
         }
 
@@ -87,7 +87,7 @@ namespace StandWorld.World
         {
             foreach (LayerGrid grid in grids.Values)
             {
-                grid.CheckMatriceUpdates(); 
+                grid.CheckMatriceUpdates();
             }
         }
 
@@ -95,7 +95,7 @@ namespace StandWorld.World
         {
             foreach (LayerGrid grid in grids.Values)
             {
-                grid.DrawBuckets(); 
+                grid.DrawBuckets();
             }
         }
 
@@ -129,6 +129,7 @@ namespace StandWorld.World
                         grid.buckets[i].SetVisible(bucketVisible);
                     }
                 }
+
                 i++;
             }
         }
@@ -146,13 +147,14 @@ namespace StandWorld.World
 
                 fertility *= tilable.def.fertility;
             }
-            
+
             return fertility;
         }
 
         public void TempMapGen()
         {
-            groundNoiseMap = NoiseMap.GenerateNoiseMap(size, 613864505, noiseScale, octaves, persistance, lacunarity, offset);
+            groundNoiseMap =
+                NoiseMap.GenerateNoiseMap(size, 613864505, noiseScale, octaves, persistance, lacunarity, offset);
             Debug.Log("Seed: " + seed.ToString());
 
             foreach (Vector2Int position in mapRect)
@@ -166,15 +168,15 @@ namespace StandWorld.World
                         Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x])
                     )
                 );
-                
+
                 if (grids[Layer.Ground].GetTilableAt(position).def.uID == "rock")
                 {
                     Spawn(
                         position,
                         new Mountain(position, Defs.mountains["mountain"])
-                        );
+                    );
                 }
-                
+
                 //Перевіряє родючість і якщо вона підходить, то там спавниться певна рослина
                 //яка в свою чергу має вимоги до родючості
                 if (this[position].fertility > 0f && !this[position].blockPlant)
@@ -187,7 +189,7 @@ namespace StandWorld.World
                             Spawn(
                                 position,
                                 new Plant(position, tilableDef, true)
-                                );
+                            );
                             break;
                         }
                     }
@@ -211,7 +213,7 @@ namespace StandWorld.World
                     bucket.rebuildMatrices = true;
                 }
             }
-            
+
             /*foreach(Vector2Int position in new RectI(new Vector2Int(30,30),10,10))
             {
                 if (this[position].blockStackable == false)
@@ -223,9 +225,8 @@ namespace StandWorld.World
                     ));
                 }
             }*/
-            
         }
-        
+
         public TileProperty this[Vector2Int position]
         {
             get
@@ -243,6 +244,5 @@ namespace StandWorld.World
         {
             return "Map(size=" + size + ")";
         }
-
     }
 }

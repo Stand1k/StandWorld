@@ -9,13 +9,15 @@ namespace StandWorld.Definitions
 
         public static void LoadDefaultDefs()
         {
-            Defs.empty = new TilableDef
+            empty = new TilableDef
             {
                 uID = "empty",
                 layer = Layer.Helpers,
                 graphics = new GraphicDef{}
             };
         }
+
+        public static Dictionary<string, MenuOrderDef> orders;
         
         public static Dictionary<string, TilableDef> grounds;
 

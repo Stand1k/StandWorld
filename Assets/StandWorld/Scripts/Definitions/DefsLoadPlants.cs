@@ -24,6 +24,7 @@ namespace StandWorld.Definitions
                     nutriments = 2f,
                     blockStackable = true,
                     type = TilableType.Plant,
+                    cuttable = true,
                     graphics = new GraphicDef
                     {
                         textureName = "carrot"
@@ -46,6 +47,7 @@ namespace StandWorld.Definitions
                     nutriments = 1f,
                     blockStackable = true,
                     type = TilableType.Grass,
+                    cuttable = true,
                     graphics = new GraphicDef
                     {
                         textureName = "grass"
@@ -67,6 +69,7 @@ namespace StandWorld.Definitions
                     blockPath = true,
                     blockStackable = true,
                     blockPlant = true,
+                    cuttable = true,
                     graphics = new GraphicDef
                     {
                         textureName = "tree",

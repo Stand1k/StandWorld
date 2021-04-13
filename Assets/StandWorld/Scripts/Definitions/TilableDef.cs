@@ -27,5 +27,6 @@
         public bool blockPlant = false;
         public bool blockStackable = false;
         public bool supportRoof = false;
+        public bool cuttable = false;
     }
 }

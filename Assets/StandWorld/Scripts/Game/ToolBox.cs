@@ -15,8 +15,7 @@ namespace StandWorld.Game
 
         public static StackableLabelController stackableLabelController => manager.stackableLabelController;
 
-
-        public static Tick tick { get { return manager.tick; } }
+        public static Tick tick => manager.tick;
 
         public static void LoadStatics()
         {
@@ -30,6 +29,7 @@ namespace StandWorld.Game
             Defs.LoadColorPalettesFromCode();
             Defs.LoadAnimalsFromCode();
             Defs.LoadTasksFromCode();
+            Defs.LoadMenuOrdersFromCode();
         }
 
         public static void NewGame(GameManager manager)

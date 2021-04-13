@@ -11,12 +11,12 @@ namespace StandWorld.Entities
     /// </summary>
     public class ConnectedTilable
     {
-        public bool[] connections = new bool[8];
-        
-        public int connectionsInt = -1;
-        public bool[] corners { get; protected set; }
-        public bool allCorners { get; protected set; }
-        public Tilable tilable { get; protected set; }
+        private readonly bool[] connections;
+
+        private int connectionsInt = -1;
+        private bool[] corners { get; set; }
+        private bool allCorners { get; set; }
+        private Tilable tilable { get; set; }
 
         public ConnectedTilable(Tilable tilable)
         {

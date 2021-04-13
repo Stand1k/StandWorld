@@ -23,6 +23,7 @@ namespace StandWorld.Entities
             {
                 updates.Remove(toDel.Dequeue());
             }
+            
             while (toAdd.Count != 0) 
             {
                 updates.Add(toAdd.Dequeue());

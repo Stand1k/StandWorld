@@ -18,6 +18,8 @@ namespace StandWorld.Entities
 
         public int state => _currentState;
 
+        protected bool cutOrdered = false;
+
         public Plant(Vector2Int position, TilableDef def, bool randomGrow = false)
         {
             addGraphics = new Dictionary<string, GraphicInstance>();
@@ -110,6 +112,11 @@ namespace StandWorld.Entities
                     bucket.rebuildMatrices = true;
                 }
             }
+        }
+
+        public void OrderToCut()
+        {
+            cutOrdered = true;
         }
 
         public void Update()
