@@ -20,7 +20,7 @@ namespace StandWorld.Definitions
         public Sprite sprite;
 
         public delegate void ActionDelegate(Vector2Int position);
-        public delegate void ActionAreaDelegate(RectI position);
+        public delegate void ActionAreaDelegate(RectI rect);
 
         public ActionDelegate action;
         public ActionAreaDelegate actionArea;

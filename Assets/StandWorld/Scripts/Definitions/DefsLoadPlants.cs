@@ -79,7 +79,8 @@ namespace StandWorld.Definitions
                     plantDef = new PlantDef
                     {
                         probability = 0.1f,
-                        minFertility = 0.2f
+                        minFertility = 0.2f,
+                        lifetime = 1f,
                     }
                 }
             );

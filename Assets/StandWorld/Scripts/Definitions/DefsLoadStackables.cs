@@ -23,7 +23,7 @@ namespace StandWorld.Definitions
                     graphics = new GraphicDef
                     {
                         textureName = "logs_stack",
-                        color = new Color(0.63f, 0.37f, 0.22f),
+                        //color = new Color(0.63f, 0.37f, 0.22f),
                     },
                     maxStack = 25
                 }

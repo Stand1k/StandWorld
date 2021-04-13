@@ -25,16 +25,24 @@ namespace StandWorld.Definitions
                     shortDesc = "Зрубує дерева в зазначеній області.",
                     selector = SelectorType.AreaTile,
                     sprite = Res.sprites["order_to_cut_tree"],
-                    action = position =>
+                    actionArea = (rect) =>
                     {
-                        Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                        if (plant != null && plant.def.cuttable && plant.def.type == TilableType.Tree)
+                        foreach (Vector2Int position in rect)
                         {
-                            plant.OrderToCut();
+                            Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
+                            if (plant != null && plant.def.cuttable && plant.def.type == TilableType.Tree)
+                            {
+                                plant.AddOrder(orders["cut_wood"]);
+                            }
                         }
-                    }
+                    },
+                    graphicDef = new GraphicDef
+                    {
+                        textureName = "order_to_cut_tree"
+                    },
                 }
             );
+
             AddMenuOrder(
                 new MenuOrderDef
                 {
@@ -43,19 +51,24 @@ namespace StandWorld.Definitions
                     shortDesc = "Зрізає рослини в зазначеній області.",
                     selector = SelectorType.AreaTile,
                     sprite = Res.sprites["order_to_cut_plant"],
-                    actionArea = (RectI rect) => {
-                        foreach (Vector2Int position in rect) {
-                            Plant plant = (Plant)ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                            if (plant != null && plant.def.cuttable) {
+                    actionArea = (rect) =>
+                    {
+                        foreach (Vector2Int position in rect)
+                        {
+                            Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
+                            if (plant != null && plant.def.cuttable && plant.def.type == TilableType.Grass)
+                            {
                                 plant.AddOrder(orders["cut_plants"]);
                             }
                         }
                     },
-                    graphicDef = new GraphicDef{
+                    graphicDef = new GraphicDef
+                    {
                         textureName = "order_to_cut_plant"
                     },
                 }
             );
+
             AddMenuOrder(
                 new MenuOrderDef
                 {
@@ -65,7 +78,7 @@ namespace StandWorld.Definitions
                     shortDesc = "Збирає врожай в зазначеній області.",
                     selector = SelectorType.AreaTile,
                     sprite = Res.sprites["order_harvest"],
-                    actionArea = (RectI rect) =>
+                    actionArea = (rect) =>
                     {
                         foreach (Vector2Int position in rect)
                         {
