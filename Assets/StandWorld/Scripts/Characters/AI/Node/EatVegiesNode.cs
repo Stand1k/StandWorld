@@ -2,6 +2,7 @@
 using StandWorld.Definitions;
 using StandWorld.Visuals;
 using StandWorld.World;
+using UnityEngine;
 
 namespace StandWorld.Characters.AI.Node
 {
@@ -9,16 +10,15 @@ namespace StandWorld.Characters.AI.Node
     {
         private class EatVegiesTaskData : BrainNode
         {
-            public override TaskData GetTaskData()
+            public override Task GetTask()
             {
                 BucketResult bucketResult = WorldUtils.HasVegetalNutrimentsInBucket(character.position);
 
                 if (bucketResult.result)
                 {
-                    return new TaskData(
+                    return new Task(
                         Defs.tasks["task_eat"],
-                        new TargetList(new Target(bucketResult.tilable)),
-                        character
+                        new TargetList(new Target(bucketResult.tilable))
                     );
                 }
 

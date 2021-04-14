@@ -9,15 +9,14 @@ namespace StandWorld.Characters.AI.Node
     {
         private class CutPlantAtPosition : BrainNode
         {
-            public override TaskData GetTaskData()
+            public override Task GetTask()
             {
                 Tilable tilable = WorldUtils.NextToCut(this.character.position);
                 if (tilable != null)
                 {
-                    return new TaskData(
+                    return new Task(
                         Defs.tasks["task_cut"],
-                        new TargetList(new Target(tilable)),
-                        this.character
+                        new TargetList(new Target(tilable))
                     );
                 }
 

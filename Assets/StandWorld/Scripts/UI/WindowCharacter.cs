@@ -19,9 +19,9 @@ namespace StandWorld.UI
         {
             if (activeTab == 0)
             {
-                if (_character.brain.currentTaskData != null)
+                if (_character.brain.currentTask != null)
                 {
-                    vGrid.Span(_character.brain.currentTaskData.def.uId);
+                    vGrid.Span(_character.brain.currentTask.def.uId);
                 }
                 else
                 {

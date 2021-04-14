@@ -2,15 +2,15 @@
 
 namespace StandWorld.Characters.AI
 {
-    public class TaskEat : Task
+    public class TaskEat : TaskBase
     {
-        public TaskEat(TaskData taskData, TaskRunner taskRunner) : base(taskData, taskRunner)
+        public TaskEat(BaseCharacter character, Task task) : base(character, task)
         {
         }
 
         public override bool Perform()
         {
-            Tilable tilable = (Tilable) targets.current.entity;
+            Tilable tilable = (Tilable) task.targets.current.entity;
             character.stats.vitals[Vitals.Hunger].currentValue += tilable.tilableDef.nutriments * 100f;
          
             tilable.Destroy();

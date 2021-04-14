@@ -24,7 +24,7 @@ namespace StandWorld.Definitions
             AddTask(new TaskDef
             {
                 uId = "task_harvers",
-                taskType = TaskType.Harvers,
+                taskType = TaskType.Harvest,
                 targetType = TargetType.Adjacent,
             });
             

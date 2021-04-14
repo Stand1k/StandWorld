@@ -7,12 +7,11 @@ namespace StandWorld.Characters.AI.Node
     {
         private class SleepNodeTaskData : BrainNode
         {
-            public override TaskData GetTaskData()
+            public override Task GetTask()
             {
-                return new TaskData(
+                return new Task(
                     Defs.tasks["task_sleep"],
-                    new TargetList(Target.GetRandomTargetInRange(character.position)),
-                    character
+                    new TargetList(Target.GetRandomTargetInRange(character.position))
                 );
             }
         }

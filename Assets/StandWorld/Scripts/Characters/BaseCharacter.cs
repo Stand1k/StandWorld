@@ -16,6 +16,7 @@ namespace StandWorld.Characters
         public new Vector2Int position => movement.position;
         public CharacterMovement movement { get; protected set; }
         public CharacterBrain brain { get; protected set; }
+        public InventoryTilable inventory { get; protected set; }
         
         public string name { get; protected set; }
 
@@ -27,6 +28,7 @@ namespace StandWorld.Characters
             this.def = def;
             movement = new CharacterMovement(position, this);
             brain = new CharacterBrain(this, GetBrainNode());
+            inventory = new InventoryTilable();
             name = SetName();
 
             if (this.def.graphics != null && def.graphics.textureName != string.Empty)

@@ -1,8 +1,8 @@
 ﻿namespace StandWorld.Characters.AI
 {
-    public class TaskSleep : Task
+    public class TaskSleep : TaskBase
     {
-        public TaskSleep(TaskData taskData, TaskRunner taskRunner) : base(taskData, taskRunner)
+        public TaskSleep(BaseCharacter character, Task task) : base(character, task)
         {
         }
 

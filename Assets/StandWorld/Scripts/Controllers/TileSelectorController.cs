@@ -22,7 +22,7 @@ namespace StandWorld.Controllers
             if (ToolBox.manager.ready)
             {
                 int i = 0;
-                if (Input.GetMouseButton(0))
+                if (Input.GetMouseButtonDown(0))
                 {
                     foreach (BaseCharacter character in ToolBox.map[ToolBox.cameraController.tileMapMousePosition].characters)
                     {

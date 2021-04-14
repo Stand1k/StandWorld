@@ -5,11 +5,17 @@ using UnityEngine;
 
 namespace StandWorld.Characters.AI
 {
+    public enum TargetType
+    {
+        None,
+        Tile,
+        Adjacent,
+    }
+    
     public class TargetList
     {
         public Queue<Target> targets = new Queue<Target>();
         public Target current { get; protected set; }
-        public bool setAdj = false;
 
         public Vector2Int currentPosition
         {
@@ -70,13 +76,17 @@ namespace StandWorld.Characters.AI
             targets.Enqueue(new Target(position));
         }
 
-        public void Next()
+        public void Free()
         {
             if (current != null)
             {
                 ToolBox.map[current.position].reserved = false;
             }
+        }
 
+        public void Next()
+        {
+            Free();
             current = targets.Dequeue();
         }
     }

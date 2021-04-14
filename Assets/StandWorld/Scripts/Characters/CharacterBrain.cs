@@ -6,64 +6,61 @@ namespace StandWorld.Characters
     public class CharacterBrain
     {
         public BaseCharacter character { get; protected set; }
+
         public BrainNode brainNode { get; protected set; }
-        public TaskRunner taskRunner { get; protected set; }
-        public TaskData currentTaskData { get; protected set; }
+
+        public Task currentTask;
 
         public CharacterBrain(BaseCharacter character, BrainNode brainNode)
         {
             this.character = character;
             this.brainNode = brainNode;
             this.brainNode.SetCharacter(character);
-            taskRunner = new TaskRunner();
-            currentTaskData = null;
-
-            taskRunner.onEndTask = delegate
-            {
-                if (taskRunner.task.taskStatus == TaskStatus.Success)
-                {
-                    Debug.Log("Clearing Task Success");
-                    currentTaskData = null;
-                }
-                else if (taskRunner.task.taskStatus == TaskStatus.Failed)
-                {
-                    Debug.Log("Clearing Task Failed");
-                    currentTaskData = null;
-                }
-            };
+            currentTask = null;
         }
 
         public void Update()
         {
-            if (currentTaskData == null)
+            if (currentTask == null)
             {
-                GetNextTaskData();
+                GetNextTask();
             }
             else
             {
-                if (taskRunner.running == false)
+                if (currentTask.taskBase == null)
                 {
-                    Debug.Log("Starting new Task: " + currentTaskData.def.uId);
-                    taskRunner.StartTask(currentTaskData);
+                    currentTask.GetClass(character);
+                    return;
+                }
+                
+                if (currentTask.state == TaskState.Success)
+                {
+                    currentTask = null;
+                }
+                else if (currentTask.state == TaskState.Failed)
+                {
+                    currentTask = null;
                 }
                 else
                 {
-                    if (taskRunner.task.taskStatus == TaskStatus.Running)
-                    {
-                        taskRunner.task.Update();
-                    }
+                    
+                    currentTask.taskBase.Tick();
                 }
             }
         }
 
-        public void GetNextTaskData()
+        public void GetNextTask()
         {
-            TaskData nextTaskData = brainNode.GetTaskData();
-
-            if (nextTaskData != null)
+            Task nextTask = brainNode.GetTask();
+            if (nextTask != null)
             {
-                currentTaskData = nextTaskData;
+                StartNextTask(nextTask);
             }
+        }
+
+        public void StartNextTask(Task nextTask)
+        {
+            currentTask = nextTask;
         }
     }
 }

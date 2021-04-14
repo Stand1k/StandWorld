@@ -1,8 +1,8 @@
 ﻿namespace StandWorld.Characters.AI
 {
-    public class TaskIdle : Task 
+    public class TaskIdle : TaskBase 
     {
-        public TaskIdle(TaskData taskData, TaskRunner taskRunner) : base(taskData, taskRunner)
+        public TaskIdle(BaseCharacter character, Task task) : base(character, task)
         {
         }
     }

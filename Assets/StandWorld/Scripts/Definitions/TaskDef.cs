@@ -7,5 +7,6 @@ namespace StandWorld.Definitions
     {
         public TargetType targetType = TargetType.Tile;
         public TaskType taskType;
+        public int ticksToPerform = 100;
     }
 }

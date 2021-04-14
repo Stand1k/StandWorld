@@ -5,13 +5,12 @@ namespace StandWorld.Characters.AI.Node
 {
     public class IdleNodeTaskData : BrainNode
     {
-        public override TaskData GetTaskData()
+        public override Task GetTask()
         {
-            return new TaskData(
+            return new Task(
                 Defs.tasks["task_idle"],
                 new TargetList(Target.GetRandomTargetInRange(character.position)),
-                character,
-                Random.Range(100, 250)
+                Random.Range(100, 200)
             );
         }
     }

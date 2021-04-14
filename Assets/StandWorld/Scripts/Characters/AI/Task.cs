@@ -1,142 +1,78 @@
-﻿using System;
-using StandWorld.Definitions;
-using UnityEngine;
+﻿using StandWorld.Definitions;
 
 namespace StandWorld.Characters.AI
 {
-    [Serializable]
-    public enum TargetType
-    {
-        None,
-        Tile,
-        Adjacent,
-    }
-
-    [Serializable]
-    public enum TaskStatus
+    public enum TaskState
     {
         Running,
         Success,
         Failed,
     }
 
-    [Serializable]
     public enum TaskType
     {
         Idle,
         Sleep,
         Eat,
         Cut,
-        Harvers,
+        Harvest,
         Sow,
-        Dirt,
+        Dirt
     }
 
-    public abstract class Task
+    public class Task
     {
-        public BaseCharacter character { get; protected set; }
-        public TaskRunner taskRunner { get; protected set; }
-        public TaskStatus taskStatus { get; set; }
-        public TargetList targets { get; protected set; }
+        public TargetList targets;
+        public TaskState state;
+        public TaskDef def;
+        public TaskBase taskBase;
+        public int ticksToPerform;
 
-        public TaskDef def => taskRunner.def;
-
-        private bool _inRange;
-        private int _ticks;
-        private int _ticksToPerform;
-
-        public Task(TaskData taskData, TaskRunner taskRunner)
+        public Task(TaskDef def)
         {
-            this.taskRunner = taskRunner;
-            character = taskData.character;
-            targets = taskData.targets;
-            _ticksToPerform = taskData.ticksToPerform;
-
-            if (taskRunner.def.targetType == TargetType.Adjacent)
-            {
-                targets.current.ClosestNeighbour(character.position);
-            }
-            
-            Start();
+            this.def = def;
+            ticksToPerform = def.ticksToPerform;
         }
 
-        public virtual void Update()
+        public Task(TaskDef def, TargetList targets) : this(def)
         {
-            if (taskStatus != TaskStatus.Running)
-            {
-                taskRunner.EndTask();
-                return;
-            }
-
-            if (def.targetType == TargetType.None)
-            {
-                Run();
-            }
-            else
-            {
-                if (!_inRange)
-                {
-                    MoveInRange();
-                }
-                else
-                {
-                    Run();
-                }
-            }
+            this.targets = targets;
+            ticksToPerform = def.ticksToPerform;
         }
 
-        private void MoveInRange()
+        public Task(TaskDef def, TargetList targets, int ticksToPerform) : this(def, targets)
         {
-            if (targets.current == null)
-            {
-                taskStatus = TaskStatus.Failed;
-                Debug.LogError(" taskStatus = TaskStatus.Failed;");
-            }
-            else
-            {
-                if (character.position == targets.currentPosition)
-                {
-                    _inRange = true;
-                    return;
-                }
-
-                character.movement.Move(this);
-            }
+            this.ticksToPerform = ticksToPerform;
         }
 
-        private void Run()
+        public Task(TaskDef def, int ticksToPerform) : this(def)
         {
-            if (Perform())
-            {
-                End();
-            }
+            this.ticksToPerform = ticksToPerform;
         }
 
-        public virtual void End()
+        public void GetClass(BaseCharacter character)
         {
-            taskStatus = TaskStatus.Success;
-            taskRunner.EndTask();
-        }
-
-        public virtual void Start()
-        {
-            taskStatus = TaskStatus.Running;
-        }
-
-        public virtual bool Perform()
-        {
-            if (_ticksToPerform <= 0)
+            switch (def.taskType)
             {
-                return true;
+                case TaskType.Cut:
+                    taskBase = new TaskCut(character, this);
+                    break;
+                case TaskType.Dirt:
+                    taskBase = new TaskDirt(character, this);
+                    break;
+                case TaskType.Sow:
+                    taskBase = new TaskSow(character, this);
+                    break;
+                case TaskType.Eat:
+                    taskBase = new TaskEat(character, this);
+                    break;
+                case TaskType.Sleep:
+                    taskBase = new TaskSleep(character, this);
+                    break;
+                case TaskType.Idle:
+                    taskBase = new TaskIdle(character, this);
+                    break;
             }
-
-            _ticks++;
-            if (_ticks >= _ticksToPerform)
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }

@@ -85,7 +85,7 @@ namespace StandWorld.Entities
             inventoryQueue = new Queue<Item>();
         }
 
-        public void TransfertTo(ref InventoryTilable to, int qty)
+        public void TransfertTo(InventoryTilable to, int qty)
         {
             if ((to.def == null || to.def == def) && !to.full)
             {

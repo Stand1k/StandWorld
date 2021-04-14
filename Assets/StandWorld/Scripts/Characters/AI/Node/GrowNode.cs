@@ -9,16 +9,15 @@ namespace StandWorld.Characters.AI.Node
     {
         private class CutPlantsAtPosition : BrainNode
         {
-            public override TaskData GetTaskData()
+            public override Task GetTask()
             {
                 Tilable tilable = WorldUtils.FieldNextToCut(character.position);
 
                 if (tilable != null)
                 {
-                    return new TaskData(
+                    return new Task(
                         Defs.tasks["task_cut"],
-                        new TargetList(new Target(tilable)),
-                        character
+                        new TargetList(new Target(tilable))
                     );
                 }
 
@@ -28,7 +27,7 @@ namespace StandWorld.Characters.AI.Node
         
         private class HarvestPlantAtPosition : BrainNode
         {
-            public override TaskData GetTaskData()
+            public override Task GetTask()
             {
                 throw new NotImplementedException();
             }
@@ -36,16 +35,15 @@ namespace StandWorld.Characters.AI.Node
         
         private class SowPlantAtPosition : BrainNode
         {
-            public override TaskData GetTaskData()
+            public override Task GetTask()
             {
                 Tilable tilable = WorldUtils.FieldNextTileToSow(character.position);
 
                 if (tilable != null)
                 {
-                    return new TaskData(
+                    return new Task(
                         Defs.tasks["task_sow"],
-                        new TargetList(new Target(tilable)),
-                        character
+                        new TargetList(new Target(tilable))
                     );
                 }
 
@@ -55,16 +53,15 @@ namespace StandWorld.Characters.AI.Node
         
         private class DirtAtPosition : BrainNode
         {
-            public override TaskData GetTaskData()
+            public override Task GetTask()
             {
                 Tilable tilable = WorldUtils.FieldNextTileToDirt(character.position);
 
                 if (tilable != null)
                 {
-                    return new TaskData(
+                    return new Task(
                         Defs.tasks["task_dirt"],
-                        new TargetList(new Target(tilable)),
-                        character
+                        new TargetList(new Target(tilable))
                     );
                 }
 

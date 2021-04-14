@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace StandWorld.Characters.AI
 {
-    public class BrainNode
+    public abstract class BrainNode
     {
         public List<BrainNode> subNodes = new List<BrainNode>();
         public BaseCharacter character { get; protected set; }
@@ -17,7 +18,7 @@ namespace StandWorld.Characters.AI
             }
         }
 
-        public virtual TaskData GetTaskData()
+        public virtual Task GetTask()
         {
             return null;
         }
@@ -31,14 +32,15 @@ namespace StandWorld.Characters.AI
 
     public class BrainNodePriority : BrainNode
     {
-        public override TaskData GetTaskData()
+        public override Task GetTask()
         {
             foreach (BrainNode node in subNodes)
             {
-                TaskData taskData = node.GetTaskData();
-                if (taskData != null)
+                Task task = node.GetTask();
+
+                if (task != null)
                 {
-                    return taskData;
+                    return task;
                 }
             }
 
@@ -55,11 +57,11 @@ namespace StandWorld.Characters.AI
             this.condition = condition;
         }
 
-        public override TaskData GetTaskData()
+        public override Task GetTask()
         {
             if (condition())
             {
-                return base.GetTaskData();
+                return base.GetTask();
             }
 
             return null;

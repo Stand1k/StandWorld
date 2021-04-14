@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using StandWorld.Characters.AI;
 using StandWorld.Definitions;
 using StandWorld.Game;
 using StandWorld.Helpers;
 using UnityEngine;
+using Task = StandWorld.Characters.AI.Task;
 
 namespace StandWorld.Characters
 {
@@ -80,7 +82,7 @@ namespace StandWorld.Characters
 
                 if (pathResult.success == false)
                 {
-                    task.taskStatus = TaskStatus.Failed; 
+                    task.state = TaskState.Failed;
                     ResetMovement();
                     return;
                 }
