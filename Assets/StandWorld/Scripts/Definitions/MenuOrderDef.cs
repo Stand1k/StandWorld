@@ -27,5 +27,6 @@ namespace StandWorld.Definitions
         public SelectorType selector;
         public GraphicDef graphicDef;
         public Layer layer;
+        public KeyCode keyCode = KeyCode.Escape;
     }
 }

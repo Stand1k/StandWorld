@@ -6,11 +6,11 @@ namespace StandWorld.Entities
 {
     public class Ground : Tilable
     {
-        public Ground(Vector2Int position, TilableDef def)
+        public Ground(Vector2Int position, TilableDef tilableDef)
         {
             this.position = position;
-            this.def = def;
-            mainGraphic = GraphicInstance.GetNew(def.graphics);
+            this.tilableDef = tilableDef;
+            mainGraphic = GraphicInstance.GetNew(tilableDef.graphics);
         }
 
         public static TilableDef GroundByHeight(float height)

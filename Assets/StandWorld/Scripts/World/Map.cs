@@ -50,6 +50,7 @@ namespace StandWorld.World
             grids.Add(Layer.Ground, new GroundGrid(size));
             grids.Add(Layer.Plant, new TilableGrid(size));
             grids.Add(Layer.Mountain, new TilableGrid(size));
+            grids.Add(Layer.Building, new TilableGrid(size));
             grids.Add(Layer.Stackable, new TilableGrid(size));
             grids.Add(Layer.Orders, new TilableGrid(size));
             grids.Add(Layer.FX, new TilableGrid(size));
@@ -58,9 +59,9 @@ namespace StandWorld.World
 
         public void Spawn(Vector2Int position, Tilable tilable, bool force = false)
         {
-            if (force || tilable.def.layer == Layer.Undefined || GetTilableAt(position, tilable.def.layer) == null)
+            if (force || tilable.tilableDef.layer == Layer.Undefined || GetTilableAt(position, tilable.tilableDef.layer) == null)
             {
-                grids[tilable.def.layer].AddTilable(tilable);
+                grids[tilable.tilableDef.layer].AddTilable(tilable);
             }
         }
 
@@ -136,18 +137,39 @@ namespace StandWorld.World
             }
         }
 
+        public void UpdateConnectedMountains()
+        {
+            foreach (LayerBucketGrid bucket in grids[Layer.Mountain].buckets)
+            {
+                bool changed = false;
+                foreach (Tilable tilable in bucket.tilables)
+                {
+                    if (tilable != null)
+                    {
+                        tilable.UpdateGraphics();
+                        changed = true;
+                    }
+                }
+
+                if (changed)
+                {
+                    bucket.rebuildMatrices = true;
+                }
+            }
+        }
+
         public float GetFertilityAt(Vector2Int position)
         {
             float fertility = 1f;
 
             foreach (Tilable tilable in GetAllTilablesAt(position))
             {
-                if (tilable.def.fertility == 0f)
+                if (tilable.tilableDef.fertility == 0f)
                 {
                     return 0f;
                 }
 
-                fertility *= tilable.def.fertility;
+                fertility *= tilable.tilableDef.fertility;
             }
 
             return fertility;
@@ -171,7 +193,7 @@ namespace StandWorld.World
                     )
                 );
 
-                if (grids[Layer.Ground].GetTilableAt(position).def.uID == "rock")
+                if (grids[Layer.Ground].GetTilableAt(position).tilableDef.uId == "rock")
                 {
                     Spawn(
                         position,
@@ -198,23 +220,7 @@ namespace StandWorld.World
                 }
             }
 
-            foreach (LayerBucketGrid bucket in grids[Layer.Mountain].buckets)
-            {
-                bool changed = false;
-                foreach (Tilable tilable in bucket.tilables)
-                {
-                    if (tilable != null)
-                    {
-                        tilable.UpdateGraphics();
-                        changed = true;
-                    }
-                }
-
-                if (changed)
-                {
-                    bucket.rebuildMatrices = true;
-                }
-            }
+            UpdateConnectedMountains();
 
             /*foreach(Vector2Int position in new RectI(new Vector2Int(30,30),10,10))
             {

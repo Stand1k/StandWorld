@@ -7,7 +7,7 @@ namespace StandWorld.Definitions
     {
         public static void AddMountain(TilableDef def)
         {
-            mountains.Add(def.uID, def);
+            mountains.Add(def.uId, def);
         }
         
         public static void LoadMountainsFromCode()
@@ -17,7 +17,7 @@ namespace StandWorld.Definitions
             AddMountain(
                 new TilableDef
                 {
-                    uID = "mountain",
+                    uId = "mountain",
                     blockPath = true,
                     blockStackable = true,
                     supportRoof = true,

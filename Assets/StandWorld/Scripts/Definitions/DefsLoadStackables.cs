@@ -7,7 +7,7 @@ namespace StandWorld.Definitions
     {
         public static void AddStackable(TilableDef def)
         {
-            stackables.Add(def.uID, def);
+            stackables.Add(def.uId, def);
         }
         
         public static void LoadStackablesFromCode()
@@ -17,7 +17,7 @@ namespace StandWorld.Definitions
             AddStackable(
                 new TilableDef
                 {
-                    uID = "logs",
+                    uId = "logs",
                     layer = Layer.Stackable,
                     blockStackable = true,
                     graphics = new GraphicDef

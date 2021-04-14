@@ -16,12 +16,12 @@ namespace StandWorld.Entities
                     return _max;
                 }
 
-                if (_parent == null || _parent.def == null)
+                if (_parent == null || _parent.tilableDef == null)
                 {
                     return 0;
                 }
 
-                return _parent.def.maxStack;
+                return _parent.tilableDef.maxStack;
             }
         }
 
@@ -43,7 +43,7 @@ namespace StandWorld.Entities
             {
                 if (_parent != null)
                 {
-                    return _parent.def;
+                    return _parent.tilableDef;
                 }
 
                 return _def;
@@ -75,7 +75,7 @@ namespace StandWorld.Entities
                 {
                     break;
                 }
-                inventoryQueue.Enqueue(new Item(_parent.def));
+                inventoryQueue.Enqueue(new Item(_parent.tilableDef));
             }
         }
 

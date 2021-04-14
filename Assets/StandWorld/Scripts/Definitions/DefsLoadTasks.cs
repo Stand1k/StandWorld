@@ -7,7 +7,7 @@ namespace StandWorld.Definitions
     {
         public static void AddTask(TaskDef def) 
         {
-            tasks.Add(def.uID, def);
+            tasks.Add(def.uId, def);
         }
 
         public static void LoadTasksFromCode()
@@ -16,47 +16,47 @@ namespace StandWorld.Definitions
             
             AddTask(new TaskDef
             {
-                uID = "task_cut",
+                uId = "task_cut",
                 taskType = TaskType.Cut,
                 targetType = TargetType.Adjacent,
             });
             
             AddTask(new TaskDef
             {
-                uID = "task_harvers",
+                uId = "task_harvers",
                 taskType = TaskType.Harvers,
                 targetType = TargetType.Adjacent,
             });
             
             AddTask(new TaskDef
             {
-                uID = "task_sow",
+                uId = "task_sow",
                 taskType = TaskType.Sow,
                 targetType = TargetType.Adjacent,
             });
             
             AddTask(new TaskDef
             {
-                uID = "task_dirt",
+                uId = "task_dirt",
                 taskType = TaskType.Dirt,
                 targetType = TargetType.Adjacent,
             });
 
             AddTask(new TaskDef
             {
-                uID = "task_sleep",
+                uId = "task_sleep",
                 taskType = TaskType.Sleep
             });
 
             AddTask(new TaskDef
             {
-                uID = "task_idle",
+                uId = "task_idle",
                 taskType = TaskType.Idle
             });
             
             AddTask(new TaskDef
             {
-                uID = "task_eat",
+                uId = "task_eat",
                 taskType = TaskType.Eat
             });
         }

@@ -11,17 +11,19 @@ namespace StandWorld.Entities
     {
         private ConnectedTilable _connectedTilable;
         
-        public Mountain(Vector2Int position, TilableDef def)
+        public Mountain(Vector2Int position, TilableDef tilableDef)
         {
             this.position = position;
-            this.def = def;
-            _connectedTilable = new ConnectedTilable(this);
+            this.tilableDef = tilableDef;
+            
             mainGraphic = GraphicInstance.GetNew(
-                this.def.graphics,
+                this.tilableDef.graphics,
                 default(Color),
-                Res.textures[this.def.graphics.textureName + "_0"],
+                Res.textures[this.tilableDef.graphics.textureName + "_0"],
                 1
             );
+            
+            _connectedTilable = new ConnectedTilable(this);
             addGraphics = new Dictionary<string, GraphicInstance>();
         }
 

@@ -6,7 +6,7 @@ namespace StandWorld.Definitions
     {
         public static void AddGround(TilableDef def)
         {
-            grounds.Add(def.uID, def);
+            grounds.Add(def.uId, def);
         }
 
         public static void LoadGroundsFromCode()
@@ -17,7 +17,7 @@ namespace StandWorld.Definitions
             AddGround(
                 new TilableDef
                 {
-                    uID =  "dirt",
+                    uId =  "dirt",
                     layer = Layer.Ground,
                     fertility = 1f,
                     graphics = new GraphicDef
@@ -37,7 +37,7 @@ namespace StandWorld.Definitions
             AddGround(
                 new TilableDef
                 {
-                    uID =  "water",
+                    uId =  "water",
                     layer = Layer.Ground,
                     blockPath = true,
                     graphics = new GraphicDef
@@ -57,7 +57,7 @@ namespace StandWorld.Definitions
             AddGround(
                 new TilableDef
                 {
-                    uID =  "rock",
+                    uId =  "rock",
                     layer = Layer.Ground,
                     pathCost = 1.05f,
                     graphics = new GraphicDef

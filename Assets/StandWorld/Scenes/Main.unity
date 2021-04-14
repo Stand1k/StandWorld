@@ -345,7 +345,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 40, y: 22.5, z: -10}
+  m_LocalPosition: {x: 40, y: 22.5, z: -100}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -904,15 +904,18 @@ MonoBehaviour:
   defaultColor: {r: 1, g: 1, b: 1, a: 1}
   current: -1
   currentOrder:
-    uID: 
+    uId: 
     name: 
     shortDesc: 
     tilableDef:
-      uID: 
+      uId: 
+      name: 
+      shortDecs: 
+      weight: 0
       layer: 0
       type: 0
       graphics:
-        uID: 
+        uId: 
         textureName: 
         materialName: tilables
         size: {x: 1, y: 1}
@@ -921,10 +924,10 @@ MonoBehaviour:
         drawPriority: 0
         isInstanced: 1
       groundDef:
-        uID: 
+        uId: 
         maxHeight: 0
       plantDef:
-        uID: 
+        uId: 
         probability: 0
         minFertility: 0
         states: 5
@@ -942,7 +945,7 @@ MonoBehaviour:
     sprite: {fileID: 0}
     selector: 0
     graphicDef:
-      uID: 
+      uId: 
       textureName: 
       materialName: tilables
       size: {x: 1, y: 1}
@@ -951,6 +954,7 @@ MonoBehaviour:
       drawPriority: 0
       isInstanced: 1
     layer: 0
+    keyCode: 27
 --- !u!114 &5700605102336096096
 MonoBehaviour:
   m_ObjectHideFlags: 0

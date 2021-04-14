@@ -21,14 +21,14 @@ namespace StandWorld.Entities
 
         protected bool cutOrdered;
 
-        public Plant(Vector2Int position, TilableDef def, bool randomGrow = false)
+        public Plant(Vector2Int position, TilableDef tilableDef, bool randomGrow = false)
         {
             addGraphics = new Dictionary<string, GraphicInstance>();
             this.position = position;
-            this.def = def;
-            _lifetime = this.def.plantDef.lifetime * Settings.TICKS_PER_DAY;
-            _ticksPerState = _lifetime / this.def.plantDef.states;
-            _sizePerState = 1f / this.def.plantDef.states;
+            this.tilableDef = tilableDef;
+            _lifetime = this.tilableDef.plantDef.lifetime * Settings.TICKS_PER_DAY;
+            _ticksPerState = _lifetime / this.tilableDef.plantDef.states;
+            _sizePerState = 1f / this.tilableDef.plantDef.states;
 
             if (randomGrow)
             {
@@ -47,28 +47,28 @@ namespace StandWorld.Entities
 
         public override void UpdateGraphics()
         {
-            if (def.type == TilableType.Grass)
+            if (tilableDef.type == TilableType.Grass)
             {
                 _leafColor = Defs.colorPallets["cols_leafsGreen"].GetRandom();
-                mainGraphic = GraphicInstance.GetNew(def.graphics, _leafColor);
+                mainGraphic = GraphicInstance.GetNew(tilableDef.graphics, _leafColor);
             }
-            else if (def.type == TilableType.Tree)
+            else if (tilableDef.type == TilableType.Tree)
             {
                 _leafColor = Defs.colorPallets["cols_leafsGreen"].GetRandom();
                 _woodColor = Defs.colorPallets["cols_wood"].GetRandom();
                 mainGraphic = GraphicInstance.GetNew(
-                    def.graphics,
+                    tilableDef.graphics,
                     _woodColor,
-                    Res.textures[def.graphics.textureName + "_base"],
+                    Res.textures[tilableDef.graphics.textureName + "_base"],
                     1
                 );
 
                 if (addGraphics.ContainsKey("leafs"))
                 {
                     addGraphics["leafs"] = GraphicInstance.GetNew(
-                        def.graphics,
+                        tilableDef.graphics,
                         _leafColor,
-                        Res.textures[def.graphics.textureName + "_leafs"],
+                        Res.textures[tilableDef.graphics.textureName + "_leafs"],
                         2
                     );
                 }
@@ -76,9 +76,9 @@ namespace StandWorld.Entities
                 {
                     addGraphics.Add("leafs",
                         GraphicInstance.GetNew(
-                            def.graphics,
+                            tilableDef.graphics,
                             _leafColor,
-                            Res.textures[def.graphics.textureName + "_leafs"],
+                            Res.textures[tilableDef.graphics.textureName + "_leafs"],
                             2
                         )
                     );
@@ -86,7 +86,7 @@ namespace StandWorld.Entities
             }
             else
             {
-                mainGraphic = GraphicInstance.GetNew(def.graphics);
+                mainGraphic = GraphicInstance.GetNew(tilableDef.graphics);
             }
         }
 
@@ -94,9 +94,9 @@ namespace StandWorld.Entities
         {
             int state = Mathf.CeilToInt(ticks / _ticksPerState);
 
-            if (state > def.plantDef.states)
+            if (state > tilableDef.plantDef.states)
             {
-                state = def.plantDef.states;
+                state = tilableDef.plantDef.states;
             }
 
             if (state != _currentState)
@@ -149,9 +149,9 @@ namespace StandWorld.Entities
                 WorldUtils.cutOrdered.Remove(this);
             }
 
-            int qtyLoot = Defs.stackables["logs"].maxStack / ((def.plantDef.states + 1) - _currentState);
+            int qtyLoot = Defs.stackables["logs"].maxStack / ((tilableDef.plantDef.states + 1) - _currentState);
 
-            if (def.type == TilableType.Tree)
+            if (tilableDef.type == TilableType.Tree)
             {
                 ToolBox.map.Spawn(position, new Stackable
                 (
@@ -162,6 +162,16 @@ namespace StandWorld.Entities
             }
 
             Destroy();
+        }
+
+        public override void ClearOrder()
+        {
+            if (WorldUtils.cutOrdered.Contains(this))
+            {
+                WorldUtils.cutOrdered.Remove(this);
+            }
+            
+            base.ClearOrder();
         }
     }
 }

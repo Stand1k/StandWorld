@@ -100,7 +100,7 @@ namespace StandWorld.World
             tilablesMatrices = new Dictionary<int, List<Matrix4x4>>();
             foreach (Tilable tilable in tilables)
             {
-                if (tilable != null && tilable.def.graphics.isInstanced)
+                if (tilable != null && tilable.tilableDef.graphics.isInstanced)
                 {
                     AddMatrice(tilable.mainGraphic.uId, tilable.GetMatrice(tilable.mainGraphic.uId));
                     if (tilable.addGraphics != null)
@@ -184,26 +184,26 @@ namespace StandWorld.World
             //При додавані тайлу оновлюємо дані нашого TileProperty для Pathfinding 
             ToolBox.map[tilable.position].Update();
 
-            if (tilable.def.type != TilableType.Undefined)
+            if (tilable.tilableDef.type != TilableType.Undefined)
             {
-                if (!tilablesByType.ContainsKey(tilable.def.type))
+                if (!tilablesByType.ContainsKey(tilable.tilableDef.type))
                 {
-                    tilablesByType.Add(tilable.def.type, new HashSet<Tilable>());
+                    tilablesByType.Add(tilable.tilableDef.type, new HashSet<Tilable>());
                 }
 
-                tilablesByType[tilable.def.type].Add(tilable);
+                tilablesByType[tilable.tilableDef.type].Add(tilable);
             }
 
-            if (tilable.def.type == TilableType.Grass)
+            if (tilable.tilableDef.type == TilableType.Grass)
             {
-                if (tilable.def.nutriments > 0f)
+                if (tilable.tilableDef.nutriments > 0f)
                 {
-                    properties.vegetalNutriments += tilable.def.nutriments;
-                    properties.nutriments += tilable.def.nutriments;
+                    properties.vegetalNutriments += tilable.tilableDef.nutriments;
+                    properties.nutriments += tilable.tilableDef.nutriments;
                 }
             }
             
-            if (tilable.def.graphics.isInstanced)
+            if (tilable.tilableDef.graphics.isInstanced)
             {
                 AddMatrice(tilable.mainGraphic.uId, tilable.GetMatrice(tilable.mainGraphic.uId));
                 if (tilable.addGraphics != null)
@@ -221,26 +221,26 @@ namespace StandWorld.World
         public void DelTilable(Tilable tilable) {
             Vector2Int localPosition = GetLocalPosition(tilable.position);
             
-            if (tilable.def.type == TilableType.Grass)
+            if (tilable.tilableDef.type == TilableType.Grass)
             {
-                if (tilable.def.nutriments > 0f)
+                if (tilable.tilableDef.nutriments > 0f)
                 {
-                    properties.vegetalNutriments -= tilable.def.nutriments;
-                    properties.nutriments -= tilable.def.nutriments;
+                    properties.vegetalNutriments -= tilable.tilableDef.nutriments;
+                    properties.nutriments -= tilable.tilableDef.nutriments;
                 }
             }
             
             tilables[localPosition.x + localPosition.y * rect.width] = null;
             ToolBox.map[tilable.position].Update();
 
-            if (tilable.def.type != TilableType.Undefined) {
-                tilablesByType[tilable.def.type].Remove(tilable);
-                if (tilablesByType[tilable.def.type].Count == 0) {
-                    tilablesByType.Remove(tilable.def.type);
+            if (tilable.tilableDef.type != TilableType.Undefined) {
+                tilablesByType[tilable.tilableDef.type].Remove(tilable);
+                if (tilablesByType[tilable.tilableDef.type].Count == 0) {
+                    tilablesByType.Remove(tilable.tilableDef.type);
                 }
             }
 
-            if (tilable.def.graphics.isInstanced)
+            if (tilable.tilableDef.graphics.isInstanced)
             {
                rebuildMatrices = true;
             }

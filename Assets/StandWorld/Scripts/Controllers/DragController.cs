@@ -21,7 +21,6 @@ namespace StandWorld.Controllers
 
         public MenuOrderDef currentOrder => menuController.currentOrder;
 
-
         public void GetScreenRect(Vector2 origin, Vector2 mousePosition)
         {
             origin.y = Screen.height - origin.y;

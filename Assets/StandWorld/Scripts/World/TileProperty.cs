@@ -58,37 +58,37 @@ public class TileProperty
         {
             if (fertility != 0f)
             {
-                fertility *= tilable.def.fertility;
+                fertility *= tilable.tilableDef.fertility;
             }
             
             if (!blockPath && pathCost != 0)
             {
-                pathCost *= tilable.def.pathCost;
+                pathCost *= tilable.tilableDef.pathCost;
             }
 
             if (blockPath == false)
             {
-                blockPath = tilable.def.blockPath;
+                blockPath = tilable.tilableDef.blockPath;
             }
             
             if (blockStackable == false)
             {
-                blockStackable = tilable.def.blockStackable;
+                blockStackable = tilable.tilableDef.blockStackable;
             }
             
             if (blockPlant == false)
             {
-                blockPlant = tilable.def.blockPlant;
+                blockPlant = tilable.tilableDef.blockPlant;
             }
             
             if (blockBuilding == false)
             {
-                blockBuilding = tilable.def.blockBuilding;
+                blockBuilding = tilable.tilableDef.blockBuilding;
             }
             
             if (supportRoof == false)
             {
-                supportRoof = tilable.def.supportRoof;
+                supportRoof = tilable.tilableDef.supportRoof;
             }
         }
 

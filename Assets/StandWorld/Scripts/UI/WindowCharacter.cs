@@ -21,7 +21,7 @@ namespace StandWorld.UI
             {
                 if (_character.brain.currentTaskData != null)
                 {
-                    vGrid.Span(_character.brain.currentTaskData.def.uID);
+                    vGrid.Span(_character.brain.currentTaskData.def.uId);
                 }
                 else
                 {

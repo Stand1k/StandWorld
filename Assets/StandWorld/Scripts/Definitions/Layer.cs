@@ -9,11 +9,12 @@ namespace StandWorld.Definitions
         Ground,
         Helpers,
         Mountain,
-        Stackable,
+        Building,
         Orders,
         FX,
         Plant,
-        Count // Трік який дає нам кількість наших лейерів
+        Stackable,
+        Count // Трік який дає нам кількість наших леєрів
     }
 
     [System.Serializable]
@@ -22,7 +23,10 @@ namespace StandWorld.Definitions
         Undefined,
         Grass,
         Tree,
-        Plant
+        Plant,
+        Building,
+        BuildingConnected,
+        Recipe,
     }
 
     public static class LayerUtils

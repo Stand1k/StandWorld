@@ -7,7 +7,7 @@ namespace StandWorld.Definitions
     {
         public static void AddPlant(TilableDef def)
         {
-            plants.Add(def.uID, def);
+            plants.Add(def.uId, def);
         }
 
         public static void LoadPlantsFromCode()
@@ -17,7 +17,7 @@ namespace StandWorld.Definitions
             AddPlant(
                 new TilableDef
                 {
-                    uID = "carrot",
+                    uId = "carrot",
                     layer = Layer.Plant,
                     pathCost = .95f,
                     blockPlant = true,
@@ -40,7 +40,7 @@ namespace StandWorld.Definitions
             AddPlant(
                 new TilableDef
                 {
-                    uID = "grass",
+                    uId = "grass",
                     layer = Layer.Plant,
                     pathCost = .95f,
                     blockPlant = true,
@@ -63,7 +63,7 @@ namespace StandWorld.Definitions
             AddPlant(
                 new TilableDef
                 {
-                    uID = "tree",
+                    uId = "tree",
                     layer = Layer.Plant,
                     type = TilableType.Tree,
                     blockPath = true,

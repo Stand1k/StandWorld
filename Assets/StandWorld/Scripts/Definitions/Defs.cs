@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using StandWorld.Entities;
 using UnityEngine;
 
 namespace StandWorld.Definitions
@@ -11,7 +12,7 @@ namespace StandWorld.Definitions
         {
             empty = new TilableDef
             {
-                uID = "empty",
+                uId = "empty",
                 layer = Layer.Helpers,
                 graphics = new GraphicDef{}
             };
@@ -19,6 +20,8 @@ namespace StandWorld.Definitions
 
         public static Dictionary<string, MenuOrderDef> orders;
         
+        public static Dictionary<string, TilableDef> buildings;
+
         public static Dictionary<string, TilableDef> grounds;
 
         public static SortedDictionary<float, TilableDef> groundsByHeight;

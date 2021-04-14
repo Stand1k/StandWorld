@@ -7,12 +7,12 @@ namespace StandWorld.Definitions
     {
         public static void AddColorPalette(ColorPaletteDef def)
         {
-            colorPallets.Add(def.uID, def);
+            colorPallets.Add(def.uId, def);
         }
 
         public static void AddColorPalette(NamedColorPaletteDef def)
         {
-            namedColorPallets.Add(def.uID, def);
+            namedColorPallets.Add(def.uId, def);
         }
 
         public static void LoadColorPalettesFromCode()
@@ -22,7 +22,7 @@ namespace StandWorld.Definitions
 
             AddColorPalette(new ColorPaletteDef
             {
-                uID = "human_hair",
+                uId = "human_hair",
                 colors = new List<Color>
                 {
                     new Color(0.53f, 0.31f, 0.2f),
@@ -34,7 +34,7 @@ namespace StandWorld.Definitions
 
             AddColorPalette(new ColorPaletteDef
             {
-                uID = "human_clothes",
+                uId = "human_clothes",
                 colors = new List<Color>
                 {
                     Color.black,
@@ -48,7 +48,7 @@ namespace StandWorld.Definitions
 
             AddColorPalette(new ColorPaletteDef
             {
-                uID = "human_body",
+                uId = "human_body",
                 colors = new List<Color>
                 {
                     new Color(0.9f, 0.74f, 0.6f),
@@ -59,7 +59,7 @@ namespace StandWorld.Definitions
 
             AddColorPalette(new NamedColorPaletteDef
             {
-                uID = "cols_vitals",
+                uId = "cols_vitals",
                 colors = new Dictionary<string, Color>
                 {
                     {"Health", new Color(0.34f, 0.07f, 0.07f)},
@@ -72,7 +72,7 @@ namespace StandWorld.Definitions
 
             AddColorPalette(new ColorPaletteDef
             {
-                uID = "cols_leafsGreen",
+                uId = "cols_leafsGreen",
                 colors = new List<Color>
                 {
                     new Color(0.63f, 0.76f, 0.29f),
@@ -83,7 +83,7 @@ namespace StandWorld.Definitions
             
             AddColorPalette(new ColorPaletteDef
             {
-                uID = "cols_leafsOrange",
+                uId = "cols_leafsOrange",
                 colors = new List<Color>
                 {
                     new Color(0.73f, 0.4f, 0f),
@@ -94,7 +94,7 @@ namespace StandWorld.Definitions
             
             AddColorPalette(new ColorPaletteDef
             {
-                uID = "cols_wood",
+                uId = "cols_wood",
                 colors = new List<Color>
                 {
                     new Color(0.63f, 0.37f, 0.22f),

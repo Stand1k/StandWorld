@@ -11,12 +11,12 @@ namespace StandWorld.Entities
         public InventoryTilable inventory { get; protected set; }
         public StockArea stockArea { get; protected set; }
 
-        public Stackable(Vector2Int position, TilableDef def, int count)
+        public Stackable(Vector2Int position, TilableDef tilableDef, int count)
         {
             this.position = position;
-            this.def = def;
+            this.tilableDef = tilableDef;
             inventory = new InventoryTilable(this, count);
-            mainGraphic = GraphicInstance.GetNew(this.def.graphics);
+            mainGraphic = GraphicInstance.GetNew(this.tilableDef.graphics);
             stockArea = null;
 
             ToolBox.stackableLabelController.AddLabel(this);
@@ -25,14 +25,14 @@ namespace StandWorld.Entities
         public Stackable(Vector2Int position, StockArea stockArea)
         {
             this.position = position;
-            def = Defs.empty;
+            tilableDef = Defs.empty;
             this.stockArea = stockArea;
             inventory = null;
             mainGraphic = GraphicInstance.GetNew(
-                def.graphics,
+                tilableDef.graphics,
                 stockArea.color,
                 Res.TextureUnicolor(stockArea.color),
-                1
+                100
             );
         }
     }

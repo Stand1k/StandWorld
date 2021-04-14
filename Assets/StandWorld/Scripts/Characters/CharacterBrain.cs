@@ -43,7 +43,7 @@ namespace StandWorld.Characters
             {
                 if (taskRunner.running == false)
                 {
-                    Debug.Log("Starting new Task: " + currentTaskData.def.uID);
+                    Debug.Log("Starting new Task: " + currentTaskData.def.uId);
                     taskRunner.StartTask(currentTaskData);
                 }
                 else

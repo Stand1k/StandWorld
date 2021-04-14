@@ -16,7 +16,7 @@ namespace StandWorld.Entities
     {
         public Vector3 scale = Vector3.one;
 
-        public TilableDef def { get; protected set; }
+        public TilableDef tilableDef { get; protected set; }
 
         public GraphicInstance mainGraphic;
 
@@ -58,12 +58,12 @@ namespace StandWorld.Entities
                 mat.SetTRS(
                     new Vector3(
                         position.x
-                        - def.graphics.pivot.x * scale.x
+                        - tilableDef.graphics.pivot.x * scale.x
                         + (1f - scale.x) / 2f
                         , position.y
-                          - def.graphics.pivot.y * scale.y
+                          - tilableDef.graphics.pivot.y * scale.y
                           + (1f - scale.y) / 2f
-                        , LayerUtils.Height(def.layer) + GraphicInstance.instances[graphicUId].drawPriority
+                        , LayerUtils.Height(tilableDef.layer) + GraphicInstance.instances[graphicUId].drawPriority
                     ),
                     Quaternion.identity,
                     scale
@@ -83,13 +83,17 @@ namespace StandWorld.Entities
                 addGraphics = new Dictionary<string, GraphicInstance>();
             }
 
+            resetMatrices = true;
             UpdateOrderGraphics();
         }
 
         public virtual void ClearOrder()
         {
-            addGraphics.Remove(currentOrderDef.name);
-            currentOrderDef = null;
+            if (hasOrder)
+            {
+                addGraphics.Remove(currentOrderDef.name);
+                currentOrderDef = null;
+            }
         }
 
         public virtual void UpdateOrderGraphics()

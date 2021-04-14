@@ -30,6 +30,7 @@ namespace StandWorld.Game
             Defs.LoadAnimalsFromCode();
             Defs.LoadTasksFromCode();
             Defs.LoadMenuOrdersFromCode();
+            Defs.LoadBuildingsFromCode();
         }
 
         public static void NewGame(GameManager manager)

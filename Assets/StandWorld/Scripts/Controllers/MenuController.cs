@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Microsoft.Win32;
 using StandWorld.Definitions;
 using StandWorld.Helpers;
 using UnityEngine;
@@ -44,6 +45,7 @@ namespace StandWorld.Controllers
         }
     }
 
+
     public class MenuController : MonoBehaviour
     {
         [SerializeField] private InfoController info;
@@ -51,20 +53,22 @@ namespace StandWorld.Controllers
         [SerializeField] private Transform parentMenu;
         [SerializeField] private MenuOrderButton[] buttons;
         [SerializeField] private MenuOrderTab[] tabs;
-        [SerializeField] private  Color activeColor;
+        [SerializeField] private Color activeColor;
         [SerializeField] private Color defaultColor;
         [SerializeField] private int current = -1;
-        [SerializeField] private List<MenuOrderTabLink> links;
+
         public MenuOrderDef currentOrder;
+        public Dictionary<string, MenuOrderTabLink> links = new Dictionary<string, MenuOrderTabLink>();
+        public Dictionary<KeyCode, int> tabShortcuts = new Dictionary<KeyCode, int>();
+        public Dictionary<KeyCode, MenuOrderDef> ordersShortcuts = new Dictionary<KeyCode, MenuOrderDef>();
 
         void Start()
         {
-            links = new List<MenuOrderTabLink>();
             int tabCount = 6;
             buttons = new MenuOrderButton[tabCount];
             tabs = new MenuOrderTab[tabCount];
 
-            AddTab("Накази", 0);
+            AddTab("Накази", 0, KeyCode.A);
             AddTab("Зони", 1);
             AddTab("Будівлі", 2);
             AddTab("Виробництво", 3);
@@ -91,7 +95,7 @@ namespace StandWorld.Controllers
 
         public void ClearOrders()
         {
-            foreach (MenuOrderTabLink btn in links)
+            foreach (MenuOrderTabLink btn in links.Values)
             {
                 btn.image.color = defaultColor;
             }
@@ -99,19 +103,13 @@ namespace StandWorld.Controllers
 
         public void Reset()
         {
-            if (currentOrder == null)
-            {
-                current = -1;
-                ClearSelection();
-            }
-            else
-            {
-                currentOrder = null;
-                ClearOrders();
-            }
+            currentOrder = null;
+            ClearOrders();
+            current = -1;
+            ClearSelection();
         }
 
-        public void AddTab(string name, int id)
+        public void AddTab(string name, int id, KeyCode key = KeyCode.Escape)
         {
             Text text;
             Image image;
@@ -121,9 +119,9 @@ namespace StandWorld.Controllers
             go.transform.SetParent(parent);
             go.name = "OrderTab: " + name;
             tabs[id] = new MenuOrderTab(go);
-            
+
             List<MenuOrderDef> orders = new List<MenuOrderDef>();
-            
+
             if (id == 0)
             {
                 orders = new List<MenuOrderDef>(Defs.orders.Values);
@@ -135,26 +133,21 @@ namespace StandWorld.Controllers
                 _go.transform.SetParent(go.transform);
                 _go.name = "OrderButton: " + order.name;
                 text = _go.GetComponentInChildren<Text>();
-                text.text = "Alt+F4"; 
+                text.text = $"({order.keyCode.ToString()})";
                 _go.GetComponentsInChildren<Image>()[1].sprite = order.sprite;
                 button = _go.GetComponentInChildren<Button>();
                 image = _go.GetComponentsInChildren<Image>()[0];
-                
+
+                if (order.keyCode != KeyCode.Escape)
+                {
+                    ordersShortcuts.Add(order.keyCode, order);
+                }
+
                 MenuOrderTabLink orderLink = new MenuOrderTabLink(_go, image);
                 button.onClick.AddListener(
-                    delegate
-                    {
-                        ClearOrders();
-                        if (currentOrder != order)
-                        {
-                            currentOrder = order;
-                            orderLink.image.color = activeColor;
-                            info.title.text = order.name;
-                            info.desc.text = order.shortDesc;
-                        }
-                    }
+                    delegate { ClickOrder(order); }
                 );
-                links.Add(orderLink);
+                links.Add(order.uId, orderLink);
             }
 
             go = Instantiate(Res.prefabs["button_player_panel"]);
@@ -164,23 +157,51 @@ namespace StandWorld.Controllers
             text.text = name;
             image = go.GetComponentInChildren<Image>();
             button = go.GetComponentInChildren<Button>();
+
+            if (key != KeyCode.Escape)
+            {
+                tabShortcuts.Add(key, id);
+                text.text += $"({key.ToString()})";
+            }
+
             button.onClick.AddListener(
                 delegate
                 {
-                    if (current != id)
-                    {
-                        ClearSelection();
-                        current = id;
-                        buttons[current].image.color = activeColor;
-                        tabs[current].go.SetActive(true);
-                    }
-                    else
-                    {
-                        Reset();
-                    }
+                    ClickTab(id);
                 }
             );
             buttons[id] = new MenuOrderButton(go, button, text, image);
+        }
+
+        public void ClickOrder(MenuOrderDef order)
+        {
+            ClearOrders();
+            if (currentOrder != order)
+            {
+                currentOrder = order;
+                links[order.uId].image.color = activeColor;
+                info.title.text = order.name;
+                info.desc.text = order.shortDesc;
+            }
+            else
+            {
+                currentOrder = null;
+            }
+        }
+
+        public void ClickTab(int id)
+        {
+            if (current != id)
+            {
+                ClearSelection();
+                current = id;
+                buttons[current].image.color = activeColor;
+                tabs[current].go.SetActive(true);
+            }
+            else
+            {
+                Reset();
+            }
         }
 
         public void Update()
@@ -188,6 +209,25 @@ namespace StandWorld.Controllers
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
             {
                 Reset();
+            }
+
+            foreach (KeyValuePair<KeyCode,int> kv in tabShortcuts)
+            {
+                if (Input.GetKeyDown(kv.Key))
+                {
+                    ClickTab(kv.Value);
+                }
+            }
+
+            if (current == 0)
+            {
+                foreach (KeyValuePair<KeyCode,MenuOrderDef> kv in ordersShortcuts)
+                {
+                    if (Input.GetKeyDown(kv.Key))
+                    {
+                        ClickOrder(kv.Value);
+                    }
+                }
             }
         }
     }

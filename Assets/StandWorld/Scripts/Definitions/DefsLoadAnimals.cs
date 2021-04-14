@@ -7,7 +7,7 @@ namespace StandWorld.Definitions
     {
         public static void AddAnimal(AnimalDef def)
         {
-            animals.Add(def.uID, def);
+            animals.Add(def.uId, def);
         }
 
         public static void LoadAnimalsFromCode()
@@ -17,7 +17,7 @@ namespace StandWorld.Definitions
             AddAnimal(
                 new AnimalDef
                 {
-                    uID = "chiken",
+                    uId = "chiken",
                     shortDescription = "Курица — самая многочисленная и распространённая домашняя птица.",
                     graphics = new GraphicDef
                     {
@@ -30,7 +30,7 @@ namespace StandWorld.Definitions
             AddAnimal(
                 new AnimalDef
                 {
-                    uID = "human",
+                    uId = "human",
                     shortDescription = "Чел це чел",
                     graphics = new GraphicDef()
                 }

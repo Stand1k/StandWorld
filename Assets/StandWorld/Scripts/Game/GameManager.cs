@@ -50,24 +50,29 @@ namespace StandWorld.Game
             map.TempMapGen();
             map.BuildAllMeshes();
 
+            TestInit();
+
+            StartCoroutine(TickUpdate());
+            _ready = true;
+        }
+
+        public void TestInit()
+        {
             StockArea stockarea = new StockArea(Defs.empty);
-            stockarea.Add(new RectI(new Vector2Int(5,5), 6, 6));
+            stockarea.Add(new RectI(new Vector2Int(5, 5), 6, 6));
 
             GrowArea area = new GrowArea(Defs.plants["carrot"]);
-            area.Add(new RectI(new Vector2Int(15,15),5,5));
-            
+            area.Add(new RectI(new Vector2Int(15, 15), 5, 5));
+
             for (int i = 0; i < 5; i++)
             {
                 map.SpawnCharacter(new Animal(new Vector2Int(15, 15), Defs.animals["chiken"]));
             }
-           
+
             for (int i = 0; i < 21; i++)
             {
                 map.SpawnCharacter(new Human(new Vector2Int(10, 10), Defs.animals["human"]));
             }
-
-            StartCoroutine(TickUpdate());
-            _ready = true;
         }
 
         private void Update()
@@ -124,7 +129,7 @@ namespace StandWorld.Game
                 {
                     DebugRenderer.DrawAStar();
                 }
-                
+
                 if (DrawReserved)
                 {
                     DebugRenderer.DrawReserved();

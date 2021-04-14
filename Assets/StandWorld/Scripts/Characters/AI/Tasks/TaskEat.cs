@@ -11,7 +11,7 @@ namespace StandWorld.Characters.AI
         public override bool Perform()
         {
             Tilable tilable = (Tilable) targets.current.entity;
-            character.stats.vitals[Vitals.Hunger].currentValue += tilable.def.nutriments * 100f;
+            character.stats.vitals[Vitals.Hunger].currentValue += tilable.tilableDef.nutriments * 100f;
          
             tilable.Destroy();
             return true;

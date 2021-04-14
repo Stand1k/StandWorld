@@ -53,7 +53,7 @@ namespace StandWorld.Visuals
 						if (
 							!neighboursGraphicsList.Contains(neighbourGround.mainGraphic.uId) &&
 							neighbourGround.mainGraphic.uId != ground.mainGraphic.uId &&
-							neighbourGround.def.groundDef.maxHeight >= ground.def.groundDef.maxHeight
+							neighbourGround.tilableDef.groundDef.maxHeight >= ground.tilableDef.groundDef.maxHeight
 						) 
 						{
 							neighboursGraphicsList.Add(neighbourGround.mainGraphic.uId);

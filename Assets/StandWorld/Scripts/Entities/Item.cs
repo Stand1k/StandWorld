@@ -6,9 +6,9 @@ namespace StandWorld.Entities
     {
         private InventoryTilable _inventory;
 
-        public Item(TilableDef def)
+        public Item(TilableDef tilableDef)
         {
-            this.def = def;
+            this.tilableDef = tilableDef;
         }
 
     }

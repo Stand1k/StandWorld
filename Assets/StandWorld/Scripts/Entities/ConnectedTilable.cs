@@ -18,6 +18,8 @@ namespace StandWorld.Entities
         private bool allCorners { get; set; }
         private Tilable tilable { get; set; }
 
+        public Color color { get; protected set; }
+
         public ConnectedTilable(Tilable tilable)
         {
             this.tilable = tilable;
@@ -25,6 +27,7 @@ namespace StandWorld.Entities
             connectionsInt = -1;
             allCorners = false;
             corners = new bool[4];
+            color = tilable.mainGraphic.color;
         }
 
         private void SetLinks()
@@ -37,9 +40,9 @@ namespace StandWorld.Entities
 
         private bool HasLink(Vector2Int position)
         {
-            Tilable tilable = ToolBox.map.GetTilableAt(position, this.tilable.def.layer);
+            Tilable tilable = ToolBox.map.GetTilableAt(position, this.tilable.tilableDef.layer);
 
-            if (tilable == null || this.tilable.def != tilable.def)
+            if (tilable == null || this.tilable.tilableDef != tilable.tilableDef)
             {
                 return false;
             }
@@ -94,9 +97,9 @@ namespace StandWorld.Entities
                 if (allCorners)
                 {
                     tilable.mainGraphic = GraphicInstance.GetNew(
-                        tilable.def.graphics,
-                        default(Color),
-                        Res.textures[tilable.def.graphics.textureName + "_cover"],
+                        tilable.tilableDef.graphics,
+                        color,
+                        Res.textures[tilable.tilableDef.graphics.textureName + "_cover"],
                         1
                     );
                     ToolBox.map.GetTilableAt(tilable.position, Layer.Ground).hidden = true;
@@ -104,9 +107,9 @@ namespace StandWorld.Entities
                 else
                 {
                     tilable.mainGraphic = GraphicInstance.GetNew(
-                        tilable.def.graphics,
-                        default(Color),
-                        Res.textures[tilable.def.graphics.textureName + "_" + connectionsInt.ToString()],
+                        tilable.tilableDef.graphics,
+                        color,
+                        Res.textures[tilable.tilableDef.graphics.textureName + "_" + connectionsInt.ToString()],
                         1
                     );
                     
@@ -114,9 +117,9 @@ namespace StandWorld.Entities
                     {
                         tilable.addGraphics.Add("cover",
                             GraphicInstance.GetNew(
-                                tilable.def.graphics,
-                                default(Color),
-                                Res.textures[tilable.def.graphics.textureName + "_cover"],
+                                tilable.tilableDef.graphics,
+                                color,
+                                Res.textures[tilable.tilableDef.graphics.textureName + "_cover"],
                                 2,
                                 MeshPool.GetCornersPlane(corners)
                             )

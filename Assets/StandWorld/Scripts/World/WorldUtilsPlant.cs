@@ -10,6 +10,7 @@ namespace StandWorld.World
     public static partial class WorldUtils
     {
         public static List<Tilable> cutOrdered = new List<Tilable>();
+        public static List<Recipe> recipes = new List<Recipe>();
 
         public static Tilable FieldNextToCut(Vector2Int characterPosition)
         {
@@ -20,7 +21,7 @@ namespace StandWorld.World
                 foreach (Vector2Int position in growArea.positions)
                 {
                     Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && tilable != null && tilable.def != growArea.def)
+                    if (!ToolBox.map[position].reserved && tilable != null && tilable.tilableDef != growArea.def)
                     {
                         toCut.Add(tilable);
                     }
@@ -101,8 +102,8 @@ namespace StandWorld.World
                 foreach (Vector2Int position in growArea.positions)
                 {
                     Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && tilable != null && tilable.def != growArea.def &&
-                        tilable.def.cuttable)
+                    if (!ToolBox.map[position].reserved && tilable != null && tilable.tilableDef != growArea.def &&
+                        tilable.tilableDef.cuttable)
                     {
                         return true;
                     }
@@ -183,7 +184,7 @@ namespace StandWorld.World
                             t =>
                                 t != null &&
                                 ToolBox.map[t.position].reserved == false
-                                && t.def.nutriments > 0)
+                                && t.tilableDef.nutriments > 0)
                     );
 
                     if (rt != null)
