@@ -145,7 +145,7 @@ namespace StandWorld.Controllers
 
                 MenuOrderTabLink orderLink = new MenuOrderTabLink(_go, image);
                 button.onClick.AddListener(
-                    delegate { ClickOrder(order); }
+                    () => ClickOrder(order)
                 );
                 links.Add(order.uId, orderLink);
             }
@@ -165,10 +165,7 @@ namespace StandWorld.Controllers
             }
 
             button.onClick.AddListener(
-                delegate
-                {
-                    ClickTab(id);
-                }
+                () => ClickTab(id)
             );
             buttons[id] = new MenuOrderButton(go, button, text, image);
         }

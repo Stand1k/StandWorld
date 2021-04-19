@@ -14,7 +14,6 @@
             }
         }
         
-        // TODO: Змінити тут все
         public override void Update()
         {
             if (!sleep)

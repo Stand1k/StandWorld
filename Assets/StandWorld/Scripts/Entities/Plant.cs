@@ -19,8 +19,6 @@ namespace StandWorld.Entities
 
         public int state => _currentState;
 
-        protected bool cutOrdered;
-
         public Plant(Vector2Int position, TilableDef tilableDef, bool randomGrow = false)
         {
             addGraphics = new Dictionary<string, GraphicInstance>();
@@ -33,6 +31,7 @@ namespace StandWorld.Entities
             if (randomGrow)
             {
                 ticks = Random.Range(0, (int) (_lifetime - _ticksPerState));
+                GetState();
             }
             else
             {
@@ -115,11 +114,6 @@ namespace StandWorld.Entities
             }
         }
 
-        public void OrderToCut()
-        {
-            cutOrdered = true;
-        }
-
         public void Update()
         {
             ticks++;
@@ -159,6 +153,14 @@ namespace StandWorld.Entities
                     Defs.stackables["logs"],
                     qtyLoot
                 ));
+            }
+            else if (tilableDef.type == TilableType.Plant && _currentState >= tilableDef.plantDef.states - 1) // TODO: 
+            {
+                ToolBox.map.Spawn(position, new Stackable(
+                        position,
+                        Defs.stackables["carrot_logs"],
+                        qtyLoot
+                    ));
             }
 
             Destroy();

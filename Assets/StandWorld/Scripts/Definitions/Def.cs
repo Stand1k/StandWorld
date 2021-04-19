@@ -7,7 +7,7 @@ namespace StandWorld.Definitions
     public class Def 
     {
         // Унікальний ідентифікатор
-        [FormerlySerializedAs("uID")] public string uId;
+        public string uId;
 
         public override int GetHashCode()
         {

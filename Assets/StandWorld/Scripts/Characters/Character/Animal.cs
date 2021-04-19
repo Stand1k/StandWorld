@@ -7,7 +7,7 @@ namespace StandWorld.Characters
 {
     public class Animal : BaseCharacter
     {
-        public Animal(Vector2Int position, LivingDef def) : base(position, def)
+        public Animal(Vector2Int position, LivingDef def, CharacterStats stats) : base(position, def, stats)
         {
         }
 

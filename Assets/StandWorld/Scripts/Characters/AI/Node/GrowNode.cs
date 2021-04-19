@@ -25,14 +25,6 @@ namespace StandWorld.Characters.AI.Node
             }
         }
         
-        private class HarvestPlantAtPosition : BrainNode
-        {
-            public override Task GetTask()
-            {
-                throw new NotImplementedException();
-            }
-        }
-        
         private class SowPlantAtPosition : BrainNode
         {
             public override Task GetTask()
@@ -72,17 +64,14 @@ namespace StandWorld.Characters.AI.Node
         public GrowNode(Func<bool> condition) : base(condition)
         {
             BrainNode cut = new BrainNodeConditional(WorldUtils.FieldHasPlantsToCut);
-            //BrainNode harvers = new BrainNodeConditional(WorldUtils.FieldHasPlantsToHarvest);
             BrainNode sow = new BrainNodeConditional(WorldUtils.FieldHasPlantsToSow);
             BrainNode dirt = new BrainNodeConditional(WorldUtils.FieldHasDirtToWork);
 
             cut.AddSubnode(new CutPlantsAtPosition());
-            //harvers.AddSubnode(new HarvestPlantAtPosition());
             sow.AddSubnode(new SowPlantAtPosition());
             dirt.AddSubnode(new DirtAtPosition());
             
             subNodes.Add(cut);
-            //subNodes.Add(harvers);
             subNodes.Add(sow);
             subNodes.Add(dirt);
         }

@@ -4,6 +4,7 @@ using StandWorld.Helpers;
 using StandWorld.Visuals;
 using UnityEngine;
 using System;
+using System.Collections.Generic;
 using StandWorld.Game;
 
 namespace StandWorld.World
@@ -67,6 +68,17 @@ namespace StandWorld.World
             }
 
             return null;
+        }   
+        
+        public List<Tilable> GetTilables() {
+            List<Tilable> r = new List<Tilable>();
+            foreach (LayerBucketGrid bucket in this.buckets) {
+                foreach (Tilable t in bucket.tilables) {
+                    if (t != null) 
+                        r.Add(t);
+                }
+            }
+            return r;
         }
 
         public Tilable GetTilableAt(Vector2Int position)

@@ -10,8 +10,6 @@ namespace StandWorld.Controllers
     {
         public static GameObjectPool goPool = new GameObjectPool();
 
-        public List<GameObject> actives = new List<GameObject>();
-
         private void Awake()
         {
             if (goPool.go_Queue.Count == 0)
@@ -21,7 +19,7 @@ namespace StandWorld.Controllers
                 go.AddComponent<LabelComponent>();
                 
                 //Додаємо в пул n клонів GameObject go
-                goPool.AddFromClone(go,transform,100);
+                goPool.AddFromClone(go,transform,1000);
             }
         }
 

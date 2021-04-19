@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using StandWorld.Definitions;
+using StandWorld.Game;
 using StandWorld.Helpers;
 using StandWorld.Visuals;
 using StandWorld.World;
@@ -15,6 +16,8 @@ namespace StandWorld.Entities
     public class Tilable : Entity
     {
         public Vector3 scale = Vector3.one;
+
+        public Vector2Int[] neighbours = new Vector2Int[8];
 
         public TilableDef tilableDef { get; protected set; }
 
@@ -75,6 +78,52 @@ namespace StandWorld.Entities
             return _matrices[graphicUId];
         }
 
+        public static void InRadius(int r, Vector2Int o, Vector2Int c, ref HashSet<Vector2Int> s)
+        {
+            if (c != null)
+            {
+                s.Add(c);
+            }
+
+            foreach (Vector2Int neighbour in GetNeighboursPosition(c))
+            {
+                if (
+                    neighbour.x >= 0 && neighbour.y >= 0 && neighbour.x <= ToolBox.map.size.x &&
+                    neighbour.y <= ToolBox.map.size.y &&
+                    !s.Contains(neighbour) &&
+                    Utils.Distance(neighbour, o) <= r)
+                {
+                    InRadius(r, o, neighbour, ref s);
+                }
+            }
+        }
+
+        public void SetNeigbours()
+        {
+            neighbours[(int) Direction.N] = new Vector2Int(position.x, position.y + 1);
+            neighbours[(int) Direction.NE] = new Vector2Int(position.x + 1, position.y + 1);
+            neighbours[(int) Direction.E] = new Vector2Int(position.x + 1, position.y);
+            neighbours[(int) Direction.SE] = new Vector2Int(position.x + 1, position.y - 1);
+            neighbours[(int) Direction.S] = new Vector2Int(position.x, position.y - 1);
+            neighbours[(int) Direction.SW] = new Vector2Int(position.x - 1, position.y - 1);
+            neighbours[(int) Direction.W] = new Vector2Int(position.x - 1, position.y);
+            neighbours[(int) Direction.NW] = new Vector2Int(position.x - 1, position.y + 1);
+        }
+
+        public static Vector2Int[] GetNeighboursPosition(Vector2Int position)
+        {
+            Vector2Int[] neighbours = new Vector2Int[8];
+            neighbours[(int) Direction.N] = new Vector2Int(position.x, position.y + 1);
+            neighbours[(int) Direction.NE] = new Vector2Int(position.x + 1, position.y + 1);
+            neighbours[(int) Direction.E] = new Vector2Int(position.x + 1, position.y);
+            neighbours[(int) Direction.SE] = new Vector2Int(position.x + 1, position.y - 1);
+            neighbours[(int) Direction.S] = new Vector2Int(position.x, position.y - 1);
+            neighbours[(int) Direction.SW] = new Vector2Int(position.x - 1, position.y - 1);
+            neighbours[(int) Direction.W] = new Vector2Int(position.x - 1, position.y);
+            neighbours[(int) Direction.NW] = new Vector2Int(position.x - 1, position.y + 1);
+            return neighbours;
+        }
+
         public virtual void AddOrder(MenuOrderDef def)
         {
             currentOrderDef = def;
@@ -117,6 +166,11 @@ namespace StandWorld.Entities
             {
                 bucket.DelTilable(this);
             }
+        }
+
+        public override string ToString()
+        {
+            return $"Tilable - {tilableDef.name} at {position} on layer {tilableDef.layer}";
         }
     }
 }

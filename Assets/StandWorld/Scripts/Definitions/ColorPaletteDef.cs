@@ -18,10 +18,4 @@ namespace StandWorld.Definitions
             return Random.Range(0, colors.Count);
         }
     }
-    
-    [System.Serializable]
-    public class NamedColorPaletteDef : Def 
-    {
-        public Dictionary<string, Color> colors = new Dictionary<string, Color>();
-    }
 }

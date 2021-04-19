@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StandWorld.Definitions;
 
 namespace StandWorld.Entities
 {
-    public class InventoryTilable
+    public class Inventory
     {
-        public Queue<Item> inventoryQueue = new Queue<Item>();
+        public Queue<Item> listItems = new Queue<Item>();
 
         public int max
         {
@@ -25,17 +26,18 @@ namespace StandWorld.Entities
             }
         }
 
-        public int count => inventoryQueue.Count;
-
+        public int count => listItems.Count;
         public int free => max - count;
-
+        public int lastDiff { get; protected set; }
         public bool full => free <= 0;
 
         private int _max;
-
         private Stackable _parent;
-
         private TilableDef _def;
+
+        public Action OnClear;
+        public Action OnAdd;
+        public Action<int> OnChangeCount;
 
         public TilableDef def
         {
@@ -50,21 +52,18 @@ namespace StandWorld.Entities
             }
         }
 
-        public InventoryTilable(TilableDef def = null, int max = -1)
+        public Inventory(int max = -1, TilableDef def = null)
         {
             _max = max;
             _def = def;
         }
 
-        public InventoryTilable(Stackable parent,int count = 1, int max = -1)
+        public Inventory(Stackable parent, int count = 1, int max = -1)
         {
             _max = max;
             _parent = parent;
 
-            if (count > 1)
-            {
-                Create(count);
-            }
+            Create(count);
         }
 
         private void Create(int count)
@@ -75,17 +74,23 @@ namespace StandWorld.Entities
                 {
                     break;
                 }
-                inventoryQueue.Enqueue(new Item(_parent.tilableDef));
+
+                listItems.Enqueue(new Item(_parent.tilableDef));
+            }
+
+            if (OnAdd != null)
+            {
+                OnAdd();
             }
         }
 
         public void InitInventory(TilableDef def)
         {
             _def = def;
-            inventoryQueue = new Queue<Item>();
+            listItems = new Queue<Item>();
         }
 
-        public void TransfertTo(InventoryTilable to, int qty)
+        public void TransfertTo(Inventory to, int qty)
         {
             if ((to.def == null || to.def == def) && !to.full)
             {
@@ -95,14 +100,19 @@ namespace StandWorld.Entities
                 }
 
                 int added = 0;
-                while (inventoryQueue.Count != 0 && added > qty && !full)
+                while (listItems.Count > 0 && added < qty && !to.full)
                 {
-                    to.inventoryQueue.Enqueue(inventoryQueue.Dequeue());
+                    to.listItems.Enqueue(listItems.Dequeue());
                     added++;
                 }
 
-                if (inventoryQueue.Count == 0)
+                if (listItems.Count == 0)
                 {
+                    if (OnClear != null)
+                    {
+                        OnClear();
+                    }
+
                     if (_parent == null)
                     {
                         _def = null;
@@ -112,8 +122,20 @@ namespace StandWorld.Entities
                         _parent.Destroy();
                     }
                 }
+
+                if (added != 0)
+                {
+                    if (OnChangeCount != null)
+                    {
+                        OnChangeCount(added * -1);
+                    }
+
+                    if (to.OnChangeCount != null)
+                    {
+                        to.OnChangeCount(added);
+                    }
+                }
             }
         }
-        
     }
 }

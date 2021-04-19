@@ -16,10 +16,10 @@ namespace StandWorld.Characters
         public Human human { get; protected set; }
         public Vector2 size { get; protected set; }
 
-        public HumanSkin(Human human)
+        public HumanSkin(Human human, Vector2 size)
         {
             this.human = human;
-            size = new Vector2(1.5f, 2.25f);
+            this.size = size;
             Randomize();
             UpdateLookingAt(Direction.S);
         }

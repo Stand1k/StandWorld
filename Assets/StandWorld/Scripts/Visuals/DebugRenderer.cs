@@ -1,5 +1,6 @@
 ﻿using StandWorld.Characters;
 using StandWorld.Definitions;
+using StandWorld.Entities;
 using StandWorld.Game;
 using StandWorld.World;
 using UnityEngine;
@@ -47,6 +48,22 @@ namespace StandWorld.Visuals
                     new Vector3(v.x + 0.5f, v.y + 0.5f), 
                     Vector3.one
                 );
+            }
+        }
+        
+        public static void DrawRecipes() {
+            foreach (Vector2Int v in ToolBox.cameraController.viewRect) {
+                foreach (Recipe r in WorldUtils.recipes) {
+                    if (r.finished) {
+                        Gizmos.color = Color.green;
+                    } else {
+                        Gizmos.color = Color.blue;
+                    }
+                    Gizmos.DrawWireCube(
+                        new Vector3(r.position.x+.5f, r.position.y+.5f), 
+                        Vector3.one
+                    );
+                }
             }
         }
         

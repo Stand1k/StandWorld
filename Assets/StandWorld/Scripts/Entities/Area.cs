@@ -18,7 +18,7 @@ namespace StandWorld.Entities
         {
             positions.Add(position);
         }
-        protected virtual void DelTilable(Vector2Int position)
+        protected virtual void DeleteTilable(Vector2Int position)
         {
             positions.Remove(position);
         }
@@ -28,9 +28,9 @@ namespace StandWorld.Entities
             AddTilable(position);
         }
 
-        public void Del(Vector2Int position)
+        public void Delete(Vector2Int position)
         {
-            DelTilable(position);
+            DeleteTilable(position);
         }
 
         public void Add(RectI rect)
@@ -41,11 +41,11 @@ namespace StandWorld.Entities
             }
         }
 
-        public void Del(RectI rect)
+        public void Delete(RectI rect)
         {
             foreach (Vector2Int position in rect)
             {
-                DelTilable(position);
+                DeleteTilable(position);
             }
         }
     }

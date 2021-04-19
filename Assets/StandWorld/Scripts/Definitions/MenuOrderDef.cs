@@ -3,14 +3,6 @@ using UnityEngine;
 
 namespace StandWorld.Definitions
 {
-    public enum SelectorType
-    {
-        Tile,
-        Area,
-        AreaTile,
-        Line,
-    }
-
     [System.Serializable]
     public class MenuOrderDef : Def
     {

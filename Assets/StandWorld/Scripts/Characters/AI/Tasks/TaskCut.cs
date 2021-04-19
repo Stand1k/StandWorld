@@ -11,7 +11,7 @@ namespace StandWorld.Characters.AI
 
         public override bool Perform()
         {
-            Plant plant = (Plant) task.targets.current.entity;
+            Plant plant = (Plant) task.targets.current.tilable;
             
             plant.Cut();
             return true;
@@ -26,7 +26,7 @@ namespace StandWorld.Characters.AI
 
         public override bool Perform()
         {
-            Field field = (Field) task.targets.current.entity;
+            Field field = (Field) task.targets.current.tilable;
             
             field.WorkDirt();
             return true;
@@ -41,7 +41,7 @@ namespace StandWorld.Characters.AI
 
         public override bool Perform()
         {
-            Field field = (Field) task.targets.current.entity;
+            Field field = (Field) task.targets.current.tilable;
             
             ToolBox.map.Spawn(task.targets.current.position, new Plant(
                 field.position,

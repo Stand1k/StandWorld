@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using StandWorld.Characters;
 using StandWorld.Definitions;
 using StandWorld.Entities;
@@ -59,7 +58,8 @@ namespace StandWorld.World
 
         public void Spawn(Vector2Int position, Tilable tilable, bool force = false)
         {
-            if (force || tilable.tilableDef.layer == Layer.Undefined || GetTilableAt(position, tilable.tilableDef.layer) == null)
+            if (force || tilable.tilableDef.layer == Layer.Undefined ||
+                GetTilableAt(position, tilable.tilableDef.layer) == null)
             {
                 grids[tilable.tilableDef.layer].AddTilable(tilable);
             }
@@ -158,6 +158,27 @@ namespace StandWorld.World
             }
         }
 
+        public void UpdateConnectedBuildings()
+        {
+            foreach (LayerBucketGrid bucket in grids[Layer.Building].buckets)
+            {
+                bool changed = false;
+                foreach (Tilable tilable in bucket.tilables)
+                {
+                    if (tilable != null && tilable.tilableDef.type == TilableType.BuildingConnected)
+                    {
+                        tilable.UpdateGraphics();
+                        changed = true;
+                    }
+                }
+
+                if (changed)
+                {
+                    bucket.rebuildMatrices = true;
+                }
+            }
+        }
+
         public float GetFertilityAt(Vector2Int position)
         {
             float fertility = 1f;
@@ -179,7 +200,7 @@ namespace StandWorld.World
         {
             groundNoiseMap =
                 NoiseMap.GenerateNoiseMap(size, 613864505, noiseScale, octaves, persistance, lacunarity, offset);
-            Debug.Log("Seed: " + seed.ToString());
+            Debug.Log("Seed: " + seed);
 
             foreach (Vector2Int position in mapRect)
             {
@@ -208,7 +229,7 @@ namespace StandWorld.World
                     foreach (TilableDef tilableDef in Defs.plants.Values)
                     {
                         if (this[position].fertility >= tilableDef.plantDef.minFertility &&
-                            Random.value <= tilableDef.plantDef.probability)
+                            Random.value <= tilableDef.plantDef.probability )
                         {
                             Spawn(
                                 position,
@@ -221,18 +242,6 @@ namespace StandWorld.World
             }
 
             UpdateConnectedMountains();
-
-            /*foreach(Vector2Int position in new RectI(new Vector2Int(30,30),10,10))
-            {
-                if (this[position].blockStackable == false)
-                {
-                    Spawn(position, new Stackable(
-                        position,
-                        Defs.stackables["logs"],
-                        Random.Range(1, Defs.stackables["logs"].maxStack)
-                    ));
-                }
-            }*/
         }
 
         public TileProperty this[Vector2Int position]

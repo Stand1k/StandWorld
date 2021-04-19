@@ -1,5 +1,6 @@
 ﻿using StandWorld.Definitions;
 using StandWorld.Helpers;
+using StandWorld.Visuals;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,9 +9,9 @@ namespace StandWorld.Controllers
     public class DragController : MonoBehaviour
     {
         public MenuController menuController;
-        
+
         public bool isDragging;
-        
+
         public Vector2 origin;
 
         // Вибрана область(Rect)

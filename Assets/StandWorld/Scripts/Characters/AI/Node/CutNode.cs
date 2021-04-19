@@ -11,7 +11,7 @@ namespace StandWorld.Characters.AI.Node
         {
             public override Task GetTask()
             {
-                Tilable tilable = WorldUtils.NextToCut(this.character.position);
+                Tilable tilable = WorldUtils.NextToCut(character.position);
                 if (tilable != null)
                 {
                     return new Task(

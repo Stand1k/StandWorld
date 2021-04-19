@@ -2,13 +2,17 @@
 
 namespace StandWorld.Characters.AI
 {
-    public class JobBase : TaskBase
+    public abstract class JobBase : TaskBase
     {
         public Queue<Job> jobs = new Queue<Job>();
         public Job job { get; protected set; }
 
         public JobBase(BaseCharacter character, Task task) : base(character, task)
         {
+            if (OnStart != null)
+            {
+                OnStart();
+            }
         }
 
         public void Next(bool next = true)
@@ -29,9 +33,10 @@ namespace StandWorld.Characters.AI
             {
                 ticks = 0;
                 task.state = TaskState.Running;
-                OnEnd += OnEnd;
-                OnStart += OnStart;
-                OnTick += OnTick;
+                OnEnd = job.OnEnd;
+                OnStart = job.OnStart;
+                OnTick = job.OnTick;
+                _inRange = false;
 
                 if (task.def.targetType == TargetType.Adjacent)
                 {
@@ -41,18 +46,24 @@ namespace StandWorld.Characters.AI
                         task.state = TaskState.Failed;
                     }
                 }
+                else if (task.def.targetType == TargetType.None)
+                {
+                    _inRange = true;
+                }
             }
             else
             {
                 if (job.interuptable)
                 {
                     task.state = TaskState.Failed;
+                    task.targets.FreeAll();
                 }
                 else
                 {
                     if (jobs.Count == 0)
                     {
-                        task.state = TaskState.Failed; 
+                        task.state = TaskState.Failed;
+                        task.targets.FreeAll();
                     }
                     else
                     {
@@ -62,28 +73,88 @@ namespace StandWorld.Characters.AI
             }
         }
 
+        public override void Tick()
+        {
+            if (task.state != TaskState.Running)
+            {
+                return;
+            }
+
+            if (_inRange)
+            {
+                if (ticks == 0 && job.OnStart != null)
+                {
+                    job.OnStart();
+                }
+
+                if (Perform())
+                {
+                    End();
+                }
+            }
+            else
+            {
+                if (task.def.targetType != TargetType.None)
+                {
+                    MoveInRange();
+                }
+            }
+        }
+
         public override void End()
         {
             task.state = TaskState.Success;
             task.targets.Free();
+
+            if (OnEnd != null)
+            {
+                OnEnd();
+            }
         }
 
         public override bool Perform()
         {
-            ticks++;
-            if (OnTick != null)
+            if (task.ticksToPerform == 0)
             {
-                OnTick();
-            }
+                if (job.OnEnd != null)
+                {
+                    job.OnEnd();
+                }
 
-            if (ticks >= task.ticksToPerform)
-            {
                 if (jobs.Count == 0)
                 {
                     return true;
                 }
 
                 Next();
+            }
+            else
+            {
+                ticks++;
+                if (OnTick != null)
+                {
+                    OnTick();
+                }
+
+                if (job.OnTick != null)
+                {
+                    job.OnTick();
+                }
+
+                if (ticks >= task.ticksToPerform)
+                {
+                    if (job.OnEnd != null)
+                    {
+                        job.OnEnd();
+                    }
+
+                    if (jobs.Count == 0)
+                    {
+                        return true;
+                    }
+
+                    Next();
+                }
             }
 
             return false;

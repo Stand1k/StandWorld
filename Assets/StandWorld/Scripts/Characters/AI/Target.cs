@@ -1,5 +1,4 @@
-﻿using System.Xml;
-using StandWorld.Entities;
+﻿using StandWorld.Entities;
 using StandWorld.Game;
 using StandWorld.Helpers;
 using UnityEngine;
@@ -8,21 +7,21 @@ namespace StandWorld.Characters.AI
 {
     public class Target
     {
-        public Entity entity { get; protected set; }
+        public Tilable tilable { get; protected set; }
         public Vector2Int position { get; protected set; }
-        public Vector2Int closest  { get; protected set; }
+        public Vector2Int closest { get; protected set; }
 
-        public Target(Entity entity) : this(entity.position)
+        public Target(Tilable tilable) : this(tilable.position)
         {
-            this.entity = entity;
+            this.tilable = tilable;
         }
-        
+
         public Target(Vector2Int position)
         {
             this.position = position;
             closest = new Vector2Int(-1, -1);
         }
-        
+
         public bool ClosestNeighbour(Vector2Int fromPosition)
         {
             float distance = float.MaxValue;
@@ -31,14 +30,12 @@ namespace StandWorld.Characters.AI
             for (int i = 0; i < 8; i++)
             {
                 TileProperty tileProperty = ToolBox.map[position + DirectionUtils.neighbours[i]];
-
                 if (tileProperty != null && !tileProperty.blockPath)
                 {
-                    float dist = Utils.Distance(fromPosition, position);
-
-                    if (dist < distance)
+                    float d = Utils.Distance(fromPosition, position);
+                    if (d < distance)
                     {
-                        distance = dist;
+                        distance = d;
                         closestNeigbour = tileProperty;
                     }
                 }
@@ -50,9 +47,9 @@ namespace StandWorld.Characters.AI
                 return true;
             }
 
-            return false; 
+            return false;
         }
-        
+
         public static Target GetRandomTargetInRange(Vector2Int position, int range = 7)
         {
             Vector2Int targetPosition = new Vector2Int(
@@ -60,7 +57,10 @@ namespace StandWorld.Characters.AI
                 Random.Range(position.y - range, position.y + range)
             );
 
-            while (ToolBox.map[targetPosition] == null || ToolBox.map[targetPosition].blockPath || ToolBox.map[targetPosition].reserved)
+            while (ToolBox.map[targetPosition] == null || 
+                   ToolBox.map[targetPosition].blockPath ||
+                   ToolBox.map[targetPosition].reserved
+                   )
             {
                 targetPosition = new Vector2Int(
                     Random.Range(position.x - range, position.x + range),
@@ -70,6 +70,5 @@ namespace StandWorld.Characters.AI
 
             return new Target(targetPosition);
         }
-     
     }
 }

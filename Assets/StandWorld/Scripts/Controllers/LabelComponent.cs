@@ -1,5 +1,6 @@
 ﻿using StandWorld.Definitions;
 using StandWorld.Entities;
+using StandWorld.World;
 using TMPro;
 using UnityEngine;
 
@@ -30,27 +31,20 @@ namespace StandWorld.Controllers
             _rt.offsetMin = new Vector2(_stackable.position.x, _stackable.position.y);
             _rt.offsetMax = new Vector2(_stackable.position.x + 1, _stackable.position.y + 1);
             _tm.text = _stackable.inventory.count.ToString();
-
-            /*if (!_stackable.bucket.IsVisible())
-            {
-                gameObject.SetActive(false);
-            }*/
         }
 
         private void Update()
         {
             if (_stackable != null)
             {
-                _tm.text = _stackable.inventory.count.ToString();
-
-                /*if (gameObject.activeInHierarchy && !_stackable.bucket.IsVisible())
+                if (_stackable.inventory.count <= 0)
                 {
+                    _tm.text = "";
                     gameObject.SetActive(false);
+                    return;
                 }
-                else if (!gameObject.activeInHierarchy && _stackable.bucket.IsVisible())
-                {
-                    gameObject.SetActive(true);
-                }*/
+
+                _tm.text = _stackable.inventory.count.ToString();
             }
         }
     }

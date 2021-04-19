@@ -1,4 +1,5 @@
-﻿using StandWorld.Definitions;
+﻿using StandWorld.Characters.AI.Jobs;
+using StandWorld.Definitions;
 
 namespace StandWorld.Characters.AI
 {
@@ -17,7 +18,8 @@ namespace StandWorld.Characters.AI
         Cut,
         Harvest,
         Sow,
-        Dirt
+        Dirt,
+        HaulRecipe,
     }
 
     public class Task
@@ -50,7 +52,7 @@ namespace StandWorld.Characters.AI
             this.ticksToPerform = ticksToPerform;
         }
 
-        public void GetClass(BaseCharacter character)
+        public void GetTaskClass(BaseCharacter character)
         {
             switch (def.taskType)
             {
@@ -71,6 +73,9 @@ namespace StandWorld.Characters.AI
                     break;
                 case TaskType.Idle:
                     taskBase = new TaskIdle(character, this);
+                    break;
+                case TaskType.HaulRecipe:
+                    taskBase = new HaulRecipeJob(character, this);
                     break;
             }
         }

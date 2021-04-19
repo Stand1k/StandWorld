@@ -23,7 +23,7 @@ namespace StandWorld.Definitions
             
             AddTask(new TaskDef
             {
-                uId = "task_harvers",
+                uId = "task_harvest",
                 taskType = TaskType.Harvest,
                 targetType = TargetType.Adjacent,
             });
@@ -45,19 +45,26 @@ namespace StandWorld.Definitions
             AddTask(new TaskDef
             {
                 uId = "task_sleep",
-                taskType = TaskType.Sleep
+                taskType = TaskType.Sleep,
             });
 
             AddTask(new TaskDef
             {
                 uId = "task_idle",
-                taskType = TaskType.Idle
+                taskType = TaskType.Idle,
             });
             
             AddTask(new TaskDef
             {
                 uId = "task_eat",
-                taskType = TaskType.Eat
+                taskType = TaskType.Eat,
+            });
+            
+            AddTask(new TaskDef
+            {
+                uId = "haul_recipe",
+                taskType = TaskType.HaulRecipe,
+                targetType = TargetType.Adjacent,
             });
         }
     }

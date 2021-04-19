@@ -11,9 +11,9 @@ namespace StandWorld.Characters
     {
         public HumanSkin humanSkin { get; protected set; }
 
-        public Human(Vector2Int position, AnimalDef def) : base(position, def)
+        public Human(Vector2Int position, AnimalDef def, CharacterStats stats) : base(position, def, stats)
         {
-            humanSkin = new HumanSkin(this);
+            humanSkin = new HumanSkin(this, new Vector2(1.5f, 2.25f));
             movement.onChangeDirection += humanSkin.UpdateLookingAt;
         }
 
@@ -22,10 +22,11 @@ namespace StandWorld.Characters
             BrainNodePriority brainNode = new BrainNodePriority();
 
             brainNode
-                .AddSubnode(new SleepNode(() => stats.vitals[Vitals.Energy].ValueInfToPercent(0.2f)))
-                /*.AddSubnode(new EatVegiesNode( () => stats.vitals[Vitals.Hunger].ValueInfToPercent(0.25f)))*/
                 .AddSubnode(new CutNode(WorldUtils.HasPlantToCut))
-                .AddSubnode(new GrowNode(WorldUtils.FieldHasWork))
+                .AddSubnode(new HaulRecipeNode(WorldUtils.HaulRecipeNeeded))
+                //.AddSubnode(new GrowNode(WorldUtils.FieldHasWork))
+                //.AddSubnode(new SleepNode(() => stats.vitals[Vitals.Energy].ValueInfToPercent(0.2f)))
+                //.AddSubnode(new EatVegiesNode( () => stats.vitals[Vitals.Hunger].ValueInfToPercent(0.25f)))
                 .AddSubnode(new IdleNodeTaskData());
             
             return brainNode;

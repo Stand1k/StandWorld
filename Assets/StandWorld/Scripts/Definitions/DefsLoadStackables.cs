@@ -3,17 +3,17 @@ using UnityEngine;
 
 namespace StandWorld.Definitions
 {
-    public static partial class Defs 
+    public static partial class Defs
     {
         public static void AddStackable(TilableDef def)
         {
             stackables.Add(def.uId, def);
         }
-        
+
         public static void LoadStackablesFromCode()
         {
             stackables = new Dictionary<string, TilableDef>();
-            
+
             AddStackable(
                 new TilableDef
                 {
@@ -23,11 +23,22 @@ namespace StandWorld.Definitions
                     graphics = new GraphicDef
                     {
                         textureName = "logs_stack",
-                        //color = new Color(0.63f, 0.37f, 0.22f),
                     },
-                    maxStack = 25
-                }
-            );
+                    maxStack = 10
+                });
+
+            AddStackable(
+                new TilableDef
+                {
+                    uId = "carrot_logs",
+                    layer = Layer.Stackable,
+                    blockStackable = true,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "carrot_stack",
+                    },
+                    maxStack = 8
+                });
         }
     }
 }

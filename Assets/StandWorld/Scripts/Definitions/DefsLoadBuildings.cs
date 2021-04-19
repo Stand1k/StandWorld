@@ -13,10 +13,7 @@ namespace StandWorld.Definitions
         {
             buildings = new Dictionary<string, TilableDef>();
             RecipeDef recipe = new RecipeDef();
-            recipe.reqs.Add(
-                stackables["logs"],
-                10
-            );
+            recipe.reqs.Add(stackables["logs"], 2);
 
             AddBuilding(new TilableDef
             {

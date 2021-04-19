@@ -4,9 +4,6 @@
     public class TilableDef : Def
     {
         public string name;
-        public string shortDecs;
-
-        public float weight = 0;
         
         public Layer layer;
 

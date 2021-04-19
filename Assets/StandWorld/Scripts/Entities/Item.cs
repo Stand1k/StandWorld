@@ -4,7 +4,7 @@ namespace StandWorld.Entities
 {
     public class Item : Tilable
     {
-        private InventoryTilable _inventory;
+        private Inventory _inventory;
 
         public Item(TilableDef tilableDef)
         {

@@ -6,9 +6,7 @@ namespace StandWorld.Characters
     public class CharacterBrain
     {
         public BaseCharacter character { get; protected set; }
-
         public BrainNode brainNode { get; protected set; }
-
         public Task currentTask;
 
         public CharacterBrain(BaseCharacter character, BrainNode brainNode)
@@ -29,7 +27,7 @@ namespace StandWorld.Characters
             {
                 if (currentTask.taskBase == null)
                 {
-                    currentTask.GetClass(character);
+                    currentTask.GetTaskClass(character);
                     return;
                 }
                 
@@ -43,7 +41,6 @@ namespace StandWorld.Characters
                 }
                 else
                 {
-                    
                     currentTask.taskBase.Tick();
                 }
             }

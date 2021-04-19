@@ -25,6 +25,7 @@ namespace StandWorld.Visuals
             material = new Material(Res.materials[def.materialName]);
             material.mainTexture = texture;
             this.drawPriority = drawPriority / -100f;
+            this.texture = texture;
 
             if (color != default(Color))
             {
@@ -59,9 +60,9 @@ namespace StandWorld.Visuals
             return def.materialName.GetHashCode() + texture.GetHashCode() + color.GetHashCode() + drawPriority.GetHashCode() + mesh.GetHashCode();
         }
 
-        public override int GetHashCode()
+        public override string ToString()
         {
-            return uId;
+            return $"GraphicInstance graphicDef = {def}, uId = {uId}, priority = {drawPriority}, mat = {material}, texture = {texture}, mesh = {mesh}";
         }
     }
 }

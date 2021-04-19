@@ -11,7 +11,7 @@ namespace StandWorld.Characters.AI
         Tile,
         Adjacent,
     }
-    
+
     public class TargetList
     {
         public Queue<Target> targets = new Queue<Target>();
@@ -30,9 +30,9 @@ namespace StandWorld.Characters.AI
             }
         }
 
-        public TargetList(Entity entity)
+        public TargetList(Tilable tilable)
         {
-            Enqueue(entity);
+            Enqueue(tilable);
             Next();
         }
 
@@ -48,11 +48,11 @@ namespace StandWorld.Characters.AI
             Next();
         }
 
-        public TargetList(List<Entity> entities)
+        public TargetList(List<Tilable> tilables)
         {
-            foreach (Entity entity in entities)
+            foreach (Tilable tilable in tilables)
             {
-                Enqueue(entity);
+                Enqueue(tilable);
             }
 
             Next();
@@ -64,10 +64,10 @@ namespace StandWorld.Characters.AI
             targets.Enqueue(target);
         }
 
-        public void Enqueue(Entity entity)
+        public void Enqueue(Tilable tilable)
         {
-            ToolBox.map[entity.position].reserved = true;
-            targets.Enqueue(new Target(entity));
+            ToolBox.map[tilable.position].reserved = true;
+            targets.Enqueue(new Target(tilable));
         }
 
         public void Enqueue(Vector2Int position)
@@ -84,10 +84,24 @@ namespace StandWorld.Characters.AI
             }
         }
 
+        public void FreeAll()
+        {
+            while (targets.Count != 0)
+            {
+                Target target = targets.Dequeue();
+                ToolBox.map[target.position].reserved = false;
+            }
+        }
+
         public void Next()
         {
             Free();
             current = targets.Dequeue();
+        }
+
+        public List<Target> ToList()
+        {
+            return new List<Target>(targets);
         }
     }
 }

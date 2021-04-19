@@ -7,7 +7,7 @@ namespace StandWorld.Entities
 {
     public class StockArea : Area
     {
-        public static List<StockArea> areas = new List<StockArea>();
+        public static List<StockArea> stockAreas = new List<StockArea>();
         public TilableDef zoneConfig { get; protected set; }
         public HashSet<Stackable> stackables { get; protected set; }
 
@@ -16,7 +16,7 @@ namespace StandWorld.Entities
             stackables = new HashSet<Stackable>();
             this.zoneConfig = zoneConfig;
             color = new Color(0f, 0.3f, 1f, 0.4f);
-            areas.Add(this);
+            stockAreas.Add(this);
         }
 
         protected override void AddTilable(Vector2Int position)
@@ -27,9 +27,9 @@ namespace StandWorld.Entities
             base.AddTilable(position);
         }
 
-        protected override void DelTilable(Vector2Int position)
+        protected override void DeleteTilable(Vector2Int position)
         {
-            base.DelTilable(position);
+            base.DeleteTilable(position);
         }
     }
 }

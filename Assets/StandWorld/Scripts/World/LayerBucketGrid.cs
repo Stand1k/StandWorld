@@ -235,6 +235,7 @@ namespace StandWorld.World
 
             if (tilable.tilableDef.type != TilableType.Undefined) {
                 tilablesByType[tilable.tilableDef.type].Remove(tilable);
+                
                 if (tilablesByType[tilable.tilableDef.type].Count == 0) {
                     tilablesByType.Remove(tilable.tilableDef.type);
                 }

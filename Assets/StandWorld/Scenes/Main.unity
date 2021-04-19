@@ -436,7 +436,8 @@ MonoBehaviour:
   DrawFertility: 0
   DrawAStar: 0
   DrawPaths: 1
-  DrawReserved: 0
+  DrawReserved: 1
+  DrawRecipes: 0
   mapSize: {x: 300, y: 300}
 --- !u!4 &860043401
 Transform:
@@ -587,7 +588,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19abcb8a5cf666a49b24af064a256746, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actives: []
 --- !u!1 &2091613361
 GameObject:
   m_ObjectHideFlags: 0
@@ -910,8 +910,6 @@ MonoBehaviour:
     tilableDef:
       uId: 
       name: 
-      shortDecs: 
-      weight: 0
       layer: 0
       type: 0
       graphics:
@@ -932,6 +930,8 @@ MonoBehaviour:
         minFertility: 0
         states: 5
         lifetime: 2
+      recipeDef:
+        uId: 
       fertility: 0
       nutriments: 0
       maxStack: 0

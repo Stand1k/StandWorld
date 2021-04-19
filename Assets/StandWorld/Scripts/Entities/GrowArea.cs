@@ -26,9 +26,9 @@ namespace StandWorld.Entities
             base.AddTilable(position);
         }
 
-        protected override void DelTilable(Vector2Int position)
+        protected override void DeleteTilable(Vector2Int position)
         {
-            base.DelTilable(position);
+            base.DeleteTilable(position);
         }
     }
 }

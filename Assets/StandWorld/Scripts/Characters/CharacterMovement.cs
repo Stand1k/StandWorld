@@ -5,6 +5,7 @@ using StandWorld.Characters.AI;
 using StandWorld.Definitions;
 using StandWorld.Game;
 using StandWorld.Helpers;
+using StandWorld.World;
 using UnityEngine;
 using Task = StandWorld.Characters.AI.Task;
 
@@ -35,7 +36,7 @@ namespace StandWorld.Characters
         private Vector2Int _nextPosition;
         private bool _hasDestination;
         private Queue<Vector2Int> _path;
-        private float _speed = 0.02f;
+        private float _speed = 0.05f;
         private BaseCharacter _character;
 
         public CharacterMovement(Vector2Int position, BaseCharacter character)

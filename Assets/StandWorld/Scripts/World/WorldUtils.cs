@@ -17,7 +17,7 @@ namespace StandWorld.World
 
     public static partial class WorldUtils
     {
-        public static Tilable ClosestTilableFromEnumarable(Vector2Int position, IEnumerable<Tilable> tilables)
+        public static Tilable ClosestTilableFromEnumerable(Vector2Int position, IEnumerable<Tilable> tilables)
         {
             Tilable result = null;
             float minDistance = float.MaxValue;

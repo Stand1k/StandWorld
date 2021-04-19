@@ -26,7 +26,7 @@ public class TileProperty
     public float fCost => gCost + hCost;
     public TileProperty parent { get; set; }
 
-    public List<BaseCharacter> characters { get; set; }
+    public List<BaseCharacter> characters { get; protected set; }
 
     public TileProperty(Vector2Int position)
     {

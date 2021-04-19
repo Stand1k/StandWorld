@@ -13,6 +13,7 @@ namespace StandWorld.UI
             SetTitle(_character.name);
             AddTab("Character");
             AddTab("Infos");
+            AddTab("Inventory");
         }
 
         public override void Content()
@@ -27,7 +28,7 @@ namespace StandWorld.UI
                 {
                     vGrid.Span("Халтурить ...");
                 }
-                
+
                 vGrid.H2("Vitals");
                 foreach (Vital vital in _character.stats.vitals.Values)
                 {
@@ -53,6 +54,19 @@ namespace StandWorld.UI
                 foreach (Attribute attr in _character.stats.attributes.Values)
                 {
                     WindowComponents.SimpleStat(vGrid.GetNewRect(25f), attr.name, attr.value, attr.baseValue);
+                }
+            }
+            else if (activeTab == 2)
+            {
+                vGrid.H2("Inventory");
+                if (_character.inventory.def != null)
+                {
+                    vGrid.Paragraph(_character.inventory.def.name + " : " + _character.inventory.count + "/" +
+                                    _character.inventory.max);
+                }
+                else
+                {
+                    vGrid.Paragraph("Empty");
                 }
             }
         }

@@ -9,8 +9,7 @@ namespace StandWorld.World
 {
     public static partial class WorldUtils
     {
-        public static List<Tilable> cutOrdered = new List<Tilable>();
-        public static List<Recipe> recipes = new List<Recipe>();
+        public static readonly List<Tilable> cutOrdered = new List<Tilable>();
 
         public static Tilable FieldNextToCut(Vector2Int characterPosition)
         {
@@ -28,13 +27,13 @@ namespace StandWorld.World
                 }
             }
 
-            return ClosestTilableFromEnumarable(characterPosition, toCut);
+            return ClosestTilableFromEnumerable(characterPosition, toCut);
         }
 
         public static Tilable NextToCut(Vector2Int playerPosition)
         {
             List<Tilable> toCut = new List<Tilable>();
-            foreach (Tilable tilable in WorldUtils.cutOrdered)
+            foreach (Tilable tilable in cutOrdered)
             {
                 if (!ToolBox.map[tilable.position].reserved)
                 {
@@ -42,7 +41,7 @@ namespace StandWorld.World
                 }
             }
 
-            return ClosestTilableFromEnumarable(playerPosition, toCut);
+            return ClosestTilableFromEnumerable(playerPosition, toCut);
         }
 
         public static Tilable FieldNextTileToDirt(Vector2Int characterPosition)
@@ -60,7 +59,7 @@ namespace StandWorld.World
                 }
             }
 
-            return ClosestTilableFromEnumarable(characterPosition, toDirt);
+            return ClosestTilableFromEnumerable(characterPosition, toDirt);
         }
 
         public static Tilable FieldNextTileToSow(Vector2Int playerPosition)
@@ -79,7 +78,7 @@ namespace StandWorld.World
                 }
             }
 
-            return ClosestTilableFromEnumarable(playerPosition, toSow);
+            return ClosestTilableFromEnumerable(playerPosition, toSow);
         }
 
         public static bool FieldHasWork()
@@ -104,23 +103,6 @@ namespace StandWorld.World
                     Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
                     if (!ToolBox.map[position].reserved && tilable != null && tilable.tilableDef != growArea.def &&
                         tilable.tilableDef.cuttable)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        public static bool FieldHasPlantsToHarvest()
-        {
-            foreach (GrowArea growArea in GrowArea.growAreas)
-            {
-                foreach (Vector2Int position in growArea.positions)
-                {
-                    Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && plant != null && plant.state == growArea.def.plantDef.states)
                     {
                         return true;
                     }
@@ -178,7 +160,7 @@ namespace StandWorld.World
 
                 if (bucket != null && bucket.properties.vegetalNutriments > 0f)
                 {
-                    Tilable rt = ClosestTilableFromEnumarable(
+                    Tilable rt = ClosestTilableFromEnumerable(
                         position,
                         bucket.tilables.Where(
                             t =>
