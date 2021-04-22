@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace StandWorld.Entities
 {
-    public class Field : Tilable
+    public class GardenField : Tilable
     {
         public GrowArea growArea { get; protected set; }
         public bool dirt { get; protected set; }
 
-        public Field(Vector2Int position, TilableDef tilableDef, GrowArea growArea)
+        public GardenField(Vector2Int position, TilableDef tilableDef, GrowArea growArea)
         {
             addGraphics = new Dictionary<string, GraphicInstance>();
             this.growArea = growArea;

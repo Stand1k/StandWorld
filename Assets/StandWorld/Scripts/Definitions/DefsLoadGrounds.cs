@@ -40,6 +40,7 @@ namespace StandWorld.Definitions
                     uId =  "water",
                     layer = Layer.Ground,
                     blockPath = true,
+                    blockBuilding = true,
                     graphics = new GraphicDef
                     {
                         textureName = "water",

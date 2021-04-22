@@ -83,7 +83,7 @@ namespace StandWorld.Game
             }
             
             y = 26;
-            for (int x = 10; x < 15; x++) {
+            for (int x = 10; x < 17; x++) {
                 ToolBox.map.Spawn(new Vector2Int(x, y), new Building(
                     new Vector2Int(x, y),
                     Defs.buildings["wood_wall"]
@@ -92,19 +92,19 @@ namespace StandWorld.Game
             
             ToolBox.map.UpdateConnectedBuildings();
             
-            /*
+            
             StockArea stockarea = new StockArea(Defs.empty);
             stockarea.Add(new RectI(new Vector2Int(5, 5), 6, 6));
 
             GrowArea area = new GrowArea(Defs.plants["carrot"]);
-            area.Add(new RectI(new Vector2Int(15, 15), 5, 5));*/
+            area.Add(new RectI(new Vector2Int(15, 15), 5, 5));
 
             /*for (int i = 0; i < 5; i++)
             {
                 map.SpawnCharacter(new Animal(new Vector2Int(15, 15), Defs.animals["chiken"], new CharacterStats()));
             }*/
 
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 5; i++)
             {
                 map.SpawnCharacter(new Human(new Vector2Int(15, 15), Defs.animals["human"], new HumanStats()));
             }

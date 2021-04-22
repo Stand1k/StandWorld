@@ -21,7 +21,7 @@ namespace StandWorld.Entities
         {
             ToolBox.map.Spawn(
                 position,
-                new Field(position, Defs.empty, this)
+                new GardenField(position, Defs.empty, this)
             );
             base.AddTilable(position);
         }

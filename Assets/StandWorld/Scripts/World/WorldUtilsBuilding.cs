@@ -5,6 +5,7 @@ using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Game;
 using StandWorld.Helpers;
+using UnityEngine;
 
 namespace StandWorld.World
 {
@@ -15,6 +16,33 @@ namespace StandWorld.World
         public static bool HaulRecipeNeeded()
         {
             return recipes.Count > 0;
+        }
+
+        public static void SpawnBuilding(Vector2Int position) // TODO:
+        {
+            TileProperty tileProperty = ToolBox.map[position];
+
+            if (tileProperty.blockBuilding)
+            {
+                return;
+            }
+
+            ToolBox.map.Spawn(new Vector2Int(position.x, position.y), new Building(
+                new Vector2Int(position.x, position.y),
+                Defs.buildings["wood_wall"]
+            ));
+
+            ToolBox.map.UpdateConnectedBuildings();
+        }
+
+        public static void DeleteBlueprint(Vector2Int position) // TODO:
+        {
+            if (ToolBox.map.GetTilableAt(position, Layer.Building) is Building building && building.isBlueprint)
+            {
+                recipes.Remove(building.recipe);
+                building.Destroy();
+                ToolBox.map.UpdateConnectedBuildings();
+            }
         }
 
         public static TargetList RecipesToComplete(int radius, BaseCharacter character)
@@ -64,14 +92,15 @@ namespace StandWorld.World
             int stackFound = 0;
             if (stackables.ContainsKey(need))
             {
-                foreach (Stackable stack in stackables[need])
+                foreach (Stackable stack in ToolBox.map.grids[Layer.Stackable].GetTilables())
                 {
                     if (stackFound >= currentNeeds)
                     {
                         break;
                     }
 
-                    if (!ToolBox.map[stack.position].reserved && stack.inventory.count != 0 && stack.inventory.def == need)
+                    if (!ToolBox.map[stack.position].reserved && stack.inventory.count != 0 &&
+                        stack.inventory.def == need)
                     {
                         stackFound += stack.inventory.count;
                         if (targets == null)
@@ -95,6 +124,7 @@ namespace StandWorld.World
                 foreach (Recipe _recipe in toHaul)
                 {
                     targets.Enqueue(_recipe.building);
+                    break;
                 }
             }
 

@@ -4,7 +4,6 @@ namespace StandWorld.Characters.AI
 {
     public class Job
     {
-        public JobBase taskBase;
         public bool interuptable = false;
 
         public Func<bool> preCondition;

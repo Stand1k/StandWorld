@@ -17,8 +17,8 @@ namespace StandWorld.Helpers
             }
 
             return Mathf.Sqrt(
-                Mathf.Pow(a.x - (float)b.x, 2) +
-                Mathf.Pow(a.y - (float)b.y, 2)				
+                Mathf.Pow((float)a.x - (float)b.x, 2) +
+                Mathf.Pow((float)a.y - (float)b.y, 2)				
             );
         }
         

@@ -6,8 +6,8 @@ namespace StandWorld.World
 {
     public static partial class WorldUtils
     {
-        public static Dictionary<TilableDef, List<Stackable>> stackables = new Dictionary<TilableDef, List<Stackable>>();
-        public static Dictionary<TilableDef, int> stackablesCount = new Dictionary<TilableDef, int>();
+        public static readonly Dictionary<TilableDef, List<Stackable>> stackables = new Dictionary<TilableDef, List<Stackable>>();
+        public static readonly Dictionary<TilableDef, int> stackablesCount = new Dictionary<TilableDef, int>();
 
 
         public static int StackableCount(TilableDef def)

@@ -2,6 +2,7 @@
 using StandWorld.Entities;
 using StandWorld.Game;
 using StandWorld.Helpers;
+using StandWorld.World;
 using UnityEngine;
 
 namespace StandWorld.Definitions
@@ -13,9 +14,15 @@ namespace StandWorld.Definitions
             orders.Add(def.uId, def);
         }
 
+        public static void AddMenuOrderBuildings(MenuOrderDef def)
+        {
+            buildingOrders.Add(def.uId, def);
+        }
+
         public static void LoadMenuOrdersFromCode()
         {
             orders = new Dictionary<string, MenuOrderDef>();
+            buildingOrders = new Dictionary<string, MenuOrderDef>();
 
             AddMenuOrder(
                 new MenuOrderDef
@@ -121,6 +128,46 @@ namespace StandWorld.Definitions
                         textureName = "order_harvest"
                     },
                     keyCode = KeyCode.Q,
+                }
+            );
+
+            AddMenuOrderBuildings(
+                new MenuOrderDef
+                {
+                    uId = "woodWall_build",
+                    name = "Збудувати деревяну стіну",
+                    layer = Layer.Orders,
+                    shortDesc = "Будує стіни в зазначеній області.",
+                    selector = SelectorType.Line,
+                    sprite = Res.sprites["wall_1"],
+                    actionArea = (rect) =>
+                    {
+                        foreach (Vector2Int position in rect)
+                        {
+                            WorldUtils.SpawnBuilding(position);
+                        }
+                    },
+                    keyCode = KeyCode.B,
+                }
+            );
+            
+            AddMenuOrderBuildings(
+                new MenuOrderDef
+                {
+                    uId = "cancel_building",
+                    name = "Відмінити будівництво",
+                    shortDesc = "Відмініє всі накази в зазначеній обсласті.",
+                    selector = SelectorType.AreaTile,
+                    layer = Layer.Orders,
+                    sprite = Res.sprites["order_to_cancel"],
+                    actionArea = (rect) =>
+                    {
+                        foreach (Vector2Int position in rect)
+                        {
+                            WorldUtils.DeleteBlueprint(position);
+                        }
+                    },
+                    keyCode = KeyCode.N,
                 }
             );
         }

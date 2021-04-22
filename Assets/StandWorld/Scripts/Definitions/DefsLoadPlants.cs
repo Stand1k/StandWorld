@@ -31,8 +31,8 @@ namespace StandWorld.Definitions
                     },
                     plantDef = new PlantDef
                     {
-                        probability = 0.1f,
-                        minFertility = 0.1f
+                        probability = 0.001f,
+                        minFertility = 0.5f
                     }
                 }
             );
@@ -44,7 +44,7 @@ namespace StandWorld.Definitions
                     layer = Layer.Plant,
                     pathCost = .95f,
                     blockPlant = true,
-                    nutriments = 1f,
+                    nutriments = 0.3f,
                     blockStackable = true,
                     type = TilableType.Grass,
                     cuttable = true,

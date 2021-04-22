@@ -12,13 +12,12 @@ namespace StandWorld.Controllers
 
         public bool isDragging;
 
-        public Vector2 origin;
+        public Vector2 currFramePosition;
+        public Vector2 lastFramePosition;
+        Vector3 dragStartPosition;
 
-        // Вибрана область(Rect)
         public Rect currentSelection;
         public RectI currentSelectionOnMap;
-
-        public Vector2 currentMousePosition;
 
         public MenuOrderDef currentOrder => menuController.currentOrder;
 
@@ -73,7 +72,7 @@ namespace StandWorld.Controllers
 
         public void Reset()
         {
-            origin = Vector2.zero;
+            currFramePosition = Vector2.zero;
             isDragging = false;
         }
 
@@ -81,6 +80,8 @@ namespace StandWorld.Controllers
         {
             BeginSelection();
             UpdateSelection();
+
+            lastFramePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         }
 
         public void OnGUI()
@@ -102,7 +103,7 @@ namespace StandWorld.Controllers
                 !EventSystem.current.IsPointerOverGameObject()
             )
             {
-                origin = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                currFramePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
                 isDragging = true;
             }
         }
@@ -114,9 +115,8 @@ namespace StandWorld.Controllers
                 return;
             }
 
-            Vector2 mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-            GetScreenRect(origin, mousePosition);
-            GetMapRect(origin, mousePosition);
+            GetScreenRect(currFramePosition, lastFramePosition);
+            GetMapRect(currFramePosition, lastFramePosition);
 
             if (
                 Input.GetMouseButtonUp(0) &&
@@ -160,10 +160,20 @@ namespace StandWorld.Controllers
                 startInGame.y = tmp;
             }
 
-            currentSelectionOnMap = new RectI(
-                new Vector2Int(Mathf.FloorToInt(startInGame.x), Mathf.FloorToInt(startInGame.y)),
-                new Vector2Int(Mathf.FloorToInt(endInGame.x), Mathf.FloorToInt(endInGame.y))
-            );
+            if (currentOrder.selector == SelectorType.AreaTile)
+            {
+                currentSelectionOnMap = new RectI(
+                    new Vector2Int(Mathf.FloorToInt(startInGame.x + 0.5f), Mathf.FloorToInt(startInGame.y + 0.5f)),
+                    new Vector2Int(Mathf.FloorToInt(endInGame.x + 0.5f), Mathf.FloorToInt(endInGame.y + 0.5f))
+                );
+            }
+            else if (currentOrder.selector == SelectorType.Line)
+            {
+                currentSelectionOnMap = new RectI(
+                    new Vector2Int(Mathf.FloorToInt(startInGame.x + 0.5f), Mathf.FloorToInt(startInGame.y + 0.5f)),
+                    new Vector2Int(Mathf.FloorToInt(startInGame.x + endInGame.y + 0.5f), Mathf.FloorToInt(startInGame.y + 0.5f))
+                );
+            }
         }
 
 

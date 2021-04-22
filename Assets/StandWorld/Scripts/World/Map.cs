@@ -179,23 +179,6 @@ namespace StandWorld.World
             }
         }
 
-        public float GetFertilityAt(Vector2Int position)
-        {
-            float fertility = 1f;
-
-            foreach (Tilable tilable in GetAllTilablesAt(position))
-            {
-                if (tilable.tilableDef.fertility == 0f)
-                {
-                    return 0f;
-                }
-
-                fertility *= tilable.tilableDef.fertility;
-            }
-
-            return fertility;
-        }
-
         public void TempMapGen()
         {
             groundNoiseMap =

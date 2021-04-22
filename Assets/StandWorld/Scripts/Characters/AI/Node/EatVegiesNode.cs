@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace StandWorld.Characters.AI.Node
 {
-    public class EatVegiesNode : BrainNodeConditional
+    public class EatVegiesNode : BrainNodeCondition
     {
         private class EatVegiesTaskData : BrainNode
         {

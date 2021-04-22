@@ -3,7 +3,7 @@ using StandWorld.Definitions;
 
 namespace StandWorld.Characters.AI.Node
 {
-    public class SleepNode : BrainNodeConditional
+    public class SleepNode : BrainNodeCondition
     {
         private class SleepNodeTaskData : BrainNode
         {

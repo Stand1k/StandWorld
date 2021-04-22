@@ -69,8 +69,8 @@ namespace StandWorld.Controllers
             tabs = new MenuOrderTab[tabCount];
 
             AddTab("Накази", 0, KeyCode.A);
-            AddTab("Зони", 1);
-            AddTab("Будівлі", 2);
+            AddTab("Зони", 1, KeyCode.S);
+            AddTab("Будівлі", 2, KeyCode.D);
             AddTab("Виробництво", 3);
             AddTab("Магія", 4);
             AddTab("Бій", 5);
@@ -120,11 +120,19 @@ namespace StandWorld.Controllers
             go.name = "OrderTab: " + name;
             tabs[id] = new MenuOrderTab(go);
 
-            List<MenuOrderDef> orders = new List<MenuOrderDef>();
+            List<MenuOrderDef> orders;
 
             if (id == 0)
             {
                 orders = new List<MenuOrderDef>(Defs.orders.Values);
+            }
+            else if (id == 2)
+            {
+                orders = new List<MenuOrderDef>(Defs.buildingOrders.Values);
+            }
+            else
+            {
+                orders = new List<MenuOrderDef>();
             }
 
             foreach (MenuOrderDef order in orders)
@@ -216,7 +224,7 @@ namespace StandWorld.Controllers
                 }
             }
 
-            if (current == 0)
+            if (current >= 0)
             {
                 foreach (KeyValuePair<KeyCode,MenuOrderDef> kv in ordersShortcuts)
                 {

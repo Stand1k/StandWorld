@@ -28,7 +28,6 @@ namespace StandWorld.Entities
 
         public int count => listItems.Count;
         public int free => max - count;
-        public int lastDiff { get; protected set; }
         public bool full => free <= 0;
 
         private int _max;
@@ -52,7 +51,12 @@ namespace StandWorld.Entities
             }
         }
 
-        public Inventory(int max = -1, TilableDef def = null)
+        public Inventory(int max = -1)
+        {
+            _max = max;
+        }
+
+        public Inventory(TilableDef def = null, int max = -1)
         {
             _max = max;
             _def = def;

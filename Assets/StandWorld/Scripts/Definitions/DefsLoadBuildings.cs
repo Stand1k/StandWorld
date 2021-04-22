@@ -20,9 +20,10 @@ namespace StandWorld.Definitions
                 uId = "wood_wall",
                 layer = Layer.Building,
                 type = TilableType.BuildingConnected,
-                blockPath = true,
+                blockPath = false,
                 blockStackable = true,
                 blockPlant = true,
+                blockBuilding = true,
                 graphics = new GraphicDef
                 {
                     textureName = "wall"

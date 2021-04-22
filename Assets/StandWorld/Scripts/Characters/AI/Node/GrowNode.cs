@@ -5,7 +5,7 @@ using StandWorld.World;
 
 namespace StandWorld.Characters.AI.Node
 {
-    public class GrowNode : BrainNodeConditional
+    public class GrowNode : BrainNodeCondition
     {
         private class CutPlantsAtPosition : BrainNode
         {
@@ -63,9 +63,9 @@ namespace StandWorld.Characters.AI.Node
 
         public GrowNode(Func<bool> condition) : base(condition)
         {
-            BrainNode cut = new BrainNodeConditional(WorldUtils.FieldHasPlantsToCut);
-            BrainNode sow = new BrainNodeConditional(WorldUtils.FieldHasPlantsToSow);
-            BrainNode dirt = new BrainNodeConditional(WorldUtils.FieldHasDirtToWork);
+            BrainNode cut = new BrainNodeCondition(WorldUtils.FieldHasPlantsToCut);
+            BrainNode sow = new BrainNodeCondition(WorldUtils.FieldHasPlantsToSow);
+            BrainNode dirt = new BrainNodeCondition(WorldUtils.FieldHasDirtToWork);
 
             cut.AddSubnode(new CutPlantsAtPosition());
             sow.AddSubnode(new SowPlantAtPosition());

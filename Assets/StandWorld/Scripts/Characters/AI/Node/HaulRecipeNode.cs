@@ -5,21 +5,24 @@ using UnityEngine;
 
 namespace StandWorld.Characters.AI.Node
 {
-    public class HaulRecipeNode : BrainNodeConditional
+    public class HaulRecipeNode : BrainNodeCondition
     {
         private class HaulRecipe : BrainNode
         {
             public override Task GetTask()
             {
-                TargetList targets = WorldUtils.RecipesToComplete(10, character);
-                if (targets != null && targets.targets.Count != 0)
+                TargetList targets = WorldUtils.RecipesToComplete(30, character);
+                
+                if (targets != null)
                 {
                     return new Task(
                         Defs.tasks["haul_recipe"],
                         targets
                     );
                 }
-
+                
+                
+                
                 return null;
             }
         }

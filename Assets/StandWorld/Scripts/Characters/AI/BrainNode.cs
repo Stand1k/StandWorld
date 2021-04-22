@@ -6,7 +6,7 @@ namespace StandWorld.Characters.AI
 {
     public abstract class BrainNode
     {
-        public List<BrainNode> subNodes = new List<BrainNode>();
+        public readonly List<BrainNode> subNodes = new List<BrainNode>();
         public BaseCharacter character { get; protected set; }
 
         public void SetCharacter(BaseCharacter character)
@@ -48,11 +48,11 @@ namespace StandWorld.Characters.AI
         }
     }
 
-    public class BrainNodeConditional : BrainNodePriority
+    public class BrainNodeCondition : BrainNodePriority
     {
         public Func<bool> condition { get; protected set; }
 
-        public BrainNodeConditional(Func<bool> condition)
+        public BrainNodeCondition(Func<bool> condition)
         {
             this.condition = condition;
         }

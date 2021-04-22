@@ -24,8 +24,8 @@ namespace StandWorld.Characters
             brainNode
                 .AddSubnode(new CutNode(WorldUtils.HasPlantToCut))
                 .AddSubnode(new HaulRecipeNode(WorldUtils.HaulRecipeNeeded))
-                //.AddSubnode(new GrowNode(WorldUtils.FieldHasWork))
-                //.AddSubnode(new SleepNode(() => stats.vitals[Vitals.Energy].ValueInfToPercent(0.2f)))
+                .AddSubnode(new GrowNode(WorldUtils.FieldHasWork))
+                .AddSubnode(new SleepNode(() => stats.vitals[Vitals.Energy].ValueInfToPercent(0.2f)))
                 //.AddSubnode(new EatVegiesNode( () => stats.vitals[Vitals.Hunger].ValueInfToPercent(0.25f)))
                 .AddSubnode(new IdleNodeTaskData());
             

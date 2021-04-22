@@ -24,6 +24,7 @@ namespace StandWorld.Characters.AI.Jobs
             job.OnEnd = () =>
             {
                 Building building = (Building) ToolBox.map.GetTilableAt(task.targets.current.position, Layer.Building);
+
                 Recipe recipe = building.recipe;
 
                 if (recipe.needs[character.inventory.def].full == false)

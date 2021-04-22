@@ -5,7 +5,7 @@ using StandWorld.World;
 
 namespace StandWorld.Characters.AI.Node
 {
-    public class CutNode : BrainNodeConditional
+    public class CutNode : BrainNodeCondition
     {
         private class CutPlantAtPosition : BrainNode
         {

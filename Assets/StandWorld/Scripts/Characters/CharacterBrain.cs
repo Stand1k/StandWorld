@@ -28,7 +28,6 @@ namespace StandWorld.Characters
                 if (currentTask.taskBase == null)
                 {
                     currentTask.GetTaskClass(character);
-                    return;
                 }
                 
                 if (currentTask.state == TaskState.Success)
@@ -49,6 +48,9 @@ namespace StandWorld.Characters
         public void GetNextTask()
         {
             Task nextTask = brainNode.GetTask();
+
+            Debug.Log("Start new Task: " + nextTask.def.uId);
+            
             if (nextTask != null)
             {
                 StartNextTask(nextTask);

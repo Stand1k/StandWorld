@@ -1,6 +1,4 @@
-﻿using TMPro;
-
-namespace StandWorld.Definitions
+﻿namespace StandWorld.Definitions
 {
     public class BuildingDef : TilableDef
     {

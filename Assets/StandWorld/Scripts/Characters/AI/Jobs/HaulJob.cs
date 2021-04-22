@@ -30,13 +30,13 @@ namespace StandWorld.Characters.AI.Jobs
             Job get = new Job(
                 () => (
                     character.inventory.def == null ||
-                    (character.inventory.free > 0 && character.inventory.def == task.targets.current.tilable.tilableDef)
+                    (character.inventory.free > 0 &&
+                     character.inventory.def == task.targets.current.tilable.tilableDef)
                 )
             );
             get.OnEnd = () =>
             {
-                Stackable stack =
-                    (Stackable) ToolBox.map.grids[Layer.Stackable].GetTilableAt(task.targets.current.position);
+                Stackable stack = (Stackable) ToolBox.map.grids[Layer.Stackable].GetTilableAt(task.targets.current.position);
                 if (stack == null || stack.inventory.count == 0)
                 {
                     task.state = TaskState.Failed;

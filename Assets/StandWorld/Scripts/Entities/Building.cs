@@ -12,7 +12,7 @@ namespace StandWorld.Entities
         private ConnectedTilable _connectedUtility;
         public Recipe recipe { get; protected set; }
 
-        public bool isBlueprint => tilableDef.buildingDef.work == work;
+        public bool isBlueprint = true;
 
         public int work;
 
@@ -56,7 +56,12 @@ namespace StandWorld.Entities
                 1
             );
             
+            tilableDef.blockPath = true;
+            isBlueprint = false;
+
+            ToolBox.map[position].Update();
             UpdateGraphics();
+            
             
             if (bucket != null)
             {

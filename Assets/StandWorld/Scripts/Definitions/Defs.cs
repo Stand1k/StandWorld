@@ -20,6 +20,8 @@ namespace StandWorld.Definitions
 
         public static Dictionary<string, MenuOrderDef> orders;
         
+        public static Dictionary<string, MenuOrderDef> buildingOrders;
+        
         public static Dictionary<string, TilableDef> buildings;
 
         public static Dictionary<string, TilableDef> grounds;

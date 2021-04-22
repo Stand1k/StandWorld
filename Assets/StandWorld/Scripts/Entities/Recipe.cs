@@ -39,7 +39,7 @@ namespace StandWorld.Entities
             foreach (KeyValuePair<TilableDef, int> kv in this.def.reqs)
             {
                 needs.Add(kv.Key, new Inventory(
-                    kv.Value, kv.Key
+                    kv.Key, kv.Value
                 ));
                 needs[kv.Key].OnChangeCount = qty => { IsComplete(); };
             }
