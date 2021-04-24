@@ -1,0 +1,17 @@
+menu_options=Параметри
+menu_settings=Налаштування
+menu_save=Зберегти
+menu_quit=Вийти
+new_world=Новий світ
+load=Завантажити
+save=Зберегти
+selection_panel_title=Поточний вибір
+save_file=Файл Збереження...
+load_file=Файл Завантаження...
+okay=Прийняти
+cancel=Скасувати
+filename=Ім'я файлу
+build=Побудувати {0}
+furn_wood_wall=Дерев'яна стіна
+furn_stockpile=Запаси
+furn_stockpile_desc=Сховище для ваших матеріалів.

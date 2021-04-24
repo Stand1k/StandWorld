@@ -1,0 +1,15 @@
+{
+  "version": "f7dd2094bb78a219110be86caabe4b11150fc3d3",
+  "languages": [
+    {
+      "code": "en_US",
+      "name": "English (US)"
+    },
+    {
+      "code": "ru_RU"
+    },
+    {
+      "code": "uk_UA"
+    }
+  ]
+}

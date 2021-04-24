@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using ProjectPorcupine.Localization;
 using StandWorld.Characters;
 using StandWorld.Controllers;
 using StandWorld.Definitions;
@@ -13,6 +14,8 @@ namespace StandWorld.Game
 {
     public class GameManager : MonoBehaviour
     {
+        public static readonly string GameVersion = "main";
+        
         public CameraController cameraController;
         public StackableLabelController stackableLabelController;
         public Map map;
@@ -46,6 +49,7 @@ namespace StandWorld.Game
         {
             tick = new Tick();
             map = new Map((int) mapSize.x, (int) mapSize.y);
+            gameObject.AddComponent<LocalizationLoader>();
 
             Debug.Log(map);
             map.TempMapGen();

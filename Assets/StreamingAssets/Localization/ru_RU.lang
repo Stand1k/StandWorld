@@ -1,0 +1,17 @@
+menu_options=Параметры
+menu_settings=Настройки
+menu_save=Сохранить
+menu_quit=Выйти
+new_world=Новый Мир
+load=Загрузить
+save=Сохранить
+selection_panel_title=Текущий Выбор
+save_file=Файл Сохранения...
+load_file=Файл Загрузки...
+okay=Принять
+cancel=Отменить
+filename=Имя Файла
+build=Строить {0}
+furn_wood_wall=Деревянная стена
+furn_stockpile=Хранилище
+furn_stockpile_desc=Хранилище для ваших материалов.
