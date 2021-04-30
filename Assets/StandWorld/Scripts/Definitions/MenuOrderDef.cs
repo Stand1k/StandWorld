@@ -6,8 +6,6 @@ namespace StandWorld.Definitions
     [System.Serializable]
     public class MenuOrderDef : Def
     {
-        public string name;
-        public string shortDesc;
         public TilableDef tilableDef;
         public Sprite sprite;
 

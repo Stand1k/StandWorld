@@ -27,10 +27,13 @@ namespace StandWorld.Characters.AI.Jobs
 
                 Recipe recipe = building.recipe;
 
-                if (recipe.needs[character.inventory.def].full == false)
+                if (character.inventory.def != null) // TODO:
                 {
-                    character.inventory.TransfertTo(recipe.needs[character.inventory.def],
-                        recipe.needs[character.inventory.def].max);
+                    if (recipe.needs[character.inventory.def].full == false)
+                    {
+                        character.inventory.TransfertTo(recipe.needs[character.inventory.def],
+                            recipe.needs[character.inventory.def].max);
+                    }
                 }
             };
 

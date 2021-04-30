@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Microsoft.Win32;
+using ProjectPorcupine.Localization;
 using StandWorld.Definitions;
 using StandWorld.Helpers;
 using UnityEngine;
@@ -48,32 +48,31 @@ namespace StandWorld.Controllers
 
     public class MenuController : MonoBehaviour
     {
-        [SerializeField] private InfoController info;
-        [SerializeField] private Transform parent;
-        [SerializeField] private Transform parentMenu;
-        [SerializeField] private MenuOrderButton[] buttons;
-        [SerializeField] private MenuOrderTab[] tabs;
-        [SerializeField] private Color activeColor;
-        [SerializeField] private Color defaultColor;
-        [SerializeField] private int current = -1;
-
+        public InfoController info;
+        public Transform parent;
+        public Transform parentMenu;
+        public MenuOrderButton[] buttons;
+        public MenuOrderTab[] tabs;
+        public Color activeColor;
+        public Color defaultColor;
+        public int current = -1;
         public MenuOrderDef currentOrder;
         public Dictionary<string, MenuOrderTabLink> links = new Dictionary<string, MenuOrderTabLink>();
         public Dictionary<KeyCode, int> tabShortcuts = new Dictionary<KeyCode, int>();
-        public Dictionary<KeyCode, MenuOrderDef> ordersShortcuts = new Dictionary<KeyCode, MenuOrderDef>();
+        public Dictionary<MenuOrderDef, KeyCode> ordersShortcuts = new Dictionary<MenuOrderDef, KeyCode>();
 
         void Start()
         {
             int tabCount = 6;
             buttons = new MenuOrderButton[tabCount];
             tabs = new MenuOrderTab[tabCount];
-
-            AddTab("Накази", 0, KeyCode.A);
-            AddTab("Зони", 1, KeyCode.S);
-            AddTab("Будівлі", 2, KeyCode.D);
-            AddTab("Виробництво", 3);
-            AddTab("Магія", 4);
-            AddTab("Бій", 5);
+            
+            AddTab(LocalizationTable.GetLocalization("button_orders"), 0, KeyCode.A);
+            AddTab(LocalizationTable.GetLocalization("button_zones"), 1, KeyCode.S);
+            AddTab(LocalizationTable.GetLocalization("button_building"), 2, KeyCode.D);
+            AddTab(LocalizationTable.GetLocalization("button_production"), 3);
+            AddTab(LocalizationTable.GetLocalization("button_magic"), 4);
+            AddTab(LocalizationTable.GetLocalization("button_fight"), 5);
             currentOrder = null;
             Reset();
         }
@@ -139,7 +138,7 @@ namespace StandWorld.Controllers
             {
                 GameObject _go = Instantiate(Res.prefabs["button_order"]);
                 _go.transform.SetParent(go.transform);
-                _go.name = "OrderButton: " + order.name;
+                _go.name = "OrderButton: " + order.uId;
                 text = _go.GetComponentInChildren<Text>();
                 text.text = $"({order.keyCode.ToString()})";
                 _go.GetComponentsInChildren<Image>()[1].sprite = order.sprite;
@@ -148,7 +147,7 @@ namespace StandWorld.Controllers
 
                 if (order.keyCode != KeyCode.Escape)
                 {
-                    ordersShortcuts.Add(order.keyCode, order);
+                    ordersShortcuts.Add(order, order.keyCode);
                 }
 
                 MenuOrderTabLink orderLink = new MenuOrderTabLink(_go, image);
@@ -185,8 +184,8 @@ namespace StandWorld.Controllers
             {
                 currentOrder = order;
                 links[order.uId].image.color = activeColor;
-                info.title.text = order.name;
-                info.desc.text = order.shortDesc;
+                info.title.text = LocalizationTable.GetLocalization(order.uId + "_title");
+                info.desc.text = LocalizationTable.GetLocalization(order.uId + "_desc");
             }
             else
             {
@@ -216,7 +215,7 @@ namespace StandWorld.Controllers
                 Reset();
             }
 
-            foreach (KeyValuePair<KeyCode,int> kv in tabShortcuts)
+            foreach (KeyValuePair<KeyCode, int> kv in tabShortcuts)
             {
                 if (Input.GetKeyDown(kv.Key))
                 {
@@ -226,11 +225,11 @@ namespace StandWorld.Controllers
 
             if (current >= 0)
             {
-                foreach (KeyValuePair<KeyCode,MenuOrderDef> kv in ordersShortcuts)
+                foreach (KeyValuePair<MenuOrderDef, KeyCode> kv in ordersShortcuts)
                 {
-                    if (Input.GetKeyDown(kv.Key))
+                    if (Input.GetKeyDown(kv.Value))
                     {
-                        ClickOrder(kv.Value);
+                        ClickOrder(kv.Key);
                     }
                 }
             }

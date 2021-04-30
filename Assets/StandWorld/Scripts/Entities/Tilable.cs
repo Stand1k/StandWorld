@@ -140,16 +140,16 @@ namespace StandWorld.Entities
         {
             if (hasOrder)
             {
-                addGraphics.Remove(currentOrderDef.name);
+                addGraphics.Remove(currentOrderDef.uId);
                 currentOrderDef = null;
             }
         }
 
         public virtual void UpdateOrderGraphics()
         {
-            if (!addGraphics.ContainsKey(currentOrderDef.name))
+            if (!addGraphics.ContainsKey(currentOrderDef.uId))
             {
-                addGraphics.Add(currentOrderDef.name,
+                addGraphics.Add(currentOrderDef.uId,
                     GraphicInstance.GetNew(
                         currentOrderDef.graphicDef,
                         Color.white,

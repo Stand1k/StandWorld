@@ -900,13 +900,11 @@ MonoBehaviour:
   info: {fileID: 5700605102142831028}
   parent: {fileID: 384931743}
   parentMenu: {fileID: 5700605102743941717}
-  activeColor: {r: 0.7830189, g: 0.69667846, b: 0.088643625, a: 1}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
+  activeColor: {r: 0.7735849, g: 0.7029651, b: 0.19704522, a: 1}
+  defaultColor: {r: 0.1792453, g: 0.15726238, b: 0.15726238, a: 1}
   current: -1
   currentOrder:
     uId: 
-    name: 
-    shortDesc: 
     tilableDef:
       uId: 
       name: 
@@ -969,7 +967,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   menuController: {fileID: 0}
   isDragging: 0
-  origin: {x: 0, y: 0}
+  currFramePosition: {x: 0, y: 0}
+  lastFramePosition: {x: 0, y: 0}
   currentSelection:
     serializedVersion: 2
     x: 0
@@ -979,7 +978,6 @@ MonoBehaviour:
   currentSelectionOnMap:
     min: {x: 0, y: 0}
     max: {x: 0, y: 0}
-  currentMousePosition: {x: 0, y: 0}
 --- !u!222 &5700605102606088616
 CanvasRenderer:
   m_ObjectHideFlags: 0

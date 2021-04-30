@@ -28,8 +28,6 @@ namespace StandWorld.Definitions
                 new MenuOrderDef
                 {
                     uId = "cancel",
-                    name = "Відмінити накази",
-                    shortDesc = "Відмініє всі накази в зазначеній обсласті.",
                     selector = SelectorType.AreaTile,
                     layer = Layer.Orders,
                     sprite = Res.sprites["order_to_cancel"],
@@ -51,8 +49,6 @@ namespace StandWorld.Definitions
                 new MenuOrderDef
                 {
                     uId = "cut_wood",
-                    name = "Зрубати дерева",
-                    shortDesc = "Зрубує дерева в зазначеній області.",
                     selector = SelectorType.AreaTile,
                     sprite = Res.sprites["order_to_cut_tree"],
                     actionArea = (rect) =>
@@ -78,8 +74,6 @@ namespace StandWorld.Definitions
                 new MenuOrderDef
                 {
                     uId = "cut_plants",
-                    name = "Зрізати рослини",
-                    shortDesc = "Зрізає рослини в зазначеній області.",
                     selector = SelectorType.AreaTile,
                     sprite = Res.sprites["order_to_cut_plant"],
                     actionArea = (rect) =>
@@ -106,9 +100,7 @@ namespace StandWorld.Definitions
                 new MenuOrderDef
                 {
                     uId = "harvest_plants",
-                    name = "Зібрати врожай",
                     layer = Layer.Orders,
-                    shortDesc = "Збирає врожай в зазначеній області.",
                     selector = SelectorType.AreaTile,
                     sprite = Res.sprites["order_harvest"],
                     actionArea = (rect) =>
@@ -135,9 +127,7 @@ namespace StandWorld.Definitions
                 new MenuOrderDef
                 {
                     uId = "woodWall_build",
-                    name = "Збудувати деревяну стіну",
                     layer = Layer.Orders,
-                    shortDesc = "Будує стіни в зазначеній області.",
                     selector = SelectorType.Line,
                     sprite = Res.sprites["wall_1"],
                     actionArea = (rect) =>
@@ -147,7 +137,7 @@ namespace StandWorld.Definitions
                             WorldUtils.SpawnBuilding(position);
                         }
                     },
-                    keyCode = KeyCode.B,
+                    keyCode = KeyCode.W,
                 }
             );
             
@@ -155,8 +145,6 @@ namespace StandWorld.Definitions
                 new MenuOrderDef
                 {
                     uId = "cancel_building",
-                    name = "Відмінити будівництво",
-                    shortDesc = "Відмініє всі накази в зазначеній обсласті.",
                     selector = SelectorType.AreaTile,
                     layer = Layer.Orders,
                     sprite = Res.sprites["order_to_cancel"],
@@ -167,7 +155,7 @@ namespace StandWorld.Definitions
                             WorldUtils.DeleteBlueprint(position);
                         }
                     },
-                    keyCode = KeyCode.N,
+                    keyCode = KeyCode.Q,
                 }
             );
         }

@@ -35,7 +35,7 @@ namespace ProjectPorcupine.Localization
 
         public static JToken protoJson;
 
-        private static readonly string DefaultLanguage = "en_US";
+        private static readonly string DefaultLanguage = "uk_UA";
 
         // Contains basic information about each localization
         private static Dictionary<string, LocalizationData> localizationConfigurations;
@@ -138,14 +138,14 @@ namespace ProjectPorcupine.Localization
             return localizationData.LocalName;
         }
 
-        /*public static void SetLocalization(int lang)
+        public static void SetLocalization(int lang)
         {
             string[] languages = GetLanguages();
             currentLanguage = languages[lang];
-            Settings.SetSetting("localization", languages[lang]);
-            LocalizationLoader loader = GameObject.Find("GameController").GetComponent(typeof(LocalizationLoader)) as LocalizationLoader;
+            //Settings.SetSetting("localization", languages[lang]);
+            LocalizationLoader loader = GameObject.Find("GameManager").GetComponent(typeof(LocalizationLoader)) as LocalizationLoader;
             loader.UpdateLocalizationTable();
-        }*/
+        }
 
         public static void LoadingLanguagesFinished()
         {
