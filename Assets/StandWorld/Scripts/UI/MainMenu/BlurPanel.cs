@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using DG.Tweening;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace StandWorld.UI.MainMenu
@@ -11,10 +12,12 @@ namespace StandWorld.UI.MainMenu
         public float delay = 0;
 
         private CanvasGroup _canvasGroup;
+        private int _SizeID;
 
         protected override void Awake()
         {
             _canvasGroup = GetComponent<CanvasGroup>();
+            _SizeID = Shader.PropertyToID("_Size");
         }
 
         protected override void OnEnable()
@@ -23,17 +26,16 @@ namespace StandWorld.UI.MainMenu
             
             if (Application.isPlaying)
             {
+                material.SetFloat(_SizeID, 0);
                 color = Color.black * 0.1f;
-                material.SetFloat("_Size", 0);
                 _canvasGroup.alpha = 0f;
-                LeanTween.value(gameObject, UpdateBlur, 0, 3, time).setDelay(delay);
+                _canvasGroup.DOFade(1, time).OnComplete(() =>
+                {
+                    material.DOFloat(3, _SizeID, time);
+                });
             }
         }
 
-        void UpdateBlur(float value)
-        {
-            material.SetFloat("_Size", value);
-            _canvasGroup.alpha = value;
-        }
+
     }
 }
