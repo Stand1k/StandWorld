@@ -19,7 +19,7 @@ namespace StandWorld.Controllers
 
         private void Update()
         {
-            if (ToolBox.manager.ready)
+            if (ToolBox.contoller.ready)
             {
                 int i = 0;
                 if (Input.GetMouseButtonDown(0))

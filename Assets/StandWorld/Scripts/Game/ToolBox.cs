@@ -8,14 +8,14 @@ namespace StandWorld.Game
 {
     public static class ToolBox
     {
-        public static GameManager manager;
-        public static CameraController cameraController => manager.cameraController;
+        public static GameContoller contoller;
+        public static CameraController cameraController => contoller.cameraController;
 
-        public static Map map => manager.map;
+        public static Map map => contoller.map;
 
-        public static StackableLabelController stackableLabelController => manager.stackableLabelController;
+        public static StackableLabelController stackableLabelController => contoller.stackableLabelController;
 
-        public static Tick tick => manager.tick;
+        public static Tick tick => contoller.tick;
 
         public static void LoadStatics()
         {
@@ -33,9 +33,9 @@ namespace StandWorld.Game
             Defs.LoadBuildingsFromCode();
         }
 
-        public static void NewGame(GameManager manager)
+        public static void NewGame(GameContoller contoller)
         {
-            ToolBox.manager = manager;
+            ToolBox.contoller = contoller;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace StandWorld.UI.MainMenu
                 _canvasGroup.alpha = 0f;
                 _canvasGroup.DOFade(1, time).OnComplete(() =>
                 {
-                    material.DOFloat(3, _SizeID, time);
+                    material.DOFloat(2, _SizeID, time);
                 });
             }
         }

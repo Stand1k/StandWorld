@@ -12,6 +12,7 @@ using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json.Linq;
 using StandWorld.Game;
+using StandWorld.UI.MainMenu;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -48,9 +49,9 @@ namespace ProjectPorcupine.Localization
     /// </summary>
     public static class LocalizationDownloader
     {
-        private static readonly string LocalizationRepositoryZipLocation = "https://github.com/Stand1k/Localization_StandWorld/archive/" + GameManager.GameVersion + ".zip";
+        private static readonly string LocalizationRepositoryZipLocation = "https://github.com/Stand1k/Localization_StandWorld/archive/" + SceneManager.GameVersion + ".zip";
 
-        private static readonly string LastCommitGithubApiLocation = "https://api.github.com/repos/Stand1k/Localization_StandWorld/commits/" + GameManager.GameVersion;
+        private static readonly string LastCommitGithubApiLocation = "https://api.github.com/repos/Stand1k/Localization_StandWorld/commits/" + SceneManager.GameVersion;
 
         private static readonly string LocalizationFolderPath = Path.Combine(Application.streamingAssetsPath, "Localization");
 

@@ -14,6 +14,7 @@ namespace StandWorld.UI.MainMenu
         public Color textExit;
         
         public TabButton selectedTab;
+        public int DeselectIndex;
         public PanelGroup panelGroup;   
         
         public List<TabButton> tabButtons;
@@ -66,7 +67,8 @@ namespace StandWorld.UI.MainMenu
 
             if (panelGroup != null)
             {
-                panelGroup.SetPageIndex(selectedTab.transform.GetSiblingIndex());
+                panelGroup.SetPageIndex(selectedTab.transform.GetSiblingIndex(), DeselectIndex);
+                DeselectIndex = selectedTab.transform.GetSiblingIndex();
             }
             
             for (int i = 0; i < objectsToSwap.Count; i++)
@@ -74,6 +76,7 @@ namespace StandWorld.UI.MainMenu
                 if (i == index)
                 {
                     objectsToSwap[i].SetActive(true);
+                    
                 }
                 else
                 {

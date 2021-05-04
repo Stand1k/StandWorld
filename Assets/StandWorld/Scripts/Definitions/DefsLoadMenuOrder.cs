@@ -128,7 +128,7 @@ namespace StandWorld.Definitions
                 {
                     uId = "woodWall_build",
                     layer = Layer.Orders,
-                    selector = SelectorType.Line,
+                    selector = SelectorType.AreaTile,
                     sprite = Res.sprites["wall_1"],
                     actionArea = (rect) =>
                     {
@@ -137,7 +137,7 @@ namespace StandWorld.Definitions
                             WorldUtils.SpawnBuilding(position);
                         }
                     },
-                    keyCode = KeyCode.W,
+                    keyCode = KeyCode.B,
                 }
             );
             
@@ -155,7 +155,7 @@ namespace StandWorld.Definitions
                             WorldUtils.DeleteBlueprint(position);
                         }
                     },
-                    keyCode = KeyCode.Q,
+                    keyCode = KeyCode.N,
                 }
             );
         }

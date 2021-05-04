@@ -1,4 +1,5 @@
 ﻿using System;
+using DG.Tweening;
 using UnityEngine;
 
 namespace StandWorld.UI.MainMenu
@@ -7,7 +8,8 @@ namespace StandWorld.UI.MainMenu
     {
         public GameObject[] panels;
         public TabGroup tabGroup;
-        public int panelIndex;
+        public int selectPanelIndex;
+        public int deselectPanelIndex;
 
         private void Awake()
         {
@@ -16,22 +18,31 @@ namespace StandWorld.UI.MainMenu
 
         private void ShowCurrentPanel()
         {
-            for (int i = 0; i < panels.Length; i++)
+            if (selectPanelIndex != deselectPanelIndex)
             {
-                if (i == panelIndex)
-                {
-                    panels[i].gameObject.SetActive(true);
-                }
-                else
-                {
-                    panels[i].gameObject.SetActive(false);
-                }
+                Sequence sequence = DOTween.Sequence();
+                sequence
+                    .Append(panels[deselectPanelIndex].gameObject.GetComponent<RectTransform>()
+                        .DOAnchorPos(new Vector2(4920, 0), 0.25f).OnComplete(
+                            () =>
+                            {
+                                panels[deselectPanelIndex].gameObject.SetActive(false);
+                            }))
+                    .Append(panels[selectPanelIndex].gameObject.GetComponent<RectTransform>()
+                        .DOAnchorPos(new Vector2(1450, 0), 0.25f).OnStart(
+                            () =>
+                            {
+                                panels[selectPanelIndex].gameObject.SetActive(true);
+                            }));
             }
+                
         }
+        
 
-        public void SetPageIndex(int index)
+        public void SetPageIndex(int selectIndex, int deselectIndex)
         {
-            panelIndex = index;
+            selectPanelIndex = selectIndex;
+            deselectPanelIndex = deselectIndex;
             ShowCurrentPanel();
         }
     }
