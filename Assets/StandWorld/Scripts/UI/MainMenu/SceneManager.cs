@@ -18,6 +18,7 @@ namespace StandWorld.UI.MainMenu
     {
         public static readonly string GameVersion = "main";
         public static SceneManager instance;
+        public GameObject transitionCanvas;
         public GameObject loadingScreen;
         public ProgressBar progressBar;
         public Sprite[] backgrounds;
@@ -35,6 +36,12 @@ namespace StandWorld.UI.MainMenu
         {
             instance = this;
             progressBar.current = 0f;
+            loadingScreen.SetActive(false);
+            transitionCanvas.SetActive(false);
+            
+            DontDestroyOnLoad(loadingScreen);
+            DontDestroyOnLoad(transitionCanvas);
+            DontDestroyOnLoad(instance);
         }
 
         public void LoadGame()
@@ -72,9 +79,11 @@ namespace StandWorld.UI.MainMenu
                     if (progressBar.current >= 100)
                     {
                         yield return new WaitForSeconds(5f);
+                        transitionCanvas.SetActive(true);
+                        yield return new WaitForSeconds(1f);
                         break;
                     }
-
+                    
                     yield return null;
                 }
             }
@@ -83,6 +92,9 @@ namespace StandWorld.UI.MainMenu
             {
                 asyncOperation.allowSceneActivation = true;
             }
+
+            yield return null;
+            Destroy(loadingScreen);
         }
 
         public IEnumerator GenerateTips()
