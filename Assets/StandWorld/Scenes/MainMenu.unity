@@ -3720,12 +3720,12 @@ MonoBehaviour:
   tipsText: {fileID: 2919585265274818054}
   alphaCanvas: {fileID: 347358564}
   tips:
-  - "\u0427\u0438\u0441\u0442\u043E \u0442\u0435\u0441\u0442 \u043D\u043E\u043C\u0435\u0440
-    1"
-  - "\u0427\u0438\u0441\u0442\u043E \u0442\u0435\u0441\u0442 \u043D\u043E\u043C\u0435\u0440
-    2"
-  - "\u0427\u0438\u0441\u0442\u043E \u0442\u0435\u0441\u0442 \u043D\u043E\u043C\u0435\u0440
-    3"
+  - 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. '
+  - It is a long established fact that a reader will be distracted by the readable
+    content of a page when looking at its layout.
+  - Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots
+    in a piece of classical Latin literature from 45 BC, making it over 2000 years
+    old.
 --- !u!21 &1959719537
 Material:
   serializedVersion: 6
@@ -4091,6 +4091,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Loading Screen
+      objectReference: {fileID: 0}
+    - target: {fileID: 7819073530653410091, guid: ab0b911cd3fbe9349b7993eaf70d9f14,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab0b911cd3fbe9349b7993eaf70d9f14, type: 3}

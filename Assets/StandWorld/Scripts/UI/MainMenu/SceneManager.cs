@@ -1,22 +1,17 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using StandWorld.Game;
 using TMPro;
-using UniRx;
-using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Random = System.Random;
 
 namespace StandWorld.UI.MainMenu
 {
     public enum SceneIndex
     {
         MainMenu,
-        Game
+        Game,
     }
     
     public class SceneManager : MonoBehaviour
@@ -39,14 +34,20 @@ namespace StandWorld.UI.MainMenu
         private void Awake()
         {
             instance = this;
+            progressBar.current = 0f;
         }
 
         public void LoadGame()
         {
-            backgroundImage.sprite = backgrounds[UnityEngine.Random.Range(0, backgrounds.Length)];
+            backgroundImage.sprite = backgrounds[Random.Range(0, backgrounds.Length)];
             loadingScreen.gameObject.SetActive(true);
 
             sceneLoading.Add(UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int) SceneIndex.Game, LoadSceneMode.Single));
+
+            foreach (AsyncOperation asyncOperation in sceneLoading)
+            {
+                asyncOperation.allowSceneActivation = false;
+            }
             
             StartCoroutine(GenerateTips());
             StartCoroutine(GetSceneLoadProgress());
@@ -65,18 +66,28 @@ namespace StandWorld.UI.MainMenu
                         _totalSceneProgress += asyncOperation.progress;
                     }
 
-                    progressBar.current = (_totalSceneProgress / sceneLoading.Count) * 100f;
+                    DOTween.To(x => progressBar.current = x, progressBar.current, 
+                        (_totalSceneProgress / (sceneLoading.Count - (sceneLoading.Count * 0.1f)) * 100f) + 1f, 0.5f);
+
+                    if (progressBar.current >= 100)
+                    {
+                        yield return new WaitForSeconds(5f);
+                        break;
+                    }
 
                     yield return null;
                 }
             }
-            
-            loadingScreen.gameObject.SetActive(false);
+
+            foreach (AsyncOperation asyncOperation in sceneLoading)
+            {
+                asyncOperation.allowSceneActivation = true;
+            }
         }
 
         public IEnumerator GenerateTips()
         {
-            _tipsCount = UnityEngine.Random.Range(0, tips.Length);
+            _tipsCount = Random.Range(0, tips.Length);
             tipsText.text = tips[_tipsCount];
 
             while (loadingScreen.activeInHierarchy)
