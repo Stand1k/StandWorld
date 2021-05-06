@@ -122,5 +122,10 @@ namespace StandWorld.UI.MainMenu
                 alphaCanvas.DOFade(1f, 1f);
             }
         }
+
+        public void ExitGame()
+        {
+            Application.Quit();
+        }
     }
 }

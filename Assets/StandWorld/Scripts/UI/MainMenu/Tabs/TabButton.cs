@@ -12,8 +12,8 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
     public TabGroup tabGroup;
     public Image background;
     public UnityEvent onTabSelected;
-    public UnityEvent onTabDeselected;
-    
+    public UnityEvent onTabDeselected;  
+
     void Start()
     {
         background = GetComponent<Image>();
@@ -32,7 +32,7 @@ public class TabButton : MonoBehaviour, IPointerEnterHandler, IPointerClickHandl
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        tabGroup.OnTabExit(this);
+        tabGroup.OnTabExit();
     }
 
     public void Select()

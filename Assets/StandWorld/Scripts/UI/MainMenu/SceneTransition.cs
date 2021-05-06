@@ -17,7 +17,13 @@ public class SceneTransition : MonoBehaviour
     public IEnumerator StartTransition()
     {
         transitionImage.DOFillAmount(1f, 1f);
+        
         yield return new WaitForSeconds(1.5f);
-        transitionImage.DOFillAmount(0f, 1f);
+        
+        transitionImage.DOFillAmount(0f, 1f)
+            .OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+            });
     }
 }

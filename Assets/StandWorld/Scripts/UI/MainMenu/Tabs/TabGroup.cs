@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -18,7 +19,11 @@ namespace StandWorld.UI.MainMenu
         public PanelGroup panelGroup;   
         
         public List<TabButton> tabButtons;
-        [HideInInspector] public List<GameObject> objectsToSwap;
+
+        public void Start()
+        {
+            OnTabSelected(selectedTab);
+        }
 
         public void Subscribe(TabButton button)
         {
@@ -43,7 +48,7 @@ namespace StandWorld.UI.MainMenu
             }
         }
 
-        public void OnTabExit(TabButton button)
+        public void OnTabExit()
         {
             ResetTabs();
         }
@@ -63,25 +68,11 @@ namespace StandWorld.UI.MainMenu
             button.background.color = tabActive;
             GameObject gameObject = button.gameObject.transform.GetChild(0).gameObject;
             gameObject.GetComponent<TextMeshProUGUI>().color = textActive;
-            int index = button.transform.GetSiblingIndex();
 
             if (panelGroup != null)
             {
                 panelGroup.SetPageIndex(selectedTab.transform.GetSiblingIndex(), DeselectIndex);
                 DeselectIndex = selectedTab.transform.GetSiblingIndex();
-            }
-            
-            for (int i = 0; i < objectsToSwap.Count; i++)
-            {
-                if (i == index)
-                {
-                    objectsToSwap[i].SetActive(true);
-                    
-                }
-                else
-                {
-                    objectsToSwap[i].SetActive(false);
-                }
             }
         }
 
