@@ -28,7 +28,7 @@ namespace StandWorld.Game
         public bool DrawReserved;
         public bool DrawRecipes;
 
-        [Header("World size")] public Vector2 mapSize;
+        [Header("World size")] public Vector2Int mapSize;
 
         public bool ready => _ready;
 
@@ -36,6 +36,7 @@ namespace StandWorld.Game
 
         private void Awake()
         {
+            mapSize = Settings.mapSize;
             _ready = false;
             cameraController = GetComponentInChildren<CameraController>();
             stackableLabelController = GetComponentInChildren<StackableLabelController>();
@@ -46,14 +47,14 @@ namespace StandWorld.Game
         private void Start()
         {
             tick = new Tick();
-            map = new Map((int) mapSize.x, (int) mapSize.y);
+            map = new Map(mapSize.x, mapSize.y);
             gameObject.AddComponent<LocalizationLoader>();
 
             Debug.Log(map);
             map.TempMapGen();
             map.BuildAllMeshes();
 
-            //TestInit();
+            TestInit();
 
             StartCoroutine(TickUpdate());
             _ready = true;
@@ -61,56 +62,80 @@ namespace StandWorld.Game
 
         public void TestInit()
         {
-            int y = 152;
-            for (int x = 140; x < 147; x++) {
-                ToolBox.map.Spawn(new Vector2Int(x, y), new Building(
-                    new Vector2Int(x, y),
-                    Defs.buildings["wood_wall"]
-                ));
-            }
-            y = 152;
-            for (int x = 140; y < 156; y++) {
-                ToolBox.map.Spawn(new Vector2Int(x, y), new Building(
-                    new Vector2Int(x, y),
-                    Defs.buildings["wood_wall"]
-                ));
-            }
-
-            y = 153;
-            for (int x = 146; y < 156; y++) {
-                ToolBox.map.Spawn(new Vector2Int(x, y), new Building(
-                    new Vector2Int(x, y),
-                    Defs.buildings["wood_wall"]
-                ));
-            }
-            
-            y = 156;
-            for (int x = 140; x < 147; x++) {
-                ToolBox.map.Spawn(new Vector2Int(x, y), new Building(
-                    new Vector2Int(x, y),
-                    Defs.buildings["wood_wall"]
-                ));
-            }
-            
-            ToolBox.map.UpdateConnectedBuildings();
-            
-            
             /*
             StockArea stockarea = new StockArea(Defs.empty);
             stockarea.Add(new RectI(new Vector2Int(5, 5), 6, 6));*/
 
-            GrowArea area = new GrowArea(Defs.plants["carrot"]);
-            area.Add(new RectI(new Vector2Int(135, 155), 5, 5));
+            /*GrowArea area = new GrowArea(Defs.plants["carrot"]);
+            area.Add(new RectI(new Vector2Int(135, 155), 5, 5));*/
+            
+            CharacterSpawner(4);
+            AnimalSpawner(21);
+        }
 
-            for (int i = 0; i < 5; i++)
+        public void CharacterSpawner(int count)
+        {
+            int randomRegion = Random.Range(0, mapSize.x / Settings.BUCKET_SIZE);
+            Vector2Int randomPosition = Vector2Int.zero;
+            
+            for (int i = 0; i < count; i++)
             {
-                map.SpawnCharacter(new Animal(new Vector2Int(160, 155), Defs.animals["chiken"], new CharacterStats()));
+                bool isSpawn = false;
+                int counter = 0;
+                
+                while (!isSpawn)
+                {
+                    var rect = map.grids[Layer.Ground].buckets[randomRegion].rect;
+                    
+                    randomPosition = new Vector2Int(
+                        Random.Range(rect.min.x, rect.max.x),
+                        Random.Range(rect.min.y, rect.max.y));
+
+                    if (!map[randomPosition].blockPath)
+                    {
+                        map.SpawnCharacter(new Human(randomPosition, Defs.animals["human"], new HumanStats()));
+                        isSpawn = true;
+                    }
+
+                    counter++;
+
+                    if (counter >= rect.area)
+                    {
+                        if (randomRegion + 1 > mapSize.x / Settings.BUCKET_SIZE)
+                        {
+                            randomRegion--;
+                        }
+                        else
+                        {
+                            randomRegion++;
+                        }
+                        
+                        break;
+                    }
+                }
             }
 
-            for (int i = 0; i < 5; i++)
+            Camera.main.gameObject.transform.position = new Vector3(randomPosition.x,randomPosition.y, -100); //TODO: LOL
+        }
+        
+        public void AnimalSpawner(int count)
+        {
+            for (int i = 0; i < count; i++)
             {
-                map.SpawnCharacter(new Human(new Vector2Int(155, 155), Defs.animals["human"], new HumanStats()));
+                bool isSpawn = false;
+                
+                while (!isSpawn)
+                {
+                    Vector2Int randomPosition = new Vector2Int(Random.Range(1, mapSize.x - 1), Random.Range(1, mapSize.y - 1));
+
+                    if (!map[randomPosition].blockPath)
+                    {
+                        map.SpawnCharacter(new Animal(randomPosition, Defs.animals["chiken"], new CharacterStats()));
+                        isSpawn = true;
+                    }
+                }
             }
+
         }
 
         private void Update()

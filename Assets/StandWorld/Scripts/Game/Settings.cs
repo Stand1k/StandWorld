@@ -16,10 +16,11 @@ namespace StandWorld.Game
         public const int CLOUTHES_COUNT = 2;
         
         public static float noiseScale;
+        public static Vector2Int mapSize = new Vector2Int(300, 300);
         public static int octaves;
         public static  float persistance;
         public static float lacunarity;
-        public static int seed;
+        public static int seed = 1;
         public static Vector2 offset;
     }
 }

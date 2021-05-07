@@ -182,7 +182,7 @@ namespace StandWorld.World
         public void TempMapGen()
         {
             groundNoiseMap =
-                NoiseMap.GenerateNoiseMap(size, 613864505, noiseScale, octaves, persistance, lacunarity, offset);
+                NoiseMap.GenerateNoiseMap(size, Settings.seed, noiseScale, octaves, persistance, lacunarity, offset);
             Debug.Log("Seed: " + seed);
 
             foreach (Vector2Int position in mapRect)
