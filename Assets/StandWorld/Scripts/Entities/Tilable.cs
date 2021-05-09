@@ -91,7 +91,7 @@ namespace StandWorld.Entities
                     neighbour.x >= 0 && neighbour.y >= 0 && neighbour.x <= ToolBox.map.size.x &&
                     neighbour.y <= ToolBox.map.size.y &&
                     !s.Contains(neighbour) &&
-                    Utils.Distance(neighbour, o) <= r)
+                    GameUtils.Distance(neighbour, o) <= r)
                 {
                     InRadius(r, o, neighbour, ref s);
                 }

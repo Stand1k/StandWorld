@@ -72,7 +72,7 @@ namespace StandWorld.UI
 
         public static void FillableBarWithLabelValue(Rect rect, string name, Vital vital, Color fillColor)
         {
-            float percent = Utils.Normalize(0, vital.value, vital.currentValue);
+            float percent = GameUtils.Normalize(0, vital.value, vital.currentValue);
             Rect[] hGrid = rect.HorizontalGrid(new[] {70, rect.width - 140, 70}, 5);
             Label(hGrid[1], name);
             FillableBar(hGrid[2], percent, vital, fillColor);

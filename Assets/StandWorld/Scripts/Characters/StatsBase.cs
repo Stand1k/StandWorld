@@ -100,7 +100,7 @@ namespace StandWorld.Characters
 
         public bool ValueInfToPercent(float v)
         {
-            if (v >= Utils.Normalize(0, value, currentValue))
+            if (v >= GameUtils.Normalize(0, value, currentValue))
             {
                 return true;
             }

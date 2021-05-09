@@ -75,7 +75,7 @@ namespace StandWorld.World
                     }
                     else
                     {
-                        if (Utils.Distance(first.position, _recipe.position) <= radius)
+                        if (GameUtils.Distance(first.position, _recipe.position) <= radius)
                         {
                             toHaul.Add(_recipe);
                             currentNeeds += _recipe.needs[need].free;

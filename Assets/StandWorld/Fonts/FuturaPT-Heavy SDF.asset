@@ -2971,7 +2971,7 @@ Material:
     - _GlowOuter: 0.05
     - _GlowPower: 0.75
     - _GradientScale: 10
-    - _LightAngle: 3.1416
+    - _LightAngle: 3.17
     - _MaskSoftnessX: 0
     - _MaskSoftnessY: 0
     - _OutlineSoftness: 0

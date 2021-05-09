@@ -105,7 +105,7 @@ namespace StandWorld.Characters
                 UpdateLookingAt(_nextPosition);
             }
 
-            float distance = Utils.Distance(position, _nextPosition);
+            float distance = GameUtils.Distance(position, _nextPosition);
             float distanceThisFrame = _speed * ToolBox.map[position].pathCost;
             _movementPercent += distanceThisFrame / distance;
 

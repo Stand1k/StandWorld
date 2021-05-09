@@ -32,7 +32,7 @@ namespace StandWorld.Characters.AI
                 TileProperty tileProperty = ToolBox.map[position + DirectionUtils.neighbours[i]];
                 if (tileProperty != null && !tileProperty.blockPath)
                 {
-                    float d = Utils.Distance(fromPosition, position);
+                    float d = GameUtils.Distance(fromPosition, position);
                     if (d < distance)
                     {
                         distance = d;

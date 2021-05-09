@@ -2,7 +2,7 @@
 
 namespace StandWorld.Helpers
 {
-    public class Utils
+    public class GameUtils
     {
         public static float Distance(Vector2Int a, Vector2Int b)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using DG.Tweening;
+using StandWorld.Utils;
 using UnityEngine;
 
 namespace StandWorld.UI.MainMenu

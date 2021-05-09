@@ -23,7 +23,7 @@ namespace StandWorld.World
             float minDistance = float.MaxValue;
             foreach (Tilable tilable in tilables)
             {
-                float currentMinDistance = Utils.Distance(position, tilable.position);
+                float currentMinDistance = GameUtils.Distance(position, tilable.position);
                 if (currentMinDistance < minDistance)
                 {
                     minDistance = currentMinDistance;
