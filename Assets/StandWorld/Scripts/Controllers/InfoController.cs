@@ -1,16 +1,17 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace StandWorld.Controllers
 {
     public class InfoController : MonoBehaviour
     {
-        public Text title;
-        public Text desc;
+        public TMP_Text title;
+        public TMP_Text desc;
 
         void Awake() {
-            title = GetComponentsInChildren<Text>()[0];
-            desc = GetComponentsInChildren<Text>()[1];
+            title = GetComponentsInChildren<TMP_Text>()[0];
+            desc = GetComponentsInChildren<TMP_Text>()[1];
             Reset();
         }
 
