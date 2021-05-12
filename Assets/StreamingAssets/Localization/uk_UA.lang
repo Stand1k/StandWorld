@@ -21,18 +21,18 @@ button_building=Будівлі
 button_production=Виробництво
 button_magic=Магія 
 button_fight=Бій
-cancel_title=Відмінити накази
+cancel_title=Cкасувати накази
 cut_wood_title=Зрубати дерева
 cut_plants_title=Зрізати рослини
 harvest_plants_title=Зібрати врожай
 woodWall_build_title=Збудувати деревяну стіну
-cancel_building_title=Відмінити будівництво
-cancel_desc=Відмінює всі накази в зазначеній обсласті.
+cancel_building_title=Cкасувати будівництво
+cancel_desc=Cкасовує всі накази в зазначеній обсласті.
 cut_wood_desc=Зрубує дерева в зазначеній області.
 cut_plants_desc=Зрізає рослини в зазначеній області.
 harvest_plants_desc=Збирає врожай в зазначеній області.
 woodWall_build_desc=Будує стіни в зазначеній області.
-cancel_building_desc=Відмінює всі накази по будівництву в зазначеній обсласті.
+cancel_building_desc=Cкасовує всі накази по будівництву в зазначеній обсласті.
 
 
 

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using DG.Tweening;
 using ProjectPorcupine.Localization;
 using StandWorld.Definitions;
 using StandWorld.Helpers;
@@ -52,7 +54,6 @@ namespace StandWorld.Controllers
         public InfoController info;
         public Transform parent;
         public Transform parentMenu;
-        public Transform parentContent;
         public MenuOrderButton[] buttons;
         public MenuOrderTab[] tabs;
         public Color activeColor;
@@ -62,7 +63,7 @@ namespace StandWorld.Controllers
         public Dictionary<string, MenuOrderTabLink> links = new Dictionary<string, MenuOrderTabLink>();
         public Dictionary<KeyCode, int> tabShortcuts = new Dictionary<KeyCode, int>();
         public Dictionary<MenuOrderDef, KeyCode> ordersShortcuts = new Dictionary<MenuOrderDef, KeyCode>();
-
+        
         void Start()
         {
             int tabCount = 6;
@@ -104,10 +105,15 @@ namespace StandWorld.Controllers
 
         public void Reset()
         {
-            currentOrder = null;
-            ClearOrders();
-            current = -1;
-            ClearSelection();
+            info.gameObject.transform.DOMoveX(-500, 0.2f);
+            parent.DOMoveX(-600, 0.2f)
+                .OnComplete(() =>
+                {
+                    currentOrder = null;
+                    ClearOrders();
+                    current = -1;
+                    ClearSelection();
+                });
         }
 
         public void AddTab(string name, int id, KeyCode key = KeyCode.Escape)
@@ -116,8 +122,7 @@ namespace StandWorld.Controllers
             Image image;
             Button button;
             
-            GameObject go = Instantiate(Res.prefabs["order_panel"]);
-            go.transform.SetParent(parent);
+            GameObject go = Instantiate(Res.prefabs["order_panel"], parent, false);
             go.name = "OrderTab: " + name;
             tabs[id] = new MenuOrderTab(go);
 
@@ -137,46 +142,40 @@ namespace StandWorld.Controllers
             }
 
             foreach (MenuOrderDef order in orders)
-            {/*
-                GameObject _go = Instantiate(Res.prefabs["button_order"]);
-                _go.transform.SetParent(go.transform);*/
-                
-                GameObject goInstantiate = Instantiate(Res.prefabs["ButtonInstance"]);
-                goInstantiate.transform.SetParent(parentContent);
-
-                /*_go.name = "OrderButton: " + order.uId;
+            {
+                GameObject _go = Instantiate(Res.prefabs["ButtonInstance"]);
+                _go.transform.SetParent(go.transform);
+                _go.name = "OrderButton: " + order.uId;
                 text = _go.GetComponentInChildren<TMP_Text>();
                 text.text = $"({order.keyCode.ToString()})";
                 _go.GetComponentsInChildren<Image>()[1].sprite = order.sprite;
                 button = _go.GetComponentInChildren<Button>();
-                image = _go.GetComponentsInChildren<Image>()[0]*/;
-
-                goInstantiate.name = "OrderButton: " + order.uId;
-                text = goInstantiate.GetComponentInChildren<TMP_Text>();
-                text.text = $"({order.keyCode.ToString()})";
-                goInstantiate.GetComponentsInChildren<Image>()[1].sprite = order.sprite;
-                button = goInstantiate.GetComponentInChildren<Button>();
-                image = goInstantiate.GetComponentsInChildren<Image>()[0];
+                image = _go.GetComponentsInChildren<Image>()[0];
                 
                 if (order.keyCode != KeyCode.Escape)
                 {
                     ordersShortcuts.Add(order, order.keyCode);
                 }
 
-                //MenuOrderTabLink orderLink = new MenuOrderTabLink(_go, image);
-                MenuOrderTabLink orderLink = new MenuOrderTabLink(goInstantiate, image);
+                MenuOrderTabLink orderLink = new MenuOrderTabLink(_go, image);
                 button.onClick.AddListener(
                     () => ClickOrder(order)
                 );
                 links.Add(order.uId, orderLink);
             }
 
-            var itemHeight = 95f;
-            var totalItems = parentContent.childCount;
-            var newContentHeight = itemHeight * totalItems + parentContent.GetComponent<GridLayoutGroup>().spacing.y * totalItems;
-            var t = parentContent.GetComponent<RectTransform>();
+            for (int i = 0; i < 9; i++) // TODO: Test Stuff
+            {
+                GameObject goInstantiate = Instantiate(Res.prefabs["ButtonInstance"]);
+                goInstantiate.transform.SetParent(go.transform);
+            }
+
+            var contentGridLayoutGroup = go.GetComponent<GridLayoutGroup>();
+            var itemHeight = contentGridLayoutGroup.cellSize.y;
+            var totalItems = Mathf.CeilToInt(go.transform.childCount / 2f);
+            var newContentHeight = itemHeight * totalItems + contentGridLayoutGroup.spacing.y * totalItems;
+            var t = go.GetComponent<RectTransform>();
             t.sizeDelta = new Vector2(t.sizeDelta.x,newContentHeight);
-            //t.anchoredPosition = new Vector3(t.anchoredPosition.x,newContentHeight * 0.5f);
 
             go = Instantiate(Res.prefabs["button_player_panel"]);
             go.transform.SetParent(parentMenu);
@@ -218,10 +217,19 @@ namespace StandWorld.Controllers
         {
             if (current != id)
             {
-                ClearSelection();
-                current = id;
-                buttons[current].image.color = activeColor;
-                tabs[current].go.SetActive(true);
+                parent.DOMoveX(-600, 0.2f)
+                    .OnComplete(
+                        () =>
+                        {
+                            ClearSelection();
+                            current = id;
+                            buttons[current].image.color = activeColor;
+                            tabs[current].go.SetActive(true);
+                            var rectTransform = tabs[current].go.GetComponent<RectTransform>();
+                            parent.GetComponent<ScrollRect>().content = rectTransform;
+                            parent.DOMoveX(0, 0.2f);
+                            info.gameObject.transform.DOMoveX(0, 0.2f);
+                        });
             }
             else
             {
