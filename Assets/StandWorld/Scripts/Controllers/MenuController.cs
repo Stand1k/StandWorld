@@ -143,8 +143,7 @@ namespace StandWorld.Controllers
 
             foreach (MenuOrderDef order in orders)
             {
-                GameObject _go = Instantiate(Res.prefabs["ButtonInstance"]);
-                _go.transform.SetParent(go.transform);
+                GameObject _go = Instantiate(Res.prefabs["ButtonInstance"], go.transform, false);
                 _go.name = "OrderButton: " + order.uId;
                 text = _go.GetComponentInChildren<TMP_Text>();
                 text.text = $"({order.keyCode.ToString()})";
@@ -166,8 +165,7 @@ namespace StandWorld.Controllers
 
             for (int i = 0; i < 9; i++) // TODO: Test Stuff
             {
-                GameObject goInstantiate = Instantiate(Res.prefabs["ButtonInstance"]);
-                goInstantiate.transform.SetParent(go.transform);
+                Instantiate(Res.prefabs["ButtonInstance"], go.transform, false);
             }
 
             var contentGridLayoutGroup = go.GetComponent<GridLayoutGroup>();
@@ -177,8 +175,7 @@ namespace StandWorld.Controllers
             var t = go.GetComponent<RectTransform>();
             t.sizeDelta = new Vector2(t.sizeDelta.x,newContentHeight);
 
-            go = Instantiate(Res.prefabs["button_player_panel"]);
-            go.transform.SetParent(parentMenu);
+            go = Instantiate(Res.prefabs["button_player_panel"], parentMenu, false);
             go.name = "Button: " + name;
             text = go.GetComponentInChildren<TMP_Text>();
             text.text = name;

@@ -22,39 +22,47 @@ namespace StandWorld.UI
         public static void LoadComponents()
         {
             subRectCache = new Dictionary<int, Dictionary<Rect, Rect>>();
-            emptyStyle = new GUIStyle();
+            emptyStyle = new GUIStyle("label");
+            emptyStyle.normal.textColor = new Color(1f, 0.98f, 0.94f, 1f);
 
             labelStyle = new GUIStyle("label");
             labelStyle.alignment = TextAnchor.MiddleLeft;
+            labelStyle.fontStyle = FontStyle.Normal;
             labelStyle.fontSize = 18;
+            labelStyle.normal.textColor = new Color(1f, 0.98f, 0.94f, 1f);
 
             titleStyle = new GUIStyle("label");
             titleStyle.fontSize = 16;
             titleStyle.fontStyle = FontStyle.Bold;
             titleStyle.alignment = TextAnchor.MiddleCenter;
+            titleStyle.normal.textColor = new Color(1f, 0.98f, 0.94f, 1f);
 
             subTitleStyle = new GUIStyle("label");
             subTitleStyle.fontSize = 24;
             subTitleStyle.fontStyle = FontStyle.Bold;
             subTitleStyle.alignment = TextAnchor.MiddleLeft;
+            subTitleStyle.normal.textColor = new Color(1f, 0.98f, 0.94f, 1f);
 
             buttonLabelStyle = new GUIStyle("label");
             buttonLabelStyle.fontStyle = FontStyle.Bold;
             buttonLabelStyle.fontSize = 14;
             buttonLabelStyle.padding = new RectOffset(2, 2, 2, 2);
             buttonLabelStyle.alignment = TextAnchor.MiddleCenter;
+            buttonLabelStyle.normal.textColor = new Color(1f, 0.98f, 0.94f, 1f);
 
             vitalLabelStyle = new GUIStyle("label");
             vitalLabelStyle.fontStyle = FontStyle.Bold;
             vitalLabelStyle.fontSize = 14;
             vitalLabelStyle.padding = new RectOffset(2, 2, 2, 2);
             vitalLabelStyle.alignment = TextAnchor.MiddleCenter;
+            vitalLabelStyle.normal.textColor = new Color(1f, 0.98f, 0.94f, 1f);
 
-            blockTextStyle = new GUIStyle("label");
+            blockTextStyle = new GUIStyle();
             blockTextStyle.fontSize = 18;
             blockTextStyle.padding = new RectOffset(2, 2, 2, 2);
             blockTextStyle.alignment = TextAnchor.UpperLeft;
             blockTextStyle.wordWrap = true;
+            blockTextStyle.normal.textColor = new Color(1f, 0.98f, 0.94f, 1f);
         }
 
         public static void Label(Rect rect, string text)

@@ -144,7 +144,6 @@ namespace StandWorld.UI
             {
                 return;
             }
-
             GUI.skin = Res.defaultGUI;
             rect = GUI.Window(_id, rect, DoMyWindow, titleTab);
         }

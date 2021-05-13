@@ -35,11 +35,14 @@ namespace StandWorld.UI
         public void H(string text, GUIStyle style)
         {
             Rect rect = GetRect(style.CalcHeight(new GUIContent(text), width));
+            GUI.color = new Color(1f, 0.98f, 0.94f, 1f);
             GUI.Label(rect, text, style);
             GUI.DrawTexture(
                 new Rect(rect.x, rect.y + rect.height, rect.width, 1),
                 Res.TextureUnicolor(new Color(1, 1, 1, .5f))
             );
+            
+            GUI.color = Color.white;
         }
 
         public void Tabs(List<string> list, int active = 0)

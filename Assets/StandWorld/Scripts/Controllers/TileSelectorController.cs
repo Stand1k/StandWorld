@@ -50,11 +50,20 @@ namespace StandWorld.Controllers
 
             if (_characterWindows.ContainsKey(character))
             {
+                HideAllWindow();
                 _characterWindows[character].Show();
             }
             else
             {
+                HideAllWindow();
                 _characterWindows.Add(character, new WindowCharacter(character));
+            }
+        }
+        private void HideAllWindow()
+        {
+            foreach (var characterWindow in _characterWindows.Values)
+            {
+                characterWindow.Hide();
             }
         }
     }
