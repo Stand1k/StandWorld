@@ -42,13 +42,16 @@ namespace StandWorld.Game
             stackableLabelController = GetComponentInChildren<StackableLabelController>();
             ToolBox.LoadStatics(); //TODO: MainMenu Load
             ToolBox.NewGame(this);
+            
+            #if UNITY_EDITOR
+            gameObject.AddComponent<LocalizationLoader>();
+            #endif
         }
 
         private void Start()
         {
             tick = new Tick();
             map = new Map(mapSize.x, mapSize.y);
-            gameObject.AddComponent<LocalizationLoader>();
 
             Debug.Log(map);
             map.TempMapGen();
@@ -75,7 +78,9 @@ namespace StandWorld.Game
 
         public void CharacterSpawner(int count)
         {
-            int randomRegion = Random.Range(0, mapSize.x / Settings.BUCKET_SIZE);
+            var temp = mapSize.x / Settings.BUCKET_SIZE;
+            
+            int randomRegion = Random.Range(0, temp * temp);
             Vector2Int randomPosition = Vector2Int.zero;
             
             for (int i = 0; i < count; i++)
@@ -109,7 +114,8 @@ namespace StandWorld.Game
                         {
                             randomRegion++;
                         }
-                        
+
+                        i--;
                         break;
                     }
                 }

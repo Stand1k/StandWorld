@@ -35,7 +35,6 @@ namespace StandWorld.MapGenerator
 			Settings.octaves = octaves;
 			Settings.persistance = persistance;
 			Settings.noiseScale = noiseScale;
-			Settings.seed = seed;
 			Settings.offset = offset;
 		}
 

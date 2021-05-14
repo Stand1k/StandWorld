@@ -20,7 +20,7 @@ namespace StandWorld.Game
         public static int octaves;
         public static  float persistance;
         public static float lacunarity;
-        public static int seed = 1;
+        public static int seed;
         public static Vector2 offset;
     }
 }

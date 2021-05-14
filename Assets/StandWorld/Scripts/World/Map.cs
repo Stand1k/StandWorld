@@ -29,7 +29,6 @@ namespace StandWorld.World
         private int octaves = Settings.octaves;
         private float persistance = Settings.persistance;
         private float lacunarity = Settings.lacunarity;
-        private int seed = Random.Range(100000000, 999999999);
         private Vector2 offset = Settings.offset;
 
         public Map(int width, int height)
@@ -183,7 +182,7 @@ namespace StandWorld.World
         {
             groundNoiseMap =
                 NoiseMap.GenerateNoiseMap(size, Settings.seed, noiseScale, octaves, persistance, lacunarity, offset);
-            Debug.Log("Seed: " + seed);
+            Debug.Log("Seed: " + Settings.seed);
 
             foreach (Vector2Int position in mapRect)
             {

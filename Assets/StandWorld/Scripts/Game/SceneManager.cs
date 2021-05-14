@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using ProjectPorcupine.Localization;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -38,6 +39,8 @@ namespace StandWorld.UI.MainMenu
             progressBar.current = 0f;
             loadingScreen.SetActive(false);
             transitionCanvas.SetActive(false);
+            
+            gameObject.AddComponent<LocalizationLoader>();
             
             DontDestroyOnLoad(loadingScreen);
             DontDestroyOnLoad(transitionCanvas);

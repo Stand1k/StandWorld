@@ -1777,6 +1777,26 @@ PrefabInstance:
       propertyPath: m_Material
       value: 
       objectReference: {fileID: 1959719537}
+    - target: {fileID: 3704180508360736860, guid: 98c1a11ff02cc6f4ca7f25e0df62efbb,
+        type: 3}
+      propertyPath: time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704180508360737699, guid: 98c1a11ff02cc6f4ca7f25e0df62efbb,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704180508360737699, guid: 98c1a11ff02cc6f4ca7f25e0df62efbb,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3704180508360737699, guid: 98c1a11ff02cc6f4ca7f25e0df62efbb,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98c1a11ff02cc6f4ca7f25e0df62efbb, type: 3}
 --- !u!1001 &4371256691361914234

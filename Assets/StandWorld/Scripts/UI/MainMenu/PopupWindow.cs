@@ -34,6 +34,7 @@ namespace StandWorld.UI.MainMenu
         public void SeedChange()
         {
             Settings.seed = Int32.Parse(inputField.text);
+            Debug.Log("Seed: " + Settings.seed);
         }
 
         public void SetMapSize(int mapSize)
