@@ -18,5 +18,6 @@ namespace StandWorld.Definitions
         public GraphicDef graphicDef;
         public Layer layer;
         public KeyCode keyCode = KeyCode.Escape;
+        public int id;
     }
 }

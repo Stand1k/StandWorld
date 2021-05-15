@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using DG.Tweening;
 using ProjectPorcupine.Localization;
 using StandWorld.Definitions;
@@ -73,9 +74,9 @@ namespace StandWorld.Controllers
             AddTab(LocalizationTable.GetLocalization("button_orders"), 0, KeyCode.A);
             AddTab(LocalizationTable.GetLocalization("button_zones"), 1, KeyCode.S);
             AddTab(LocalizationTable.GetLocalization("button_building"), 2, KeyCode.D);
-            AddTab(LocalizationTable.GetLocalization("button_production"), 3);
-            AddTab(LocalizationTable.GetLocalization("button_magic"), 4);
-            AddTab(LocalizationTable.GetLocalization("button_fight"), 5);
+            AddTab(LocalizationTable.GetLocalization("button_production"), 3, KeyCode.F);
+            AddTab(LocalizationTable.GetLocalization("button_magic"), 4, KeyCode.G);
+            AddTab(LocalizationTable.GetLocalization("button_fight"), 5, KeyCode.H);
             currentOrder = null;
             Reset();
         }
@@ -132,6 +133,10 @@ namespace StandWorld.Controllers
             {
                 orders = new List<MenuOrderDef>(Defs.orders.Values);
             }
+            else if (id == 1)
+            {
+                orders = new List<MenuOrderDef>(Defs.zonesOrders.Values);
+            }
             else if (id == 2)
             {
                 orders = new List<MenuOrderDef>(Defs.buildingOrders.Values);
@@ -146,6 +151,7 @@ namespace StandWorld.Controllers
                 GameObject _go = Instantiate(Res.prefabs["ButtonInstance"], go.transform, false);
                 _go.name = "OrderButton: " + order.uId;
                 text = _go.GetComponentInChildren<TMP_Text>();
+
                 text.text = $"({order.keyCode.ToString()})";
                 _go.GetComponentsInChildren<Image>()[1].sprite = order.sprite;
                 button = _go.GetComponentInChildren<Button>();
@@ -220,6 +226,7 @@ namespace StandWorld.Controllers
                         {
                             ClearSelection();
                             current = id;
+                            currentOrder = null;
                             buttons[current].image.color = activeColor;
                             tabs[current].go.SetActive(true);
                             var rectTransform = tabs[current].go.GetComponent<RectTransform>();
@@ -253,8 +260,8 @@ namespace StandWorld.Controllers
             {
                 foreach (KeyValuePair<MenuOrderDef, KeyCode> kv in ordersShortcuts)
                 {
-                    if (Input.GetKeyDown(kv.Value))
-                    {
+                    if (Input.GetKeyDown(kv.Value) && kv.Key.id == current)
+                    { 
                         ClickOrder(kv.Key);
                     }
                 }

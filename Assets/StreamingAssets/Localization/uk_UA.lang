@@ -27,12 +27,18 @@ cut_plants_title=Зрізати рослини
 harvest_plants_title=Зібрати врожай
 woodWall_build_title=Збудувати деревяну стіну
 cancel_building_title=Cкасувати будівництво
+grow_zone_title=Зона вирощування рослин
+stock_zone_title=Зона для складу
+del_zone_title=Видалити зону
 cancel_desc=Cкасовує всі накази в зазначеній обсласті.
 cut_wood_desc=Зрубує дерева в зазначеній області.
 cut_plants_desc=Зрізає рослини в зазначеній області.
 harvest_plants_desc=Збирає врожай в зазначеній області.
 woodWall_build_desc=Будує стіни в зазначеній області.
 cancel_building_desc=Cкасовує всі накази по будівництву в зазначеній обсласті.
+grow_zone_desc=Позначає зону для вирощування рослин в зазначеній області.
+stock_zone_desc=Позначає зону для складу в зазначеній області.
+del_zone_desc=Видалити зону в зазначеній області.
 
 
 

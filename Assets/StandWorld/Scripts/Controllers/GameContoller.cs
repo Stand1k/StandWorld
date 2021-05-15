@@ -65,13 +65,6 @@ namespace StandWorld.Game
 
         public void TestInit()
         {
-            /*
-            StockArea stockarea = new StockArea(Defs.empty);
-            stockarea.Add(new RectI(new Vector2Int(5, 5), 6, 6));*/
-
-            /*GrowArea area = new GrowArea(Defs.plants["carrot"]);
-            area.Add(new RectI(new Vector2Int(135, 155), 5, 5));*/
-            
             CharacterSpawner(4);
             AnimalSpawner(21);
         }

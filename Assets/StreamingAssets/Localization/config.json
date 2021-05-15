@@ -1,8 +1,9 @@
 {
-  "version": "721d4299209502604fbcb9275a92c5827f4c31db",
+  "version": "5deef19dba3f3f71ce96f79b1da050eeb18d217a",
   "languages": [
     {
-      "code": "en_US"
+      "code": "en_US",
+      "name": "English (US)"
     },
     {
       "code": "ru_RU"

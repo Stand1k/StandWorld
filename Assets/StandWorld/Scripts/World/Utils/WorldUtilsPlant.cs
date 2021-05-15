@@ -52,9 +52,12 @@ namespace StandWorld.World
                 foreach (Vector2Int position in growArea.positions)
                 {
                     GardenField gardenField = (GardenField) ToolBox.map.grids[Layer.Helpers].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && gardenField.dirt == false)
+                    if (gardenField != null) // TODO: Temp
                     {
-                        toDirt.Add(gardenField);
+                        if (!ToolBox.map[position].reserved && gardenField.dirt == false)
+                        {
+                            toDirt.Add(gardenField);
+                        }
                     }
                 }
             }
@@ -71,9 +74,12 @@ namespace StandWorld.World
                 {
                     Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
                     GardenField gardenField = (GardenField) ToolBox.map.grids[Layer.Helpers].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && tilable == null && gardenField.dirt)
+                    if (gardenField != null) // TODO: Temp
                     {
-                        toSow.Add(gardenField);
+                        if (!ToolBox.map[position].reserved && tilable == null && gardenField.dirt)
+                        {
+                            toSow.Add(gardenField);
+                        }
                     }
                 }
             }
@@ -120,9 +126,12 @@ namespace StandWorld.World
                 {
                     Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
                     GardenField gardenField = (GardenField) ToolBox.map.grids[Layer.Helpers].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && tilable == null && gardenField.dirt)
+                    if (gardenField != null) // TODO: Temp
                     {
-                        return true;
+                        if (!ToolBox.map[position].reserved && tilable == null && gardenField.dirt)
+                        {
+                            return true;
+                        }
                     }
                 }
             }
@@ -137,9 +146,12 @@ namespace StandWorld.World
                 foreach (Vector2Int position in growArea.positions)
                 {
                     GardenField gardenField = (GardenField) ToolBox.map.grids[Layer.Helpers].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && gardenField.dirt == false)
+                    if (gardenField != null) // TODO: Temp
                     {
-                        return true;
+                        if (!ToolBox.map[position].reserved && gardenField.dirt == false)
+                        {
+                            return true;
+                        }
                     }
                 }
             }

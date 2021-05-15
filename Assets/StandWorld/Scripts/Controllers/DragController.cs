@@ -1,4 +1,5 @@
 ﻿using StandWorld.Definitions;
+using StandWorld.Entities;
 using StandWorld.Helpers;
 using StandWorld.Visuals;
 using UnityEngine;

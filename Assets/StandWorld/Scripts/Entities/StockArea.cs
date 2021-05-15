@@ -15,7 +15,7 @@ namespace StandWorld.Entities
         {
             stackables = new HashSet<Stackable>();
             this.zoneConfig = zoneConfig;
-            color = new Color(0f, 0.3f, 1f, 0.4f);
+            color = new Color(1f, 0f, 0.76f, 0.4f);
             stockAreas.Add(this);
         }
 
