@@ -35,7 +35,7 @@ Shader "StandWorld/Grounds"
 				o.pos = UnityObjectToClipPos(v.vertex);
 				o.color = v.color;
 
-				o.uv = v.vertex.xy/4;
+				o.uv = v.vertex.xy / 10;
 				return o;
 			}
 

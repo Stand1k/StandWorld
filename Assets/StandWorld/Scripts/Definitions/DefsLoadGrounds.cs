@@ -43,7 +43,7 @@ namespace StandWorld.Definitions
                     blockBuilding = true,
                     graphics = new GraphicDef
                     {
-                        textureName = "water",
+                        textureName = "dirt",
                         materialName = "water",
                         isInstanced = false,
                         drawPriority = 0

@@ -12,7 +12,6 @@ namespace StandWorld.World
     public class Map
     {
         public const int BUCKET_SIZE = Settings.BUCKET_SIZE;
-
         public Vector2Int size { get; protected set; }
 
         public RectI mapRect;
