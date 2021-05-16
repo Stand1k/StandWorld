@@ -31,11 +31,14 @@ namespace StandWorld.MapGenerator
 
 		private void Start()
 		{
-			Settings.lacunarity = lacunarity;
-			Settings.octaves = octaves;
-			Settings.persistance = persistance;
-			Settings.noiseScale = noiseScale;
-			Settings.offset = offset;
+			if (autoUpdate)
+			{
+				Settings.lacunarity = lacunarity;
+				Settings.octaves = octaves;
+				Settings.persistance = persistance;
+				Settings.noiseScale = noiseScale;
+				Settings.offset = offset;
+			}
 		}
 
 		public void GenerateMap() 

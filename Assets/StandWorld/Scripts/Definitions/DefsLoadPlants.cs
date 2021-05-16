@@ -31,8 +31,32 @@ namespace StandWorld.Definitions
                     },
                     plantDef = new PlantDef
                     {
-                        probability = 0.001f,
+                        probability = 0.15f,
                         minFertility = 0.5f
+                    }
+                }
+            );
+            
+            AddPlant(
+                new TilableDef
+                {
+                    uId = "tree",
+                    layer = Layer.Plant,
+                    type = TilableType.Tree,
+                    blockPath = true,
+                    blockStackable = true,
+                    blockPlant = true,
+                    cuttable = true,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "tree",
+                        size = new Vector2(2, 3),
+                        pivot = new Vector2(0.5f, 0f)
+                    },
+                    plantDef = new PlantDef
+                    {
+                        probability = 0.36f,
+                        minFertility = 0.2f,
                     }
                 }
             );
@@ -54,33 +78,8 @@ namespace StandWorld.Definitions
                     },
                     plantDef = new PlantDef
                     {
-                        probability = 0.2f,
+                        probability = 0.47f,
                         minFertility = 0.3f
-                    }
-                }
-            );
-
-            AddPlant(
-                new TilableDef
-                {
-                    uId = "tree",
-                    layer = Layer.Plant,
-                    type = TilableType.Tree,
-                    blockPath = true,
-                    blockStackable = true,
-                    blockPlant = true,
-                    cuttable = true,
-                    graphics = new GraphicDef
-                    {
-                        textureName = "tree",
-                        size = new Vector2(2, 3),
-                        pivot = new Vector2(0.5f, 0f)
-                    },
-                    plantDef = new PlantDef
-                    {
-                        probability = 0.1f,
-                        minFertility = 0.2f,
-                        lifetime = 1f,
                     }
                 }
             );

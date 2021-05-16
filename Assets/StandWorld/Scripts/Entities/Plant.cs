@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using StandWorld.Definitions;
 using StandWorld.Game;
 using StandWorld.Helpers;
 using StandWorld.Visuals;
 using StandWorld.World;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace StandWorld.Entities
 {
@@ -19,7 +21,7 @@ namespace StandWorld.Entities
 
         public int state => _currentState;
 
-        public Plant(Vector2Int position, TilableDef tilableDef, bool randomGrow = false)
+        public Plant(Vector2Int position, TilableDef tilableDef, bool randomGrow = false, float growValue = 1f)
         {
             addGraphics = new Dictionary<string, GraphicInstance>();
             this.position = position;
@@ -30,7 +32,7 @@ namespace StandWorld.Entities
 
             if (randomGrow)
             {
-                ticks = Random.Range(0, (int) (_lifetime - _ticksPerState));
+                ticks = Mathf.CeilToInt( growValue * (_lifetime - _ticksPerState));
                 GetState();
             }
             else

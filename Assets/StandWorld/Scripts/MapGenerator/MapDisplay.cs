@@ -4,7 +4,6 @@ namespace StandWorld.MapGenerator
 {
 	public class MapDisplay : MonoBehaviour
 	{
-
 		public Renderer textureRender;
 
 		public void DrawTexture(Texture2D texture)
@@ -14,6 +13,5 @@ namespace StandWorld.MapGenerator
 			Quaternion quaternion = Quaternion.Euler(0f,0f,270f);
 			textureRender.transform.rotation = quaternion;
 		}
-	
 	}
 }

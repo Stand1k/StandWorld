@@ -757,10 +757,40 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8174465342524708760, guid: c8194c8304855a84cbe137869f81034d,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174465342524708760, guid: c8194c8304855a84cbe137869f81034d,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174465342524708761, guid: c8194c8304855a84cbe137869f81034d,
+        type: 3}
+      propertyPath: seed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174465342524708761, guid: c8194c8304855a84cbe137869f81034d,
+        type: 3}
+      propertyPath: regions.Array.data[0].height
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8174465342524708767, guid: c8194c8304855a84cbe137869f81034d,
         type: 3}
       propertyPath: m_Name
       value: MapGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174465342524708767, guid: c8194c8304855a84cbe137869f81034d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8174465343080526532, guid: c8194c8304855a84cbe137869f81034d,
+        type: 3}
+      propertyPath: m_Name
+      value: Quad
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c8194c8304855a84cbe137869f81034d, type: 3}

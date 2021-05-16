@@ -13,6 +13,28 @@ namespace StandWorld.Definitions
         {
             grounds = new Dictionary<string, TilableDef>();
             groundsByHeight = new SortedDictionary<float, TilableDef>();
+            
+            
+            AddGround(
+                new TilableDef
+                {
+                    uId =  "water",
+                    layer = Layer.Ground,
+                    blockPath = true,
+                    blockBuilding = true,
+                    graphics = new GraphicDef
+                    {
+                        textureName = "dirt2",
+                        materialName = "water",
+                        isInstanced = false,
+                        drawPriority = 0
+                    },
+                    groundDef = new GroundDef
+                    {
+                        maxHeight = 0.3f
+                    }
+                }
+            );
 
             AddGround(
                 new TilableDef
@@ -34,27 +56,6 @@ namespace StandWorld.Definitions
                 }   
             );
 
-            AddGround(
-                new TilableDef
-                {
-                    uId =  "water",
-                    layer = Layer.Ground,
-                    blockPath = true,
-                    blockBuilding = true,
-                    graphics = new GraphicDef
-                    {
-                        textureName = "dirt2",
-                        materialName = "water",
-                        isInstanced = false,
-                        drawPriority = 0
-                    },
-                    groundDef = new GroundDef
-                    {
-                        maxHeight = 0.3f
-                    }
-                }
-            );
-            
             AddGround(
                 new TilableDef
                 {

@@ -17,6 +17,8 @@ namespace StandWorld.World
         public RectI mapRect;
 
         public float[] groundNoiseMap { get; protected set; }
+        public float[] plantsNoiseMap { get; protected set; }
+        public float[] randomGrowNoiseMap { get; protected set; }
 
         public Dictionary<Layer, LayerGrid> grids;
 
@@ -181,26 +183,38 @@ namespace StandWorld.World
         {
             groundNoiseMap =
                 NoiseMap.GenerateNoiseMap(size, Settings.seed, noiseScale, octaves, persistance, lacunarity, offset);
+            plantsNoiseMap =
+                NoiseMap.GenerateNoiseMap(size, Settings.seed, 12, 5, 1, 5, offset);
+            randomGrowNoiseMap =
+                NoiseMap.GenerateNoiseMap(size, Settings.seed, 2, 2, 1, 1.18f, offset);
             Debug.Log("Seed: " + Settings.seed);
 
             foreach (Vector2Int position in mapRect)
             {
+                var randomGrowNoiseMapValue = randomGrowNoiseMap[position.x + position.y * size.x];
+                var groundNoiseMapValue = groundNoiseMap[position.x + position.y * size.x];
+                var plantsNoiseMapValue = plantsNoiseMap[position.x + position.y * size.x];
+                
                 Spawn(
                     position,
                     new Ground(
                         position,
                         // Повертає TilableDef який вказує який тип потрібно відображати на цьому тайлі
                         //Порівнює карту шумів і всі типи тайлів і взалежності який підходить такий й повертає
-                        Ground.GroundByHeight(groundNoiseMap[position.x + position.y * size.x])
+                        Ground.GroundByHeight(groundNoiseMapValue)
                     )
                 );
 
                 if (grids[Layer.Ground].GetTilableAt(position).tilableDef.uId == "rock")
                 {
-                    Spawn(
-                        position,
-                        new Mountain(position, Defs.mountains["mountain"])
-                    );
+                    if (groundNoiseMapValue >= 0.62f)
+                    {
+
+                        Spawn(
+                            position,
+                            new Mountain(position, Defs.mountains["mountain"])
+                        );
+                    }
                 }
 
                 //Перевіряє родючість і якщо вона підходить, то там спавниться певна рослина
@@ -210,11 +224,11 @@ namespace StandWorld.World
                     foreach (TilableDef tilableDef in Defs.plants.Values)
                     {
                         if (this[position].fertility >= tilableDef.plantDef.minFertility &&
-                            Random.value <= tilableDef.plantDef.probability )
+                            plantsNoiseMapValue <= tilableDef.plantDef.probability )
                         {
                             Spawn(
                                 position,
-                                new Plant(position, tilableDef, true)
+                                new Plant(position, tilableDef, true, randomGrowNoiseMapValue)
                             );
                             break;
                         }
