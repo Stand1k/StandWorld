@@ -233,11 +233,16 @@ namespace StandWorld.World
             tilables[localPosition.x + localPosition.y * rect.width] = null;
             ToolBox.map[tilable.position].Update();
 
-            if (tilable.tilableDef.type != TilableType.Undefined) {
-                tilablesByType[tilable.tilableDef.type].Remove(tilable);
-                
-                if (tilablesByType[tilable.tilableDef.type].Count == 0) {
-                    tilablesByType.Remove(tilable.tilableDef.type);
+            if (tilable.tilableDef.type != TilableType.Undefined)
+            {
+                if (tilablesByType.TryGetValue(tilable.tilableDef.type, out var tilables))
+                {
+                    tilables.Remove(tilable);
+                    
+                    if (tilables.Count == 0)
+                    {
+                        tilablesByType.Remove(tilable.tilableDef.type);
+                    }
                 }
             }
 

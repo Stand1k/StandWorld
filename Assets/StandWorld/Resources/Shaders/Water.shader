@@ -12,7 +12,7 @@
 		Cull Back
 		Lighting Off
 		ZWrite Off
-		Tags { "Queue"="Transparent" }
+		Tags { "Queue"="Transparent"}
 		Blend One OneMinusSrcAlpha
 		LOD 200
 		
@@ -44,7 +44,7 @@
 			{
 				v2f o;
 				o.vertex = UnityObjectToClipPos(v.vertex);
-				o.uv = v.vertex.xy / 21;
+				o.uv = v.vertex.xy / 14;
 				return o;
 			}
 			
@@ -54,7 +54,7 @@
 				half2 uv = i.uv;
 				half t = _Time.x;
 				//uv.y =  i.uv.y + t * _ScrollSpeed;
-				fixed4 col = tex2D(_MainTex, uv);
+				fixed4 col = tex2D(_MainTex, uv / 2);
         
 				uv.y =  i.uv.y + t * _ScrollSpeed * 1.5;
 				uv.x = i.uv.x + t * _ScrollSpeed;

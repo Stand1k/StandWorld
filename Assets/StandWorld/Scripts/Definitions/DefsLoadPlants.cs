@@ -49,6 +49,7 @@ namespace StandWorld.Definitions
                     cuttable = true,
                     graphics = new GraphicDef
                     {
+                        materialName = "plantsWind",
                         textureName = "tree",
                         size = new Vector2(2, 3),
                         pivot = new Vector2(0.5f, 0f)
@@ -74,6 +75,7 @@ namespace StandWorld.Definitions
                     cuttable = true,
                     graphics = new GraphicDef
                     {
+                        materialName = "plantsWind",
                         textureName = "grass"
                     },
                     plantDef = new PlantDef
