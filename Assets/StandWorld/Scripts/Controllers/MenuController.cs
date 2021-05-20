@@ -7,6 +7,7 @@ using StandWorld.Definitions;
 using StandWorld.Helpers;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace StandWorld.Controllers
@@ -52,6 +53,7 @@ namespace StandWorld.Controllers
 
     public class MenuController : MonoBehaviour
     {
+        public GameObject menu;
         public InfoController info;
         public Transform parent;
         public Transform parentMenu;
@@ -77,6 +79,7 @@ namespace StandWorld.Controllers
             AddTab(LocalizationTable.GetLocalization("button_production"), 3, KeyCode.F);
             AddTab(LocalizationTable.GetLocalization("button_magic"), 4, KeyCode.G);
             AddTab(LocalizationTable.GetLocalization("button_fight"), 5, KeyCode.H);
+            AddMenuTab(LocalizationTable.GetLocalization("menu"));
             currentOrder = null;
             Reset();
         }
@@ -116,6 +119,24 @@ namespace StandWorld.Controllers
                     ClearSelection();
                 });
         }
+        
+        public void AddMenuTab(string name) // TODO: Quick menu solution - rework UI stuff
+        {
+            TMP_Text text;
+            Button button;
+
+            GameObject go = Instantiate(Res.prefabs["button_player_panel"], parentMenu, false);
+            go.name = "Button: " + name;
+            text = go.GetComponentInChildren<TMP_Text>();
+            text.text = name;
+            button = go.GetComponentInChildren<Button>();
+            
+
+            button.onClick.AddListener(
+                () => menu.SetActive(true)
+            );
+        }
+
 
         public void AddTab(string name, int id, KeyCode key = KeyCode.Escape)
         {

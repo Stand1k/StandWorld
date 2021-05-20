@@ -1,4 +1,4 @@
-﻿Shader "Custom/Plants Wind"
+﻿Shader "StandWorld/Plants Wind"
  {
 	Properties 
 	{

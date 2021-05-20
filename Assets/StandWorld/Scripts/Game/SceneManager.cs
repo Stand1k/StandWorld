@@ -62,6 +62,11 @@ namespace StandWorld.UI.MainMenu
             StartCoroutine(GenerateTips());
             StartCoroutine(GetSceneLoadProgress());
         }
+        
+        public void LoadMainMenu()
+        {
+            sceneLoading.Add(UnityEngine.SceneManagement.SceneManager.LoadSceneAsync((int) SceneIndex.MainMenu, LoadSceneMode.Single));
+        }
 
         public IEnumerator GetSceneLoadProgress()
         {
