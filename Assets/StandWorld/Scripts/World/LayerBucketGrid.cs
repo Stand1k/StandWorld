@@ -81,10 +81,10 @@ namespace StandWorld.World
         public bool CalcVisible()
         {
             _visible = (
-                rect.min.x >= ToolBox.cameraController.viewRect.min.x - Map.BUCKET_SIZE &&
-                rect.max.x <= ToolBox.cameraController.viewRect.max.x + Map.BUCKET_SIZE &&
-                rect.min.y >= ToolBox.cameraController.viewRect.min.y - Map.BUCKET_SIZE &&
-                rect.max.y <= ToolBox.cameraController.viewRect.max.y + Map.BUCKET_SIZE
+                rect.min.x >= ToolBox.Instance.cameraController.viewRect.min.x - Map.BUCKET_SIZE &&
+                rect.max.x <= ToolBox.Instance.cameraController.viewRect.max.x + Map.BUCKET_SIZE &&
+                rect.min.y >= ToolBox.Instance.cameraController.viewRect.min.y - Map.BUCKET_SIZE &&
+                rect.max.y <= ToolBox.Instance.cameraController.viewRect.max.y + Map.BUCKET_SIZE
             );
 
             return _visible;
@@ -182,7 +182,7 @@ namespace StandWorld.World
             tilables[localPosition.x + localPosition.y * rect.width] = tilable;
             tilable.SetBucket(this);
             //При додавані тайлу оновлюємо дані нашого TileProperty для Pathfinding 
-            ToolBox.map[tilable.position].Update();
+            ToolBox.Instance.map[tilable.position].Update();
 
             if (tilable.tilableDef.type != TilableType.Undefined)
             {
@@ -231,7 +231,7 @@ namespace StandWorld.World
             }
             
             tilables[localPosition.x + localPosition.y * rect.width] = null;
-            ToolBox.map[tilable.position].Update();
+            ToolBox.Instance.map[tilable.position].Update();
 
             if (tilable.tilableDef.type != TilableType.Undefined)
             {

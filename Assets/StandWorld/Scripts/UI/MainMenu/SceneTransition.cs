@@ -23,7 +23,7 @@ public class SceneTransition : MonoBehaviour
         transitionImage.DOFillAmount(0f, 1f)
             .OnComplete(() =>
             {
-                gameObject.SetActive(false);
+                Destroy(gameObject);
             });
     }
 }

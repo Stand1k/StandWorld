@@ -23,8 +23,8 @@ namespace StandWorld.Characters.AI
     {
         public static PathResult GetPath(Vector2Int startPosition, Vector2Int endPosition)
         {
-            TileProperty start = ToolBox.map[startPosition];
-            TileProperty end = ToolBox.map[endPosition];
+            TileProperty start = ToolBox.Instance.map[startPosition];
+            TileProperty end = ToolBox.Instance.map[endPosition];
             bool success = false;
             Vector2Int[] path = new Vector2Int[0];
             start.parent = start;
@@ -49,7 +49,7 @@ namespace StandWorld.Characters.AI
                     closedSet.Add(current);
                     for (int i = 0; i < 8; i++)
                     {
-                        TileProperty neighbour = ToolBox.map[current.position + DirectionUtils.neighbours[i]];
+                        TileProperty neighbour = ToolBox.Instance.map[current.position + DirectionUtils.neighbours[i]];
 
                         if (neighbour == null || neighbour.blockPath || closedSet.Contains(neighbour))
                         {

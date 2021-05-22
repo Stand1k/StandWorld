@@ -11,7 +11,7 @@ namespace StandWorld.Characters.AI.Node
         {
             public override Task GetTask()
             {
-                Tilable tilable = WorldUtils.FieldNextToCut(character.position);
+                Tilable tilable = WorldUtilsPlant.Instance.FieldNextToCut(character.position);
 
                 if (tilable != null)
                 {
@@ -29,7 +29,7 @@ namespace StandWorld.Characters.AI.Node
         {
             public override Task GetTask()
             {
-                Tilable tilable = WorldUtils.FieldNextTileToSow(character.position);
+                Tilable tilable = WorldUtilsPlant.Instance.FieldNextTileToSow(character.position);
 
                 if (tilable != null)
                 {
@@ -47,7 +47,7 @@ namespace StandWorld.Characters.AI.Node
         {
             public override Task GetTask()
             {
-                Tilable tilable = WorldUtils.FieldNextTileToDirt(character.position);
+                Tilable tilable = WorldUtilsPlant.Instance.FieldNextTileToDirt(character.position);
 
                 if (tilable != null)
                 {
@@ -63,9 +63,9 @@ namespace StandWorld.Characters.AI.Node
 
         public GrowNode(Func<bool> condition) : base(condition)
         {
-            BrainNode cut = new BrainNodeCondition(WorldUtils.FieldHasPlantsToCut);
-            BrainNode sow = new BrainNodeCondition(WorldUtils.FieldHasPlantsToSow);
-            BrainNode dirt = new BrainNodeCondition(WorldUtils.FieldHasDirtToWork);
+            BrainNode cut = new BrainNodeCondition(WorldUtilsPlant.Instance.FieldHasPlantsToCut);
+            BrainNode sow = new BrainNodeCondition(WorldUtilsPlant.Instance.FieldHasPlantsToSow);
+            BrainNode dirt = new BrainNodeCondition(WorldUtilsPlant.Instance.FieldHasDirtToWork);
 
             cut.AddSubnode(new CutPlantsAtPosition());
             sow.AddSubnode(new SowPlantAtPosition());

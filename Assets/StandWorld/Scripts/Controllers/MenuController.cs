@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using DG.Tweening;
 using ProjectPorcupine.Localization;
 using StandWorld.Definitions;
+using StandWorld.Game;
 using StandWorld.Helpers;
 using TMPro;
 using UnityEngine;
@@ -133,10 +134,23 @@ namespace StandWorld.Controllers
             
 
             button.onClick.AddListener(
-                () => menu.SetActive(true)
-            );
+                () =>
+                {
+                    menu.SetActive(true);
+                    ToolBox.Instance.tick.isStop = true;
+                    Shader.SetGlobalFloat("_Speed", 0.0f);
+                    Shader.SetGlobalFloat("_ScrollSpeed", 0.0f);
+                    Reset();
+                });
         }
 
+        public void BackInGame()
+        {
+            menu.SetActive(false);
+            ToolBox.Instance.tick.isStop = false;
+            Shader.SetGlobalFloat("_Speed", 1f);
+            Shader.SetGlobalFloat("_ScrollSpeed", 0.2f);
+        }
 
         public void AddTab(string name, int id, KeyCode key = KeyCode.Escape)
         {

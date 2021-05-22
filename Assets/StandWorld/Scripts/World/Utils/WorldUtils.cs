@@ -15,7 +15,7 @@ namespace StandWorld.World
         public Tilable tilable;
     }
 
-    public static partial class WorldUtils
+    public static class WorldUtils
     {
         public static Tilable ClosestTilableFromEnumerable(Vector2Int position, IEnumerable<Tilable> tilables)
         {

@@ -22,7 +22,7 @@ namespace StandWorld.Entities
         protected override void AddTilable(Vector2Int position)
         {
             Stackable stackable = new Stackable(position, this);
-            ToolBox.map.Spawn(position, stackable);
+            ToolBox.Instance.map.Spawn(position, stackable);
             stackables.Add(stackable);
             base.AddTilable(position);
         }

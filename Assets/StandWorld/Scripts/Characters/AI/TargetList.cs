@@ -60,19 +60,19 @@ namespace StandWorld.Characters.AI
 
         public void Enqueue(Target target)
         {
-            ToolBox.map[target.position].reserved = true;
+            ToolBox.Instance.map[target.position].reserved = true;
             targets.Enqueue(target);
         }
 
         public void Enqueue(Tilable tilable)
         {
-            ToolBox.map[tilable.position].reserved = true;
+            ToolBox.Instance.map[tilable.position].reserved = true;
             targets.Enqueue(new Target(tilable));
         }
 
         public void Enqueue(Vector2Int position)
         {
-            ToolBox.map[position].reserved = true;
+            ToolBox.Instance.map[position].reserved = true;
             targets.Enqueue(new Target(position));
         }
 
@@ -80,7 +80,7 @@ namespace StandWorld.Characters.AI
         {
             if (current != null)
             {
-                ToolBox.map[current.position].reserved = false;
+                ToolBox.Instance.map[current.position].reserved = false;
             }
         }
 
@@ -89,7 +89,7 @@ namespace StandWorld.Characters.AI
             while (targets.Count != 0)
             {
                 Target target = targets.Dequeue();
-                ToolBox.map[target.position].reserved = false;
+                ToolBox.Instance.map[target.position].reserved = false;
             }
         }
 

@@ -36,7 +36,7 @@ namespace StandWorld.Entities
 
             addGraphics = new Dictionary<string, GraphicInstance>();
 
-            Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(this.position);
+            Tilable tilable = ToolBox.Instance.map.grids[Layer.Plant].GetTilableAt(this.position);
             if (tilable != null && tilable.tilableDef.cuttable)
             {
                 tilable.AddOrder(Defs.orders["cut_plants"]);
@@ -59,7 +59,7 @@ namespace StandWorld.Entities
             tilableDef.blockPath = true;
             isBlueprint = false;
 
-            ToolBox.map[position].Update();
+            ToolBox.Instance.map[position].Update();
             UpdateGraphics();
             
             

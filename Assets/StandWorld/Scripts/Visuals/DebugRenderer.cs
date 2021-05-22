@@ -40,9 +40,9 @@ namespace StandWorld.Visuals
         {
             Color color1 = new Color(1, 0, 0, 0.5f);
             Color color2 = new Color(0, 1, 0, 0.5f);
-            foreach (Vector2Int v in ToolBox.cameraController.viewRect)
+            foreach (Vector2Int v in ToolBox.Instance.cameraController.viewRect)
             {
-                Gizmos.color = Color.Lerp(color1, color2, ToolBox.map[v].fertility);
+                Gizmos.color = Color.Lerp(color1, color2, ToolBox.Instance.map[v].fertility);
                 
                 Gizmos.DrawCube(
                     new Vector3(v.x + 0.5f, v.y + 0.5f), 
@@ -52,8 +52,8 @@ namespace StandWorld.Visuals
         }
         
         public static void DrawRecipes() {
-            foreach (Vector2Int v in ToolBox.cameraController.viewRect) {
-                foreach (Recipe r in WorldUtils.recipes) {
+            foreach (Vector2Int v in ToolBox.Instance.cameraController.viewRect) {
+                foreach (Recipe r in WorldUtilsBuidling.Instance.recipes) {
                     if (r.finished) {
                         Gizmos.color = Color.green;
                     } else {
@@ -71,9 +71,9 @@ namespace StandWorld.Visuals
         {
             Color color1 = new Color(1, 0, 0, 0.5f);
             Color color2 = new Color(0, 1, 0, 0.5f);
-            foreach (Vector2Int v in ToolBox.cameraController.viewRect)
+            foreach (Vector2Int v in ToolBox.Instance.cameraController.viewRect)
             {
-                Gizmos.color = Color.Lerp(color1, color2, ToolBox.map[v].pathCost);
+                Gizmos.color = Color.Lerp(color1, color2, ToolBox.Instance.map[v].pathCost);
                 
                 Gizmos.DrawCube(
                     new Vector3(v.x + 0.5f, v.y + 0.5f), 
@@ -84,11 +84,11 @@ namespace StandWorld.Visuals
         
         public static void DrawBuckets()
         {
-            for (int x = 0; x < ToolBox.map.size.x; x += Settings.BUCKET_SIZE)
+            for (int x = 0; x < ToolBox.Instance.map.size.x; x += Settings.BUCKET_SIZE)
             {
-                for (int y = 0; y < ToolBox.map.size.y; y += Settings.BUCKET_SIZE)
+                for (int y = 0; y < ToolBox.Instance.map.size.y; y += Settings.BUCKET_SIZE)
                 {
-                    LayerBucketGrid bucket = ToolBox.map.grids[Layer.Ground].GetBucketAt(new Vector2Int(x,y));
+                    LayerBucketGrid bucket = ToolBox.Instance.map.grids[Layer.Ground].GetBucketAt(new Vector2Int(x,y));
                                 
                     Gizmos.color = new Color(0f, 0.91f, 1f, 0.5f);
                                 
@@ -105,7 +105,7 @@ namespace StandWorld.Visuals
 
         public static void DrawTiles()
         {
-            foreach (Vector2Int v in ToolBox.cameraController.viewRect)
+            foreach (Vector2Int v in ToolBox.Instance.cameraController.viewRect)
             {
                 Gizmos.DrawWireCube(
                     new Vector3(v.x + 0.5f, v.y + 0.5f), 
@@ -117,9 +117,9 @@ namespace StandWorld.Visuals
         public static void DrawReserved()
         {
             Gizmos.color = new Color(0.97f, 0f, 0f);
-            foreach (Vector2Int v in ToolBox.cameraController.viewRect)
+            foreach (Vector2Int v in ToolBox.Instance.cameraController.viewRect)
             {
-                if (ToolBox.map[v] != null && ToolBox.map[v].reserved)
+                if (ToolBox.Instance.map[v] != null && ToolBox.Instance.map[v].reserved)
                 {
                     Gizmos.DrawWireCube(
                         new Vector3(v.x + 0.5f, v.y + 0.5f), 
@@ -131,9 +131,9 @@ namespace StandWorld.Visuals
 
         public static void DrawNoiseMap()
         {
-            foreach (Vector2Int v in ToolBox.map.mapRect)
+            foreach (Vector2Int v in ToolBox.Instance.map.mapRect)
             {
-                float h = ToolBox.map.groundNoiseMap[v.x + v.y * ToolBox.map.size.x];
+                float h = ToolBox.Instance.map.groundNoiseMap[v.x + v.y * ToolBox.Instance.map.size.x];
                 Gizmos.color = new Color(h, h, h, 1f);
                 Gizmos.DrawCube(
                     new Vector3(v.x + 0.5f, v.y + 0.5f),

@@ -43,7 +43,7 @@ namespace StandWorld.Definitions
                     {
                         foreach (Vector2Int position in rect)
                         {
-                            Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
+                            Plant plant = (Plant) ToolBox.Instance.map.grids[Layer.Plant].GetTilableAt(position);
                             if (plant != null && plant.tilableDef.cuttable &&
                                 plant.tilableDef.type == TilableType.Plant)
                             {
@@ -70,7 +70,7 @@ namespace StandWorld.Definitions
                     {
                         foreach (Vector2Int position in rect)
                         {
-                            Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
+                            Plant plant = (Plant) ToolBox.Instance.map.grids[Layer.Plant].GetTilableAt(position);
                             if (plant != null && plant.tilableDef.cuttable &&
                                 plant.tilableDef.type == TilableType.Grass)
                             {
@@ -97,7 +97,7 @@ namespace StandWorld.Definitions
                     {
                         foreach (Vector2Int position in rect)
                         {
-                            Plant plant = (Plant) ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
+                            Plant plant = (Plant) ToolBox.Instance.map.grids[Layer.Plant].GetTilableAt(position);
                             if (plant != null && plant.tilableDef.cuttable && plant.tilableDef.type == TilableType.Tree)
                             {
                                 plant.AddOrder(orders["cut_wood"]);
@@ -124,7 +124,7 @@ namespace StandWorld.Definitions
                     {
                         foreach (Vector2Int position in rect)
                         {
-                            foreach (Tilable tilable in ToolBox.map.GetAllTilablesAt(position))
+                            foreach (Tilable tilable in ToolBox.Instance.map.GetAllTilablesAt(position))
                             {
                                 tilable.ClearOrder();
                             }
@@ -178,7 +178,7 @@ namespace StandWorld.Definitions
                     {
                         foreach (Vector2Int position in rect)
                         {
-                            var tilable = ToolBox.map.GetTilableAt(position, Layer.Helpers);
+                            var tilable = ToolBox.Instance.map.GetTilableAt(position, Layer.Helpers);
                             
                             if (tilable != null)
                             {
@@ -202,7 +202,7 @@ namespace StandWorld.Definitions
                     {
                         foreach (Vector2Int position in rect)
                         {
-                            WorldUtils.SpawnBuilding(position);
+                            WorldUtilsBuidling.Instance.SpawnBuilding(position);
                         }
                     },
                     keyCode = KeyCode.Q,
@@ -221,7 +221,7 @@ namespace StandWorld.Definitions
                     {
                         foreach (Vector2Int position in rect)
                         {
-                            WorldUtils.DeleteBlueprint(position);
+                            WorldUtilsBuidling.Instance.DeleteBlueprint(position);
                         }
                     },
                     keyCode = KeyCode.W,

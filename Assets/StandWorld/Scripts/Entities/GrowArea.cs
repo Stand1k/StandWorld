@@ -19,7 +19,7 @@ namespace StandWorld.Entities
 
         protected override void AddTilable(Vector2Int position)
         {
-            ToolBox.map.Spawn(
+            ToolBox.Instance.map.Spawn(
                 position,
                 new GardenField(position, Defs.empty, this)
             );

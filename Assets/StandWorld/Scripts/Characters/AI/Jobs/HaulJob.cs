@@ -36,7 +36,7 @@ namespace StandWorld.Characters.AI.Jobs
             );
             get.OnEnd = () =>
             {
-                Stackable stack = (Stackable) ToolBox.map.grids[Layer.Stackable].GetTilableAt(task.targets.current.position);
+                Stackable stack = (Stackable) ToolBox.Instance.map.grids[Layer.Stackable].GetTilableAt(task.targets.current.position);
                 if (stack == null || stack.inventory.count == 0)
                 {
                     task.state = TaskState.Failed;
@@ -46,7 +46,7 @@ namespace StandWorld.Characters.AI.Jobs
                 stack.inventory.TransfertTo(character.inventory, qty);
             };
 
-            Stackable _stack = (Stackable) ToolBox.map.grids[Layer.Stackable].GetTilableAt(task.targets.current.position);
+            Stackable _stack = (Stackable) ToolBox.Instance.map.grids[Layer.Stackable].GetTilableAt(task.targets.current.position);
             if (_stack != null)
             {
                 return new HaulResult(get, _stack.inventory.count);

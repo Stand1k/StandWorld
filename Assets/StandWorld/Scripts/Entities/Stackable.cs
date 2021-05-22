@@ -21,16 +21,16 @@ namespace StandWorld.Entities
             stockArea = null;
             SetNeigbours();
 
-            ToolBox.stackableLabelController.AddLabel(this);
+            ToolBox.Instance.stackableLabelController.AddLabel(this);
 
             if (count > 0)
             {
-                WorldUtils.AddStackable(tilableDef, this);
+                WorldUtilsHaul.Instance.AddStackable(tilableDef, this);
             }
 
-            inventory.OnClear += () => WorldUtils.ClearStackable(inventory.def, this);
-            inventory.OnAdd += () => WorldUtils.AddStackable(inventory.def, this);
-            inventory.OnChangeCount += change => WorldUtils.UpdateStackableCount(inventory.def, change);
+            inventory.OnClear += () => WorldUtilsHaul.Instance.ClearStackable(inventory.def, this);
+            inventory.OnAdd += () => WorldUtilsHaul.Instance.AddStackable(inventory.def, this);
+            inventory.OnChangeCount += change => WorldUtilsHaul.Instance.UpdateStackableCount(inventory.def, change);
         }
 
         public Stackable(Vector2Int position, StockArea stockArea)

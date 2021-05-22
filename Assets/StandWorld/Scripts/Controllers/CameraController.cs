@@ -10,7 +10,7 @@ namespace StandWorld.Controllers
         public float zoomDesired { get; set; }
         public float zoomMin { get; set; }
         public float zoomMax { get; set; }
-        public float zoom => (zoomDesired * (ToolBox.map.size.x / 4f));
+        public float zoom => (zoomDesired * (ToolBox.Instance.map.size.x / 4f));
         
         public float sensitivity { get; set; }
         public Vector3 mousePosition { get; set; }
@@ -107,7 +107,7 @@ namespace StandWorld.Controllers
             );
             
             //Оновлює дані видимості у всіх регіонах
-            ToolBox.map.UpdateVisibles();
+            ToolBox.Instance.map.UpdateVisibles();
         }
 
 

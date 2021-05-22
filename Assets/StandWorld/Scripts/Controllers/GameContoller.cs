@@ -40,8 +40,10 @@ namespace StandWorld.Game
             _ready = false;
             cameraController = GetComponentInChildren<CameraController>();
             stackableLabelController = GetComponentInChildren<StackableLabelController>();
-            ToolBox.LoadStatics(); //TODO: MainMenu Load
-            ToolBox.NewGame(this);
+            ToolBox.Instance.LoadStatics(); //TODO: MainMenu Load
+            ToolBox.Instance.NewGame(this);
+            Shader.SetGlobalFloat("_Speed", 1f);
+            Shader.SetGlobalFloat("_ScrollSpeed", 0.2f);
             
             #if UNITY_EDITOR
             gameObject.AddComponent<LocalizationLoader>();
@@ -154,7 +156,7 @@ namespace StandWorld.Game
             }
         }
 
-        IEnumerator TickUpdate()
+        public IEnumerator TickUpdate()
         {
             for (;;)
             {
@@ -162,6 +164,8 @@ namespace StandWorld.Game
                 tick.DoTick();
             }
         }
+        
+        
 
         private void OnDrawGizmos()
         {

@@ -7,11 +7,11 @@ using UnityEngine;
 
 namespace StandWorld.World
 {
-    public static partial class WorldUtils
+    public class WorldUtilsPlant : Singleton<WorldUtilsPlant>
     {
-        public static readonly List<Tilable> cutOrdered = new List<Tilable>();
+        public readonly List<Tilable> cutOrdered = new List<Tilable>();
 
-        public static Tilable FieldNextToCut(Vector2Int characterPosition)
+        public Tilable FieldNextToCut(Vector2Int characterPosition)
         {
             List<Tilable> toCut = new List<Tilable>();
 
@@ -19,42 +19,42 @@ namespace StandWorld.World
             {
                 foreach (Vector2Int position in growArea.positions)
                 {
-                    Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && tilable != null && tilable.tilableDef != growArea.def)
+                    Tilable tilable = ToolBox.Instance.map.grids[Layer.Plant].GetTilableAt(position);
+                    if (!ToolBox.Instance.map[position].reserved && tilable != null && tilable.tilableDef != growArea.def)
                     {
                         toCut.Add(tilable);
                     }
                 }
             }
 
-            return ClosestTilableFromEnumerable(characterPosition, toCut);
+            return WorldUtils.ClosestTilableFromEnumerable(characterPosition, toCut);
         }
 
-        public static Tilable NextToCut(Vector2Int playerPosition)
+        public Tilable NextToCut(Vector2Int playerPosition)
         {
             List<Tilable> toCut = new List<Tilable>();
             foreach (Tilable tilable in cutOrdered)
             {
-                if (!ToolBox.map[tilable.position].reserved)
+                if (!ToolBox.Instance.map[tilable.position].reserved)
                 {
                     toCut.Add(tilable);
                 }
             }
 
-            return ClosestTilableFromEnumerable(playerPosition, toCut);
+            return WorldUtils.ClosestTilableFromEnumerable(playerPosition, toCut);
         }
 
-        public static Tilable FieldNextTileToDirt(Vector2Int characterPosition)
+        public Tilable FieldNextTileToDirt(Vector2Int characterPosition)
         {
             List<Tilable> toDirt = new List<Tilable>();
             foreach (GrowArea growArea in GrowArea.growAreas)
             {
                 foreach (Vector2Int position in growArea.positions)
                 {
-                    GardenField gardenField = (GardenField) ToolBox.map.grids[Layer.Helpers].GetTilableAt(position);
+                    GardenField gardenField = (GardenField) ToolBox.Instance.map.grids[Layer.Helpers].GetTilableAt(position);
                     if (gardenField != null) // TODO: Temp
                     {
-                        if (!ToolBox.map[position].reserved && gardenField.dirt == false)
+                        if (!ToolBox.Instance.map[position].reserved && gardenField.dirt == false)
                         {
                             toDirt.Add(gardenField);
                         }
@@ -62,21 +62,21 @@ namespace StandWorld.World
                 }
             }
 
-            return ClosestTilableFromEnumerable(characterPosition, toDirt);
+            return WorldUtils.ClosestTilableFromEnumerable(characterPosition, toDirt);
         }
 
-        public static Tilable FieldNextTileToSow(Vector2Int playerPosition)
+        public Tilable FieldNextTileToSow(Vector2Int playerPosition)
         {
             List<Tilable> toSow = new List<Tilable>();
             foreach (GrowArea growArea in GrowArea.growAreas)
             {
                 foreach (Vector2Int position in growArea.positions)
                 {
-                    Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    GardenField gardenField = (GardenField) ToolBox.map.grids[Layer.Helpers].GetTilableAt(position);
+                    Tilable tilable = ToolBox.Instance.map.grids[Layer.Plant].GetTilableAt(position);
+                    GardenField gardenField = (GardenField) ToolBox.Instance.map.grids[Layer.Helpers].GetTilableAt(position);
                     if (gardenField != null) // TODO: Temp
                     {
-                        if (!ToolBox.map[position].reserved && tilable == null && gardenField.dirt)
+                        if (!ToolBox.Instance.map[position].reserved && tilable == null && gardenField.dirt)
                         {
                             toSow.Add(gardenField);
                         }
@@ -84,10 +84,10 @@ namespace StandWorld.World
                 }
             }
 
-            return ClosestTilableFromEnumerable(playerPosition, toSow);
+            return WorldUtils.ClosestTilableFromEnumerable(playerPosition, toSow);
         }
 
-        public static bool FieldHasWork()
+        public bool FieldHasWork()
         {
             if (FieldHasPlantsToCut() ||
                 FieldHasDirtToWork() ||
@@ -100,14 +100,14 @@ namespace StandWorld.World
             return false;
         }
 
-        public static bool FieldHasPlantsToCut()
+        public bool FieldHasPlantsToCut()
         {
             foreach (GrowArea growArea in GrowArea.growAreas)
             {
                 foreach (Vector2Int position in growArea.positions)
                 {
-                    Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    if (!ToolBox.map[position].reserved && tilable != null && tilable.tilableDef != growArea.def &&
+                    Tilable tilable = ToolBox.Instance.map.grids[Layer.Plant].GetTilableAt(position);
+                    if (!ToolBox.Instance.map[position].reserved && tilable != null && tilable.tilableDef != growArea.def &&
                         tilable.tilableDef.cuttable)
                     {
                         return true;
@@ -118,17 +118,17 @@ namespace StandWorld.World
             return false;
         }
 
-        public static bool FieldHasPlantsToSow()
+        public bool FieldHasPlantsToSow()
         {
             foreach (GrowArea growArea in GrowArea.growAreas)
             {
                 foreach (Vector2Int position in growArea.positions)
                 {
-                    Tilable tilable = ToolBox.map.grids[Layer.Plant].GetTilableAt(position);
-                    GardenField gardenField = (GardenField) ToolBox.map.grids[Layer.Helpers].GetTilableAt(position);
+                    Tilable tilable = ToolBox.Instance.map.grids[Layer.Plant].GetTilableAt(position);
+                    GardenField gardenField = (GardenField) ToolBox.Instance.map.grids[Layer.Helpers].GetTilableAt(position);
                     if (gardenField != null) // TODO: Temp
                     {
-                        if (!ToolBox.map[position].reserved && tilable == null && gardenField.dirt)
+                        if (!ToolBox.Instance.map[position].reserved && tilable == null && gardenField.dirt)
                         {
                             return true;
                         }
@@ -139,16 +139,16 @@ namespace StandWorld.World
             return false;
         }
 
-        public static bool FieldHasDirtToWork()
+        public bool FieldHasDirtToWork()
         {
             foreach (GrowArea growArea in GrowArea.growAreas)
             {
                 foreach (Vector2Int position in growArea.positions)
                 {
-                    GardenField gardenField = (GardenField) ToolBox.map.grids[Layer.Helpers].GetTilableAt(position);
+                    GardenField gardenField = (GardenField) ToolBox.Instance.map.grids[Layer.Helpers].GetTilableAt(position);
                     if (gardenField != null) // TODO: Temp
                     {
-                        if (!ToolBox.map[position].reserved && gardenField.dirt == false)
+                        if (!ToolBox.Instance.map[position].reserved && gardenField.dirt == false)
                         {
                             return true;
                         }
@@ -159,25 +159,25 @@ namespace StandWorld.World
             return false;
         }
 
-        public static bool HasPlantToCut()
+        public bool HasPlantToCut()
         {
             return cutOrdered.Count > 0;
         }
 
-        public static BucketResult HasVegetalNutrimentsInBucket(Vector2Int position)
+        public BucketResult HasVegetalNutrimentsInBucket(Vector2Int position)
         {
-            foreach (LayerGrid grid in ToolBox.map.grids.Values)
+            foreach (LayerGrid grid in ToolBox.Instance.map.grids.Values)
             {
                 LayerBucketGrid bucket = grid.GetBucketAt(position);
 
                 if (bucket != null && bucket.properties.vegetalNutriments > 0f)
                 {
-                    Tilable rt = ClosestTilableFromEnumerable(
+                    Tilable rt = WorldUtils.ClosestTilableFromEnumerable(
                         position,
                         bucket.tilables.Where(
                             t =>
                                 t != null &&
-                                ToolBox.map[t.position].reserved == false
+                                ToolBox.Instance.map[t.position].reserved == false
                                 && t.tilableDef.nutriments > 0)
                     );
 

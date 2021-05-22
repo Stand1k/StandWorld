@@ -43,7 +43,7 @@ namespace StandWorld.Entities
 
             GetState();
             UpdateGraphics();
-            ToolBox.tick.toAdd.Enqueue(Update);
+            ToolBox.Instance.tick.toAdd.Enqueue(Update);
         }
 
         public override void UpdateGraphics()
@@ -129,27 +129,27 @@ namespace StandWorld.Entities
         public override void AddOrder(MenuOrderDef def)
         {
             base.AddOrder(def);
-            WorldUtils.cutOrdered.Add(this);
+            WorldUtilsPlant.Instance.cutOrdered.Add(this);
         }
 
         public override void Destroy()
         {
-            ToolBox.tick.toDel.Enqueue(Update);
+            ToolBox.Instance.tick.toDel.Enqueue(Update);
             base.Destroy();
         }
 
         public void Cut()
         {
-            if (WorldUtils.cutOrdered.Contains(this))
+            if (WorldUtilsPlant.Instance.cutOrdered.Contains(this))
             {
-                WorldUtils.cutOrdered.Remove(this);
+                WorldUtilsPlant.Instance.cutOrdered.Remove(this);
             }
 
             int qtyLoot = Defs.stackables["logs"].maxStack / ((tilableDef.plantDef.states + 1) - _currentState);
 
             if (tilableDef.type == TilableType.Tree)
             {
-                ToolBox.map.Spawn(position, new Stackable
+                ToolBox.Instance.map.Spawn(position, new Stackable
                 (
                     position,
                     Defs.stackables["logs"],
@@ -158,7 +158,7 @@ namespace StandWorld.Entities
             }
             else if (tilableDef.type == TilableType.Plant && _currentState >= tilableDef.plantDef.states - 1) // TODO: 
             {
-                ToolBox.map.Spawn(position, new Stackable(
+                ToolBox.Instance.map.Spawn(position, new Stackable(
                         position,
                         Defs.stackables["carrot_logs"],
                         qtyLoot
@@ -170,9 +170,9 @@ namespace StandWorld.Entities
 
         public override void ClearOrder()
         {
-            if (WorldUtils.cutOrdered.Contains(this))
+            if (WorldUtilsPlant.Instance.cutOrdered.Contains(this))
             {
-                WorldUtils.cutOrdered.Remove(this);
+                WorldUtilsPlant.Instance.cutOrdered.Remove(this);
             }
             
             base.ClearOrder();

@@ -11,7 +11,7 @@ namespace StandWorld.Characters.AI.Node
         {
             public override Task GetTask()
             {
-                TargetList targets = WorldUtils.RecipesToComplete(30, character);
+                TargetList targets = WorldUtilsBuidling.Instance.RecipesToComplete(30, character);
                 
                 if (targets != null)
                 {

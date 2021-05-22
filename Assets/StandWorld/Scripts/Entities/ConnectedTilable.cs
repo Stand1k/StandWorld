@@ -40,7 +40,7 @@ namespace StandWorld.Entities
 
         private bool HasLink(Vector2Int position)
         {
-            Tilable tilable = ToolBox.map.GetTilableAt(position, this.tilable.tilableDef.layer);
+            Tilable tilable = ToolBox.Instance.map.GetTilableAt(position, this.tilable.tilableDef.layer);
 
             if (tilable == null || this.tilable.tilableDef != tilable.tilableDef)
             {
@@ -102,7 +102,7 @@ namespace StandWorld.Entities
                         Res.textures[tilable.tilableDef.graphics.textureName + "_cover"],
                         1
                     );
-                    ToolBox.map.GetTilableAt(tilable.position, Layer.Ground).hidden = true;
+                    ToolBox.Instance.map.GetTilableAt(tilable.position, Layer.Ground).hidden = true;
                 }
                 else
                 {
@@ -125,7 +125,7 @@ namespace StandWorld.Entities
                             )
                         );
                     }
-                    ToolBox.map.GetTilableAt(tilable.position, Layer.Ground).hidden = false;
+                    ToolBox.Instance.map.GetTilableAt(tilable.position, Layer.Ground).hidden = false;
                 }
             }
         }

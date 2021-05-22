@@ -19,22 +19,21 @@ namespace StandWorld.Controllers
 
         private void Update()
         {
-            if (ToolBox.contoller.ready)
-            {
+            
                 int i = 0;
                 if (Input.GetMouseButtonDown(0))
                 {
-                    foreach (BaseCharacter character in ToolBox.map[ToolBox.cameraController.tileMapMousePosition].characters)
+                    foreach (BaseCharacter character in ToolBox.Instance.map[ToolBox.Instance.cameraController.tileMapMousePosition].characters)
                     {
                         if (i == currentIndex)
                         {
-                            DisplayCharacterData(ToolBox.cameraController.tileMapMousePosition, character);
+                            DisplayCharacterData(ToolBox.Instance.cameraController.tileMapMousePosition, character);
                         }
 
                         i++;
                     }
                 }
-            }
+            
         }
 
         private void DisplayCharacterData(Vector2Int position, BaseCharacter character)

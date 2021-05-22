@@ -20,7 +20,7 @@ namespace StandWorld.Definitions
                 uId = "wood_wall",
                 layer = Layer.Building,
                 type = TilableType.BuildingConnected,
-                blockPath = false,
+                blockPath = true,
                 blockStackable = true,
                 blockPlant = true,
                 blockBuilding = true,

@@ -4,7 +4,6 @@
 	{
 		_MainTex ("Main texture", 2D) = "white" {}
 		_Color ("Color", Color) = (1,1,1,1)
-		_Speed ("Speed", float) = 1
 		_MinStrength ("_MinStrength", Range(0,1)) = 0
 		_MaxStrength ("_MaxStrength", Range(0,1)) = 0
 		_StrengthScale ("StrengthScale", float) = 1
@@ -38,7 +37,7 @@
 			sampler2D _MainTex;
 			float4 _MainTex_ST;
 			float4 _Color;
-			float _Speed;
+			float _Speed = 1;
 			float _MinStrength;
 			float _MaxStrength;
 			float _StrengthScale;

@@ -1,23 +1,33 @@
-﻿using StandWorld.Controllers;
+﻿using System;
+using StandWorld.Controllers;
 using StandWorld.Definitions;
 using StandWorld.Entities;
 using StandWorld.Helpers;
 using StandWorld.World;
+using UnityEngine;
 
 namespace StandWorld.Game
 {
-    public static class ToolBox
+    public class ToolBox : Singleton<ToolBox>, IDisposable
     {
-        public static GameContoller contoller;
-        public static CameraController cameraController => contoller.cameraController;
+        public GameContoller contoller;
+        public CameraController cameraController => contoller.cameraController;
 
-        public static Map map => contoller.map;
+        public Map map
+        {
+            get => contoller.map;
+            set => contoller.map = value;
+        }
 
-        public static StackableLabelController stackableLabelController => contoller.stackableLabelController;
+        public StackableLabelController stackableLabelController => contoller.stackableLabelController;
 
-        public static Tick tick => contoller.tick;
+        public Tick tick
+        {
+            get => contoller.tick;
+            set => contoller.tick = value;
+        }
 
-        public static void LoadStatics()
+        public void LoadStatics()
         {
             Res.Load();
             DirectionUtils.SetNeighbours();
@@ -33,9 +43,19 @@ namespace StandWorld.Game
             Defs.LoadBuildingsFromCode();
         }
 
-        public static void NewGame(GameContoller contoller)
+        public void NewGame(GameContoller contoller)
         {
-            ToolBox.contoller = contoller;
+            Instance.contoller = contoller; 
+        }
+
+        public void Dispose()
+        {
+            //WorldUtils.recipes = null;
+            Destroy(contoller);
+            Destroy(cameraController);
+            Destroy(stackableLabelController);
+            map = null;
+            tick = null;
         }
     }
 }

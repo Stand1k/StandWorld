@@ -89,6 +89,7 @@ namespace StandWorld.UI.MainMenu
                         yield return new WaitForSeconds(5f);
                         transitionCanvas.SetActive(true);
                         yield return new WaitForSeconds(1f);
+                        Destroy(loadingScreen);
                         break;
                     }
                     
@@ -100,9 +101,6 @@ namespace StandWorld.UI.MainMenu
             {
                 asyncOperation.allowSceneActivation = true;
             }
-
-            yield return null;
-            Destroy(loadingScreen);
         }
 
         public IEnumerator GenerateTips()

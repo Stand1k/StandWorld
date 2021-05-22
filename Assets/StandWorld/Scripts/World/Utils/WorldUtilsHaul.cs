@@ -4,13 +4,13 @@ using StandWorld.Entities;
 
 namespace StandWorld.World
 {
-    public static partial class WorldUtils
+    public class WorldUtilsHaul : Singleton<WorldUtilsHaul>
     {
-        public static readonly Dictionary<TilableDef, List<Stackable>> stackables = new Dictionary<TilableDef, List<Stackable>>();
-        public static readonly Dictionary<TilableDef, int> stackablesCount = new Dictionary<TilableDef, int>();
+        public readonly Dictionary<TilableDef, List<Stackable>> stackables = new Dictionary<TilableDef, List<Stackable>>();
+        public readonly Dictionary<TilableDef, int> stackablesCount = new Dictionary<TilableDef, int>();
 
 
-        public static int StackableCount(TilableDef def)
+        public int StackableCount(TilableDef def)
         {
             if (stackablesCount.ContainsKey(def))
             {
@@ -20,7 +20,7 @@ namespace StandWorld.World
             return 0;
         }
 
-        public static void AddStackable(TilableDef def, Stackable stackable)
+        public void AddStackable(TilableDef def, Stackable stackable)
         {
             if (!stackables.ContainsKey(def))
             {
@@ -32,7 +32,7 @@ namespace StandWorld.World
             stackablesCount[def] += stackable.inventory.count;
         }
 
-        public static void ClearStackable(TilableDef def, Stackable stackable)
+        public void ClearStackable(TilableDef def, Stackable stackable)
         {
             if (stackables.ContainsKey(def))
             {
@@ -40,7 +40,7 @@ namespace StandWorld.World
             }
         }
 
-        public static void UpdateStackableCount(TilableDef def, int qty)
+        public void UpdateStackableCount(TilableDef def, int qty)
         {
             if (stackablesCount.ContainsKey(def))
             {

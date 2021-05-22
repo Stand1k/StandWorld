@@ -18,6 +18,8 @@ namespace StandWorld.UI.MainMenu
         {
             _canvasGroup = GetComponent<CanvasGroup>();
             _SizeID = Shader.PropertyToID("_Size");
+            material.SetColor("_Color", color);
+            material.SetFloat(_SizeID, 0x0);
         }
 
         protected override void OnEnable()
@@ -26,8 +28,6 @@ namespace StandWorld.UI.MainMenu
             
             if (Application.isPlaying)
             {
-                material.SetFloat(_SizeID, 0);
-                color = Color.black * 0.1f;
                 _canvasGroup.alpha = 0f;
                 _canvasGroup.DOFade(1, time).OnComplete(() =>
                 {

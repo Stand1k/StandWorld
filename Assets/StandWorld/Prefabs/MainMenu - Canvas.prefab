@@ -4639,6 +4639,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 3704180506599641754}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1789659576
 GameObject:
   m_ObjectHideFlags: 0
@@ -5083,8 +5094,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1852388982}
   - component: {fileID: 1852388984}
-  - component: {fileID: 1852388983}
-  - component: {fileID: 1487267994971958525}
+  - component: {fileID: 504820280}
+  - component: {fileID: 504820279}
   m_Layer: 5
   m_Name: New Game  - Settings
   m_TagString: Untagged
@@ -5120,7 +5131,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1852388981}
   m_CullTransparentMesh: 0
---- !u!114 &1852388983
+--- !u!225 &504820280
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1852388981}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &504820279
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5129,11 +5152,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1852388981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 70f6a2c3cc8ec4d44b480f3a506b8f20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 6d67b51e34639b1448c2c347f8911f68, type: 2}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.6698113, g: 0.6698113, b: 0.6698113, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -5149,18 +5172,8 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!225 &1487267994971958525
-CanvasGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1852388981}
-  m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  time: 0.1
+  delay: 0
 --- !u!1 &1865376716
 GameObject:
   m_ObjectHideFlags: 0
@@ -7774,10 +7787,10 @@ RectTransform:
   m_Father: {fileID: 3704180507060557853}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3704180506638331702
 CanvasRenderer:
@@ -7806,7 +7819,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Settings
+  m_text: "\u041D\u0430\u043B\u0430\u0448\u0442\u0443\u0432\u0430\u043D\u043D\u044F"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8473df2f73c7e54ab9787dce586616a, type: 2}
   m_sharedMaterial: {fileID: 2476903659594536854, guid: c8473df2f73c7e54ab9787dce586616a,
@@ -7876,7 +7889,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3704180506638331701}
-    characterCount: 8
+    characterCount: 12
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -9447,10 +9460,10 @@ RectTransform:
   m_Father: {fileID: 3704180507805369332}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3704180507003158113
 CanvasRenderer:
@@ -9479,7 +9492,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Story
+  m_text: "\u0421\u044E\u0436\u0435\u0442"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8473df2f73c7e54ab9787dce586616a, type: 2}
   m_sharedMaterial: {fileID: 2476903659594536854, guid: c8473df2f73c7e54ab9787dce586616a,
@@ -10100,10 +10113,10 @@ RectTransform:
   m_Father: {fileID: 3704180507467267303}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.00012207031, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3704180507207554121
 CanvasRenderer:
@@ -10132,7 +10145,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Store
+  m_text: "\u041C\u0430\u0433\u0430\u0437\u0438\u043D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8473df2f73c7e54ab9787dce586616a, type: 2}
   m_sharedMaterial: {fileID: 2476903659594536854, guid: c8473df2f73c7e54ab9787dce586616a,
@@ -10202,7 +10215,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3704180507207554120}
-    characterCount: 5
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -13116,10 +13129,10 @@ RectTransform:
   m_Father: {fileID: 3704180506615470285}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3704180508108223020
 CanvasRenderer:
@@ -13148,7 +13161,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Online
+  m_text: "\u041E\u043D\u043B\u0430\u0439\u043D"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8473df2f73c7e54ab9787dce586616a, type: 2}
   m_sharedMaterial: {fileID: 2476903659594536854, guid: c8473df2f73c7e54ab9787dce586616a,
@@ -13778,10 +13791,10 @@ RectTransform:
   m_Father: {fileID: 3704180506566902951}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3704180508273605850
 CanvasRenderer:
@@ -13810,7 +13823,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Home
+  m_text: "\u0413\u043E\u043B\u043E\u0432\u043D\u0430"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c8473df2f73c7e54ab9787dce586616a, type: 2}
   m_sharedMaterial: {fileID: 2476903659594536854, guid: c8473df2f73c7e54ab9787dce586616a,
@@ -13880,7 +13893,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 3704180508273605849}
-    characterCount: 4
+    characterCount: 7
     spriteCount: 0
     spaceCount: 0
     wordCount: 1
@@ -14499,7 +14512,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
-  time: 2
+  time: 1
   delay: 0.1
 --- !u!1 &3704180508399089769
 GameObject:

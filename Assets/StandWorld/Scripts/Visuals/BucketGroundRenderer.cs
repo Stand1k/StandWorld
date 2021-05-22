@@ -44,7 +44,7 @@ namespace StandWorld.Visuals
 
 				for (int i = 0; i < DirectionUtils.neighbours.Length; i++)
 				{
-					Tilable neighbourGround = ToolBox.map.GetTilableAt(ground.position + DirectionUtils.neighbours[i], Layer.Ground);
+					Tilable neighbourGround = ToolBox.Instance.map.GetTilableAt(ground.position + DirectionUtils.neighbours[i], Layer.Ground);
 
 					if (neighbourGround != null)
 					{

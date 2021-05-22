@@ -36,7 +36,7 @@ namespace StandWorld.Characters
                 graphics = GraphicInstance.GetNew(this.def.graphics);
             }
 
-            ToolBox.tick.toAdd.Enqueue(Update);
+            ToolBox.Instance.tick.toAdd.Enqueue(Update);
         }
 
         public virtual string SetName()
@@ -51,17 +51,17 @@ namespace StandWorld.Characters
             if (inventory.count > 0 && inventory.def != null)
             {
                 HashSet<Vector2Int> tilablesInRadius = new HashSet<Vector2Int>();
-                Stackable stack = (Stackable) ToolBox.map.GetTilableAt(this.position, Layer.Stackable);
+                Stackable stack = (Stackable) ToolBox.Instance.map.GetTilableAt(this.position, Layer.Stackable);
                 if (stack == null)
                 {
-                    ToolBox.map.Spawn(position, new Stackable(
+                    ToolBox.Instance.map.Spawn(position, new Stackable(
                         position,
                         inventory.def,
                         0
                     ));
                 }
 
-                stack = (Stackable) ToolBox.map.GetTilableAt(this.position, Layer.Stackable);
+                stack = (Stackable) ToolBox.Instance.map.GetTilableAt(this.position, Layer.Stackable);
                 Tilable.InRadius(20, stack.position, stack.position, ref tilablesInRadius);
                 
                 foreach (Vector2Int position in tilablesInRadius)
@@ -71,19 +71,19 @@ namespace StandWorld.Characters
                         break;
                     }
 
-                    stack = (Stackable) ToolBox.map.GetTilableAt(position, Layer.Stackable);
+                    stack = (Stackable) ToolBox.Instance.map.GetTilableAt(position, Layer.Stackable);
                     if (stack != null && stack.tilableDef == inventory.def)
                     {
                         inventory.TransfertTo(stack.inventory, stack.inventory.free);
                     }
                     else if (stack == null)
                     {
-                        ToolBox.map.Spawn(position, new Stackable(
+                        ToolBox.Instance.map.Spawn(position, new Stackable(
                             position,
                             inventory.def,
                             0
                         ));
-                        stack = (Stackable) ToolBox.map.GetTilableAt(position, Layer.Stackable);
+                        stack = (Stackable) ToolBox.Instance.map.GetTilableAt(position, Layer.Stackable);
                         inventory.TransfertTo(stack.inventory, stack.inventory.free);
                     }
                 }

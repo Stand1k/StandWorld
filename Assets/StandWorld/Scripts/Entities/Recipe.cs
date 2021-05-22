@@ -18,7 +18,7 @@ namespace StandWorld.Entities
             {
                 foreach (KeyValuePair<TilableDef, Inventory> kv in needs)
                 {
-                    if (WorldUtils.StackableCount(kv.Key) < kv.Value.free)
+                    if (WorldUtilsHaul.Instance.StackableCount(kv.Key) < kv.Value.free)
                     {
                         return false;
                     }
@@ -45,7 +45,7 @@ namespace StandWorld.Entities
             }
 
 
-            WorldUtils.recipes.Add(this);
+            WorldUtilsBuidling.Instance.recipes.Add(this);
         }
 
         public TilableDef FirstNeed()
@@ -75,7 +75,7 @@ namespace StandWorld.Entities
 
                 finished = true;
                 building.Construct();
-                WorldUtils.recipes.Remove(this);
+                WorldUtilsBuidling.Instance.recipes.Remove(this);
                 return true;
             }
 

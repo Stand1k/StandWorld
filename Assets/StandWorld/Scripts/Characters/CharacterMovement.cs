@@ -43,7 +43,7 @@ namespace StandWorld.Characters
         {
             this.position = position;
             _character = character;
-            ToolBox.map[this.position].characters.Add(_character);
+            ToolBox.Instance.map[this.position].characters.Add(_character);
             ResetMovement();
         }
 
@@ -106,13 +106,13 @@ namespace StandWorld.Characters
             }
 
             float distance = GameUtils.Distance(position, _nextPosition);
-            float distanceThisFrame = _speed * ToolBox.map[position].pathCost;
+            float distanceThisFrame = _speed * ToolBox.Instance.map[position].pathCost;
             _movementPercent += distanceThisFrame / distance;
 
             if (_movementPercent >= 1f)
             {
-                ToolBox.map[position].characters.Remove(_character);
-                ToolBox.map[_nextPosition].characters.Add(_character);
+                ToolBox.Instance.map[position].characters.Remove(_character);
+                ToolBox.Instance.map[_nextPosition].characters.Add(_character);
                 position = _nextPosition;
                 _movementPercent = 0f;
             }

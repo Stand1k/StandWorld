@@ -12,7 +12,7 @@ namespace StandWorld.Characters.AI.Node
         {
             public override Task GetTask()
             {
-                BucketResult bucketResult = WorldUtils.HasVegetalNutrimentsInBucket(character.position);
+                BucketResult bucketResult = WorldUtilsPlant.Instance.HasVegetalNutrimentsInBucket(character.position);
 
                 if (bucketResult.result)
                 {

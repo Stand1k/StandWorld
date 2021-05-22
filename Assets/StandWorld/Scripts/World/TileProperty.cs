@@ -54,7 +54,7 @@ public class TileProperty
     {
         Reset();
 
-        foreach (Tilable tilable in ToolBox.map.GetAllTilablesAt(position))
+        foreach (Tilable tilable in ToolBox.Instance.map.GetAllTilablesAt(position))
         {
             if (fertility != 0f)
             {

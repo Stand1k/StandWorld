@@ -9,43 +9,43 @@ using UnityEngine;
 
 namespace StandWorld.World
 {
-    public static partial class WorldUtils
+    public class WorldUtilsBuidling : Singleton<WorldUtilsBuidling>
     {
-        public static readonly List<Recipe> recipes = new List<Recipe>();
+        public List<Recipe> recipes = new List<Recipe>();
 
-        public static bool HaulRecipeNeeded()
+        public bool HaulRecipeNeeded()
         {
             return recipes.Count > 0;
         }
 
-        public static void SpawnBuilding(Vector2Int position) // TODO:
+        public void SpawnBuilding(Vector2Int position) // TODO:
         {
-            TileProperty tileProperty = ToolBox.map[position];
+            TileProperty tileProperty = ToolBox.Instance.map[position];
 
             if (tileProperty.blockBuilding)
             {
                 return;
             }
 
-            ToolBox.map.Spawn(new Vector2Int(position.x, position.y), new Building(
+            ToolBox.Instance.map.Spawn(new Vector2Int(position.x, position.y), new Building(
                 new Vector2Int(position.x, position.y),
                 Defs.buildings["wood_wall"]
             ));
 
-            ToolBox.map.UpdateConnectedBuildings();
+            ToolBox.Instance.map.UpdateConnectedBuildings();
         }
 
-        public static void DeleteBlueprint(Vector2Int position) // TODO:
+        public void DeleteBlueprint(Vector2Int position) // TODO:
         {
-            if (ToolBox.map.GetTilableAt(position, Layer.Building) is Building building && building.isBlueprint)
+            if (ToolBox.Instance.map.GetTilableAt(position, Layer.Building) is Building building && building.isBlueprint)
             {
                 recipes.Remove(building.recipe);
                 building.Destroy();
-                ToolBox.map.UpdateConnectedBuildings();
+                ToolBox.Instance.map.UpdateConnectedBuildings();
             }
         }
 
-        public static TargetList RecipesToComplete(int radius, BaseCharacter character)
+        public TargetList RecipesToComplete(int radius, BaseCharacter character)
         {
             int capacity = character.inventory.max;
             int currentNeeds = 0;
@@ -56,7 +56,7 @@ namespace StandWorld.World
 
             foreach (Recipe _recipe in recipes)
             {
-                if (!ToolBox.map[_recipe.position].reserved && !_recipe.finished && _recipe.canBeComplete)
+                if (!ToolBox.Instance.map[_recipe.position].reserved && !_recipe.finished && _recipe.canBeComplete)
                 {
                     if (currentNeeds >= capacity)
                     {
@@ -69,8 +69,8 @@ namespace StandWorld.World
                         first = _recipe;
                         need = first.FirstNeed();
                         currentNeeds += first.needs[need].free;
-                        capacity = (capacity > stackablesCount[need])
-                            ? stackablesCount[need]
+                        capacity = (capacity > WorldUtilsHaul.Instance.stackablesCount[need])
+                            ? WorldUtilsHaul.Instance.stackablesCount[need]
                             : capacity;
                     }
                     else
@@ -90,16 +90,16 @@ namespace StandWorld.World
             }
 
             int stackFound = 0;
-            if (stackables.ContainsKey(need))
+            if (WorldUtilsHaul.Instance.stackables.ContainsKey(need))
             {
-                foreach (Stackable stack in ToolBox.map.grids[Layer.Stackable].GetTilables())
+                foreach (Stackable stack in ToolBox.Instance.map.grids[Layer.Stackable].GetTilables())
                 {
                     if (stackFound >= currentNeeds)
                     {
                         break;
                     }
 
-                    if (!ToolBox.map[stack.position].reserved && stack.inventory.count != 0 &&
+                    if (!ToolBox.Instance.map[stack.position].reserved && stack.inventory.count != 0 &&
                         stack.inventory.def == need)
                     {
                         stackFound += stack.inventory.count;

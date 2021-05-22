@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 347358566}
   - component: {fileID: 347358565}
   - component: {fileID: 347358564}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Tips - Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -181,7 +181,7 @@ GameObject:
   - component: {fileID: 868298004}
   - component: {fileID: 868298006}
   - component: {fileID: 868298005}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: 'Fill '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 9159421940783628109}
   - component: {fileID: 8931655249876722019}
   - component: {fileID: 2364322713843251320}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Background - Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -330,7 +330,7 @@ GameObject:
   - component: {fileID: 8349138944380424207}
   - component: {fileID: 1981903699388237959}
   - component: {fileID: 9115722763815585529}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: LoadMenu - Blur
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -391,7 +391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 6d67b51e34639b1448c2c347f8911f68, type: 2}
-  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_Color: {r: 0.8301887, g: 0.8301887, b: 0.8301887, a: 0}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -419,7 +419,7 @@ GameObject:
   - component: {fileID: 6749283946978412685}
   - component: {fileID: 6762933413360262654}
   - component: {fileID: 1296867851795539362}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -519,7 +519,7 @@ GameObject:
   - component: {fileID: 7571833138606559626}
   - component: {fileID: 6645432735246404658}
   - component: {fileID: 6247721082418063077}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Load - Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -677,7 +677,7 @@ GameObject:
   - component: {fileID: 145416173}
   - component: {fileID: 145416171}
   - component: {fileID: 145416172}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Progress Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,7 +768,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 452207418157620127}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Loading Screen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -802,7 +802,7 @@ GameObject:
   - component: {fileID: 486228617}
   - component: {fileID: 486228615}
   - component: {fileID: 486228616}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -8,7 +8,7 @@ namespace StandWorld.Controllers
 {
     public class StackableLabelController : MonoBehaviour
     {
-        public static GameObjectPool goPool = new GameObjectPool();
+        public GameObjectPool goPool = new GameObjectPool();
 
         private void Awake()
         {

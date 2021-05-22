@@ -13,7 +13,7 @@ namespace StandWorld.Characters.AI
         {
             GardenField gardenField = (GardenField) task.targets.current.tilable;
             
-            ToolBox.map.Spawn(task.targets.current.position, new Plant(
+            ToolBox.Instance.map.Spawn(task.targets.current.position, new Plant(
                 gardenField.position,
                 gardenField.growArea.def
             ));

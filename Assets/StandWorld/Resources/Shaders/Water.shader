@@ -5,7 +5,6 @@
 		_MainTex ("Main texture", 2D) = "white" {}
 		_SubTex1 ("Subtexture1", 2D) = "white" {}
 		_SubTex2 ("Subtexture2", 2D) = "white" {}
-		_ScrollSpeed ("ScrollSpeed", Range(0, 1)) = 1
 	}
 	SubShader
 	{
@@ -38,7 +37,7 @@
 
 			sampler2D _MainTex, _SubTex1, _SubTex2;
 			float4 _MainTex_ST;
-			float _ScrollSpeed;
+			float _ScrollSpeed = 0.2;
 			
 			v2f vert (appdata v)
 			{
@@ -57,12 +56,12 @@
 				fixed4 col = tex2D(_MainTex, uv / 2);
         
 				uv.y =  i.uv.y + t * _ScrollSpeed * 1.5;
-				uv.x = i.uv.x + t * _ScrollSpeed;
+				uv.x = i.uv.x + t * -_ScrollSpeed;
 				sub = tex2D(_SubTex1, uv);
     			col.rgb = lerp (col.rgb, sub.rgb, sub.a);
         
 				uv.y =  i.uv.y +  t * _ScrollSpeed * 2.5;
-				uv.x = i.uv.x + t * _ScrollSpeed ;
+				uv.x = i.uv.x + t * -_ScrollSpeed * 1.5;
 				sub = tex2D(_SubTex2, uv);
     			col.rgb = lerp (col.rgb, sub.rgb, sub.a);
 

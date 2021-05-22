@@ -29,7 +29,7 @@ namespace StandWorld.Characters.AI
 
             for (int i = 0; i < 8; i++)
             {
-                TileProperty tileProperty = ToolBox.map[position + DirectionUtils.neighbours[i]];
+                TileProperty tileProperty = ToolBox.Instance.map[position + DirectionUtils.neighbours[i]];
                 if (tileProperty != null && !tileProperty.blockPath)
                 {
                     float d = GameUtils.Distance(fromPosition, position);
@@ -57,9 +57,9 @@ namespace StandWorld.Characters.AI
                 Random.Range(position.y - range, position.y + range)
             );
 
-            while (ToolBox.map[targetPosition] == null || 
-                   ToolBox.map[targetPosition].blockPath ||
-                   ToolBox.map[targetPosition].reserved
+            while (ToolBox.Instance.map[targetPosition] == null || 
+                   ToolBox.Instance.map[targetPosition].blockPath ||
+                   ToolBox.Instance.map[targetPosition].reserved
                    )
             {
                 targetPosition = new Vector2Int(

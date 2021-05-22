@@ -88,8 +88,8 @@ namespace StandWorld.Entities
             foreach (Vector2Int neighbour in GetNeighboursPosition(c))
             {
                 if (
-                    neighbour.x >= 0 && neighbour.y >= 0 && neighbour.x <= ToolBox.map.size.x &&
-                    neighbour.y <= ToolBox.map.size.y &&
+                    neighbour.x >= 0 && neighbour.y >= 0 && neighbour.x <= ToolBox.Instance.map.size.x &&
+                    neighbour.y <= ToolBox.Instance.map.size.y &&
                     !s.Contains(neighbour) &&
                     GameUtils.Distance(neighbour, o) <= r)
                 {
