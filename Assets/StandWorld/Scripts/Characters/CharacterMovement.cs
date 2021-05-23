@@ -20,17 +20,12 @@ namespace StandWorld.Characters
 
         public Queue<Vector2Int> path => _path;
 
-        public Vector3 visualPosition
-        {
-            get
-            {
-                return new Vector3(
-                    Mathf.Lerp(position.x, _nextPosition.x, _movementPercent),
-                    Mathf.Lerp(position.y, _nextPosition.y, _movementPercent),
-                    LayerUtils.Height(Layer.Count)
-                );
-            }
-        }
+        public Vector3 visualPosition =>
+            new Vector3(
+                Mathf.Lerp(position.x, _nextPosition.x, _movementPercent),
+                Mathf.Lerp(position.y, _nextPosition.y,  _movementPercent),
+                LayerUtils.Height(Layer.Plant) // TODO: 
+            );
 
         private float _movementPercent;
         private Vector2Int _nextPosition;
@@ -108,6 +103,7 @@ namespace StandWorld.Characters
             float distance = GameUtils.Distance(position, _nextPosition);
             float distanceThisFrame = _speed * ToolBox.Instance.map[position].pathCost;
             _movementPercent += distanceThisFrame / distance;
+            //_movementPercent += Mathf.Lerp( distanceThisFrame , distance, Time.deltaTime);
 
             if (_movementPercent >= 1f)
             {

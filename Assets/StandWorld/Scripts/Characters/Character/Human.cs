@@ -3,7 +3,6 @@ using StandWorld.Characters.AI.Node;
 using StandWorld.Definitions;
 using StandWorld.World;
 using UnityEngine;
-using Random = System.Random;
 
 namespace StandWorld.Characters
 {

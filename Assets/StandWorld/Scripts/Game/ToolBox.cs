@@ -12,6 +12,8 @@ namespace StandWorld.Game
     {
         public GameContoller contoller;
         public CameraController cameraController => contoller.cameraController;
+        public readonly int Speed = Shader.PropertyToID("_Speed");
+        public readonly int ScrollSpeed = Shader.PropertyToID("_ScrollSpeed");
 
         public Map map
         {

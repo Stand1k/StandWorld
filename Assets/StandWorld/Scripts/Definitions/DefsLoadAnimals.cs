@@ -1,4 +1,4 @@
-﻿    using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 namespace StandWorld.Definitions
@@ -22,7 +22,7 @@ namespace StandWorld.Definitions
                     graphics = new GraphicDef
                     {
                         textureName = "chicken_front",
-                        size = new Vector2(0.7f, 0.7f),
+                        size = new Vector2(0.7f, 0.7f)
                     }
                 }
             );

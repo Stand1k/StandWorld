@@ -30,28 +30,28 @@ namespace StandWorld.Characters
                 human.def.graphics,
                 Defs.colorPallets["human_body"].colors[skinData.bodyColorID],
                 Res.textures["Body_" + (skinData.bodyID)],
-                0,
+                1,
                 MeshPool.GetHumanPlaneMesh(size, direction)
             );
             clothesGraphic = GraphicInstance.GetNew(
                 human.def.graphics,
                 Defs.colorPallets["human_clothes"].colors[skinData.clothesColorID],
                 Res.textures["Clothes_" + (skinData.clothesID)],
-                1,
+                2,
                 MeshPool.GetHumanPlaneMesh(size, direction)
             );
             headGraphic = GraphicInstance.GetNew(
                 human.def.graphics,
                 Defs.colorPallets["human_body"].colors[skinData.bodyColorID],
                 Res.textures["Head_" + (skinData.headID)],
-                2,
+                3,
                 MeshPool.GetHumanPlaneMesh(size, direction)
             );
             eyesGraphic = GraphicInstance.GetNew(
                 human.def.graphics,
                 Color.white,
                 Res.textures["Eye_" + (skinData.eyeID)],
-                3,
+                4,
                 MeshPool.GetHumanPlaneMesh(size, direction)
             );
             hairGraphic = GraphicInstance.GetNew(

@@ -70,7 +70,7 @@ namespace StandWorld.Entities
                         tilableDef.graphics,
                         _leafColor,
                         Res.textures[tilableDef.graphics.textureName + "_leafs"],
-                        2
+                        5
                     );
                 }
                 else
@@ -80,7 +80,7 @@ namespace StandWorld.Entities
                             tilableDef.graphics,
                             _leafColor,
                             Res.textures[tilableDef.graphics.textureName + "_leafs"],
-                            2
+                            5
                         )
                     );
                 }

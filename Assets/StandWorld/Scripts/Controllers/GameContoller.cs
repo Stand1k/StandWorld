@@ -139,28 +139,21 @@ namespace StandWorld.Game
 
         }
 
-        private void Update()
-        {
-            if (_ready)
-            {
-                map.DrawTilables();
-                map.UpdateCharacters();
-            }
-        }
-
         private void LateUpdate()
         {
             if (_ready)
             {
                 map.CheckAllMatrices();
+                map.UpdateCharacters();
+                map.DrawTilables();
             }
         }
 
-        public IEnumerator TickUpdate()
+        IEnumerator TickUpdate()
         {
             for (;;)
             {
-                yield return new WaitForSeconds(0.01f / tick.speed);
+                yield return new WaitForSeconds(0.02f / tick.speed);
                 tick.DoTick();
             }
         }

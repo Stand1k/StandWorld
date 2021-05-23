@@ -9,7 +9,7 @@ namespace StandWorld.Entities
     public class Tick
     {
         public int tick = 0;
-        public int speed = 1;
+        public float speed = 1;
         public bool isStop = false;
 
         public Queue<TickDelegate> toAdd = new Queue<TickDelegate>();
