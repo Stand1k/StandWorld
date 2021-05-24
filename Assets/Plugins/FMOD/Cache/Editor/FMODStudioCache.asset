@@ -38,7 +38,7 @@ MonoBehaviour:
   Path: ../../Users/PC/FMOD/StandWorld/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 637574829411991010
+  lastModified: 637574956614341646
   LoadResult: 0
   FileSizes:
   - Name: Desktop
@@ -99,7 +99,7 @@ MonoBehaviour:
   Path: ../../Users/PC/FMOD/StandWorld/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 637574829411971073
+  lastModified: 637574956614321705
   LoadResult: 0
   FileSizes: []
   Exists: 1
@@ -125,5 +125,5 @@ MonoBehaviour:
   - {fileID: -1975165517879249656}
   StringsBanks:
   - {fileID: -8718192532811085527}
-  stringsBankWriteTime: 637574829411991010
+  stringsBankWriteTime: 637574956614341646
   cacheVersion: 6

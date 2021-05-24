@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{5106f159-7fa3-4215-bee6-4e151bbe9dfb}">
+		<property name="assetPath">
+			<value>393520__frankum__ambient-guitar-x1-loop-mode.mp3</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>120.05877551020409</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{772eb85e-2351-473c-9f00-ec1a6b294582}</destination>
+		</relationship>
+	</object>
+</objects>

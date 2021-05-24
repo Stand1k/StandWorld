@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.01.00">
+	<object class="AudioFile" id="{88781020-72fd-492a-95d3-3e098c59713b}">
+		<property name="assetPath">
+			<value>555045__erokia__ambient-wave-57.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>276.88533333333334</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{772eb85e-2351-473c-9f00-ec1a6b294582}</destination>
+		</relationship>
+	</object>
+</objects>

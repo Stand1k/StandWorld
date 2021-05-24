@@ -519,8 +519,8 @@ MonoBehaviour:
   SwitchSettingsMigration: 1
   HasSourceProject: 1
   HasPlatforms: 1
-  sourceProjectPath: ../../Users/PC/FMOD/StandWorld/StandWorld.fspro
-  sourceBankPath: ..\..\Users\PC\FMOD\StandWorld\Build
+  sourceProjectPath: FMOD Project/StandWorld.fspro
+  sourceBankPath: FMOD Project\Build
   SourceBankPathUnformatted: 
   AutomaticEventLoading: 1
   BankLoadType: 0
