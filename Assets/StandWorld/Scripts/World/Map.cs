@@ -187,7 +187,6 @@ namespace StandWorld.World
                 NoiseMap.GenerateNoiseMap(size, Settings.seed, 12, 5, 1, 5, offset);
             randomGrowNoiseMap =
                 NoiseMap.GenerateNoiseMap(size, Settings.seed, 2, 2, 1, 1.18f, offset);
-            Debug.Log("Seed: " + Settings.seed);
 
             foreach (Vector2Int position in mapRect)
             {

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using StandWorld.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using AudioSettings = StandWorld.Audio.AudioSettings;
 
 namespace StandWorld.UI.MainMenu
 {
@@ -12,6 +12,9 @@ namespace StandWorld.UI.MainMenu
     {
         public TMP_Dropdown resolutionDropdown;
         public Toggle fullscreenToggle;
+        public Slider masterVolume;
+        public Slider musicVolume;
+        public Slider sfxVolume;
 
         private Resolution[] _resolutions;
 
@@ -78,6 +81,9 @@ namespace StandWorld.UI.MainMenu
         {
             PlayerPrefs.SetInt("ResolutionPreference", resolutionDropdown.value);
             PlayerPrefs.SetInt("FullscreenPreference", Convert.ToInt32(fullscreenToggle.isOn));
+            PlayerPrefs.SetFloat("MasterVolume", masterVolume.value);
+            PlayerPrefs.SetFloat("MusicVolume", musicVolume.value);
+            PlayerPrefs.SetFloat("SFXVolume", sfxVolume.value);
         }
 
         public void LoadSettings(int currentResolutionIndex)
@@ -102,6 +108,28 @@ namespace StandWorld.UI.MainMenu
                 fullscreenToggle.isOn = true;
                 Screen.fullScreen = true;
                 Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+            }
+
+            if (PlayerPrefs.HasKey("MasterVolume"))
+            {
+                masterVolume.value = PlayerPrefs.GetFloat("MasterVolume");
+                musicVolume.value = PlayerPrefs.GetFloat("MusicVolume");
+                sfxVolume.value = PlayerPrefs.GetFloat("SFXVolume");
+                
+                AudioSettings.MasterVolume = masterVolume.value;
+                AudioSettings.MusicVolume = musicVolume.value;
+                AudioSettings.SFXVolume = sfxVolume.value;
+            }
+            else
+            {
+                AudioSettings.MasterVolume = 1f;
+                AudioSettings.MusicVolume = 0.5f;
+                AudioSettings.SFXVolume = 0.5f;
+
+                masterVolume.value = 1f;
+                musicVolume.value = 0.5f;
+                sfxVolume.value = 0.5f;
+
             }
         }
     }
