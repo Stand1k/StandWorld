@@ -6,6 +6,6 @@ before_install:
 - chmod a+x ./Scripts/Install/unity.sh
 - chmod a+x ./Scripts/build.sh
 install:
-- ./Scripts/install.sh
+- ./Scripts/Install/unity.sh
 script:
 - ./Scripts/build.sh
