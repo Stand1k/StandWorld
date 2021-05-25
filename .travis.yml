@@ -4,8 +4,7 @@ rvm:
 - 2.2         #see before_install for getting RVM stable.
 
 env:
-- TRAVIS_TAG="Deploy-2017.2.0f3" PROJECT_NAME="UnityExamplePackage" UNITY_PROJECT_PATH="UnityExample" DEPLOY_UNITYPACKAGE="path set in deploy script"
-
+ - BUILD_VERSION=$( date +%Y.%V )
 
 cache:
   directories:
@@ -26,14 +25,3 @@ script:
 after_success:
 - ./travis-build/export-unity-package.sh
 
-before_deploy:
-- DEPLOY_UNITYPACKAGE="$(ls -a release/*.zip | head -n 1)"
-
-deploy:
-  provider: releases
-  api_key: $GITHUB_TOKEN
-  file: $DEPLOY_UNITYPACKAGE
-  skip_cleanup: true
-  overwrite: true
-  on:
-    tags: true 
